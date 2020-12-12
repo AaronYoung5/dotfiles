@@ -1,3 +1,9 @@
+#!/bin/zsh
+
+if [ ! -d $HOME/.oh-my-zsh ]; then
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -36,6 +42,13 @@ prompt pure
 # By default, if you type in a directory and hit enter
 # zsh will cd into that dir. I don't like that
 unsetopt AUTO_CD
+
+# Install vim stuff
+if [ ! -f $HOME/.vim/autoload/plug.vim ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +qall
+fi
 
 # History to save
 SAVEHIST=1000
