@@ -38,7 +38,8 @@ prompt pure
 unsetopt AUTO_CD
 
 # History to save
-SAVEHIST=1000000
+SAVEHIST=1000
+HISTSIZE=1000
 HISTFILE=$HOME/.zsh_history
 export HISTCONTROL=ignoredups # Ignore repeat commands when using the up arrow
 
@@ -46,9 +47,8 @@ export HISTCONTROL=ignoredups # Ignore repeat commands when using the up arrow
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source other files
-[ -f ~/.zsh_aliases ] && source "$HOME/.zsh_aliases"
-[ -f ~/.zsh_exports ] && source "$HOME/.zsh_exports"
 [ -f ~/.zsh_functions ] && source "$HOME/.zsh_functions"
+[ -f ~/.zsh_exports ] && source "$HOME/.zsh_exports"
 [ -f ~/.zsh_aliases ] && source "$HOME/.zsh_aliases"
 
 # This should be the last line of the file
