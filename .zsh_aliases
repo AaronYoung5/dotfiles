@@ -11,6 +11,14 @@ alias sz="source $HOME/.zshrc"
 alias za="vi $HOME/.zsh_aliases"
 alias zal="vi $HOME/.zsh_aliases.local"
 
+# zsh_exports files
+alias ze="vi $HOME/.zsh_exports"
+alias zel="vi $HOME/.zsh_exports.local"
+
+# zsh_functions files
+alias zf="vi $HOME/.zsh_functions"
+alias zfl="vi $HOME/.zsh_functions.local"
+
 # vimrc
 alias vm="vi $HOME/.vimrc"
 
