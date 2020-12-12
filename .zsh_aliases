@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+# Alias Shortcuts
+
+# zshrc file
+alias zrc="vi $HOME/.zshrc"
+alias sz="source $HOME/.zshrc"
+alias za="vi $HOME/.zsh_aliases && source $HOME/.zsh_aliases"
+
+# vimrc
+alias vm="vi $HOME/.vimrc"
+
+# Tmux and vim related
+alias tmux="TERM=screen-256color-bce tmux"
+
+# This should be the last line of the file
+# For local changes
+# Don't make edits below this
+[ -f ".zsh_aliases.local" ] && source ".zsh_aliases.local"

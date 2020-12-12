@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+# Alias matlab launch from current directory
+alias matlab='matlab -sd'
+
+# Docker
+alias docker_clear="docker rm $(docker ps -a -f status=exited -q)"
+
+# Alias for tree command to print current directory into tree format
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"

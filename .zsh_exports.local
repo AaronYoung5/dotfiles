@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+# add to the cd path
+export CDPATH=.:$HOME/School/Classes/20/Fall/:$HOME/Code/
+
+# DDS
+# connext
+export PATH=$PATH:/Applications/MATLAB_R2020a.app/bin:/Applications/rti_connext_dds-6.0.1/bin:
+export NDDSHOME=/Applications/rti_connext_dds-6.0.1
+# fast-dds
+. /Users/aaronyoung/Code/packages/OpenDDS-3.14/setenv.sh
+export PATH=$PATH:$HOME/Code/packages/Fast-DDS/Fast-DDS-Gen/scripts/:/usr/local/bin/cmake
+
+# flutter
+export PATH="$PATH:$HOME/Code/packages/flutter/bin"
+
+# PyChrono
+export PYTHONPATH="$HOME/Code/wa/wa_simulator/chrono/build/bin"

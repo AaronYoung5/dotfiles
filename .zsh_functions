@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+# This should be the last line of the file
+# For local changes
+# Don't make edits below this
+[ -f ".zsh_functions.local" ] && source ".zsh_functions.local"
