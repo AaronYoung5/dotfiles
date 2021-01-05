@@ -51,8 +51,8 @@ if [ ! -f $HOME/.vim/autoload/plug.vim ]; then
 fi
 
 # History to save
-SAVEHIST=1000
-HISTSIZE=1000
+SAVEHIST=10000
+HISTSIZE=10000
 HISTFILE=$HOME/.zsh_history
 export HISTCONTROL=ignoredups # Ignore repeat commands when using the up arrow
 

@@ -19,6 +19,9 @@ alias zel="vi $HOME/.zsh_exports.local"
 alias zf="vi $HOME/.zsh_functions"
 alias zfl="vi $HOME/.zsh_functions.local"
 
+# edit .ssh/config file
+alias sc="vi $HOME/.ssh/config"
+
 # vimrc
 alias vm="vi $HOME/.vimrc"
 

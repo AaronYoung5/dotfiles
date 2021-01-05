@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+# source a python virtual environment
+function se() {
+	# Ternary operator replicator
+	[[ $# -ne 0 ]] && env_name="$1" || env_name="env"
+	source "$env_name/bin/activate"
+}
+
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this
