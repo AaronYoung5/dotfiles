@@ -1,23 +1,12 @@
 #!/bin/zsh
 
-if [ ! -d $HOME/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
-fi
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
+# Load oh-my-zsh
 ZSH_DISABLE_COMPFIX=true
+export ZSH="$HOME/.oh-my-zsh" # Path to your oh-my-zsh installation.
+source $ZSH/oh-my-zsh.sh
 
 # load plugin
 plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# clone zgen if necessary
-if [ ! -d $HOME/.zgen ]; then
-    git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
-fi
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -42,13 +31,6 @@ prompt pure
 # By default, if you type in a directory and hit enter
 # zsh will cd into that dir. I don't like that
 unsetopt AUTO_CD
-
-# Install vim stuff
-if [ ! -f $HOME/.vim/autoload/plug.vim ]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    vim +PlugInstall +qall
-fi
 
 # History to save
 SAVEHIST=10000
