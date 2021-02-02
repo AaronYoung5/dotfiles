@@ -37,6 +37,9 @@ install_oh_my_zsh
 install_zgen
 link
 
+# Ignore local files
+git update-index --skip-worktree .zsh*.local
+
 echo "Restart your terminal to have changes take effect."
 
 true
