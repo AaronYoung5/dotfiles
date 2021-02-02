@@ -26,7 +26,7 @@ alias sc="vi $HOME/.ssh/config"
 alias vm="vi $HOME/.vimrc"
 
 # Tmux and vim related
-alias tmux="TERM=screen-256color-bce tmux"
+alias tm="vi $HOME/.tmux.conf"
 
 # This should be the last line of the file
 # For local changes
