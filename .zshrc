@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Check for updates on initial load
-export $DOTFILES="$HOME/.dotfiles"
+export DOTFILES="$HOME/.dotfiles"
 if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
     source $DOTFILES/update.exclude.sh
 fi
