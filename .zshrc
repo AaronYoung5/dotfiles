@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+# Check for updates on initial load
+export $DOTFILES="$HOME/.dotfiles"
+if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
+    source $DOTFILES/update.exclude.sh
+fi
+
 # Load oh-my-zsh
 ZSH_DISABLE_COMPFIX=true
 export ZSH="$HOME/.oh-my-zsh" # Path to your oh-my-zsh installation.
