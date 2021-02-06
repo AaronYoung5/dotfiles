@@ -7,6 +7,24 @@ function se() {
 	source "$env_name/bin/activate"
 }
 
+# create a tmux session if the passed name doesn't exist, otherwise attach to that session
+tx() {
+	if [ -z $1 ]; then
+		echo
+		echo "USAGE: $0 {session name}"
+		echo
+		return
+	fi
+
+	tmux has-session -t $1 2>/dev/null
+
+	if [ $? != 0 ]; then
+		tmux new -s $1
+	else
+		tmux a -t $1
+	fi
+}
+
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this
