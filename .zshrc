@@ -59,3 +59,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # For local changes
 # Don't make edits below this
 [ -f ".zshrc.local" ] && source ".zshrc.local"
+
+# If a psuedo user is active, source its zshrc file
+[ -z "$USER_HOME" ] && [ -f "$USER_HOME/.zshrc.user" ] && source "$USER_HOME/.zshrc.user"
