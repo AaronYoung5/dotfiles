@@ -20,4 +20,6 @@ link() {
 
 link
 
+git update-index --skip-worktree .zsh*.user
+
 true
