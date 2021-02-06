@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+# Pseudo user shell configurations
+# If configurations are psuedo-user specific, place them here
+
+# source other files
+[ -f $USER_HOME/.zsh_functions.user ] && source "$USER_HOME/.zsh_functions.user"
+[ -f $USER_HOME/.zsh_exports.user ] && source "$USER_HOME/.zsh_exports.user"
+[ -f $USER_HOME/.zsh_aliases.user ] && source "$USER_HOME/.zsh_aliases.user"
