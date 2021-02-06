@@ -44,7 +44,7 @@ update() {
 	# --- Host-independent updates ---
 
 	# Check dotfiles repo
-	echo "==> Checking repo for any changes"
+	# echo "==> Checking repo for any changes"
 	cd ~/.dotfiles/
 	git fetch origin
 	reslog=$(git log HEAD..origin/develop --oneline)
@@ -52,7 +52,7 @@ update() {
 		echo "==> Updating dotfiles...="
 		git pull
 	else
-		echo "==> No updates necessary"
+		# echo "==> No updates necessary"
 	fi
 
 	cd - &>/dev/null
@@ -79,7 +79,7 @@ check_for_updates() {
 	time_since_check=$((time_now - last_login))
 
 	if [ "$time_since_check" -ge "$UPDATE_THRESHOLD" ]; then
-		echo "==> Your system is out of date!"
+		# echo "==> Your system is out of date!"
 
 		update
 	fi
