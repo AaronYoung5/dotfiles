@@ -29,8 +29,9 @@ alias sc="vi $HOME/.ssh/config"
 # vimrc
 alias vm="vi $HOME/.vimrc"
 
-# Tmux and vim related
+# Tmux
 alias tm="vi $HOME/.tmux.conf"
+alias tx="tmux new -A -s"
 
 # This should be the last line of the file
 # For local changes

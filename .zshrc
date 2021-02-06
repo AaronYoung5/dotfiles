@@ -55,10 +55,10 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 [ -f ~/.zsh_exports ] && source "$HOME/.zsh_exports"
 [ -f ~/.zsh_aliases ] && source "$HOME/.zsh_aliases"
 
-# This should be the last line of the file
 # For local changes
-# Don't make edits below this
 [ -f ".zshrc.local" ] && source ".zshrc.local"
 
 # If a psuedo user is active, source its zshrc file
-[ -z "$USER_HOME" ] && [ -f "$USER_HOME/.zshrc.user" ] && source "$USER_HOME/.zshrc.user"
+[ ! -z "$USER_HOME" ] && [ -f "$USER_HOME/.zshrc.user" ] && source "$USER_HOME/.zshrc.user"
+
+# Don't make edits below this
