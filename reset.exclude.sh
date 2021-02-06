@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Reset the zsh environment
 # Will delete all symlinked files and delete zgen, oh-my-zsh and last_update

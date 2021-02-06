@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # check for updates (to anything) regularly
 #
