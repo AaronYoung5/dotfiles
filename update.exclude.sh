@@ -39,19 +39,20 @@ UPDATE_THRESHOLD="86400"
 # calling `update`.
 update() {
 	# Record that we've update
-	touch $HOME/.last_update
+	touch $DOTFILES/.last_update
 
 	# --- Host-independent updates ---
 
 	# Check dotfiles repo
 	# echo "==> Checking repo for any changes"
-	cd ~/.dotfiles/
+	cd $DOTFILES
 	git fetch origin
 	reslog=$(git log HEAD..origin/develop --oneline)
 	if [[ "$reslog" != "" ]]; then
 		echo "==> Updating dotfiles...="
 		git pull
 	else
+		true
 		# echo "==> No updates necessary"
 	fi
 
@@ -59,7 +60,7 @@ update() {
 }
 
 check_for_updates() {
-	[ ! -e $HOME/.last_update ] && touch $HOME/.last_update
+	[ ! -e $DOTFILES/.last_update ] && touch $DOTFILES/.last_update
 	# Initialize for when we have no GNU date available
 	last_check=0
 	time_now=0
@@ -71,7 +72,7 @@ check_for_updates() {
 	else
 		# Ensure this is GNU grep
 		if [ -n "$(date --version 2>/dev/null | grep GNU)" ]; then
-			last_login=$(date -r ~/.last_update +%s)
+			last_login=$(date -r $DOTFILES/.last_update +%s)
 			time_now=$(date +%s)
 		fi
 	fi

@@ -1,3 +1,4 @@
 .*.local
 .*history
 .macos
+.last_update
