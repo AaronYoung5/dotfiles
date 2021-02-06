@@ -51,7 +51,7 @@ update() {
 	git fetch origin
 	reslog=$(git log HEAD..origin/develop --oneline)
 	if [[ "$reslog" != "" ]]; then
-		echo "==> Updating dotfiles...="
+		echo "==> Updating dotfiles..."
 		git pull
 	else
 		true
