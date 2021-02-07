@@ -20,7 +20,11 @@ tu() {
 
 # Create a pseudo user
 create-psuedo-user() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ ALIAS / SESSION_NAME ]" && return
+	USER_HOME=$1
+	ALIAS=$2
 
+	sh -c $(curl -fsSL https://raw.githubusercontent.com/AaronYoung5/dotfiles/develop/setup.exclude.sh) -a $ALIAS -u $USER_HOME
 }
 
 # This should be the last line of the file
