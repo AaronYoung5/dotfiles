@@ -13,7 +13,7 @@ link() {
 		    echo "$USER_HOME/$file already exists. Please delete before continuing."
 		    continue
 	    fi
-	    ln -svf "$PWD/$file" "$USER_HOME" || true
+	    ln -svf "$USER_HOME/.dotfiles/$file" "$USER_HOME" || true
 	  done
   fi
 }

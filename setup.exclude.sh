@@ -7,6 +7,8 @@
 help() {
 	echo
 	echo "USAGE: $0 [-u/--user_home user_home] [-a/--alias alias]"
+	echo
+	exit
 }
 
 USER_HOME=$PWD
@@ -40,7 +42,6 @@ done
 # Setup the pseudo user directory
 [ ! -d $USER_HOME ] && echo "$USER_HOME not a directory. Creating it." && mkdir -p $USER_HOME
 USER_HOME=$(readlink -f $USER_HOME)
-echo $USER_HOME
 cd $USER_HOME
 
 # Clone the repo
