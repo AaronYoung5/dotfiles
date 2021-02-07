@@ -51,3 +51,6 @@ USER_HOME=$USER_HOME ./bootstrap.user.exclude.sh
 
 # Add alias to the zsh_aliases.local file
 sed -i "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
+
+# Add include to ssh config file
+sed -i "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config

@@ -22,4 +22,11 @@ link
 
 git update-index --skip-worktree .zsh*.user
 
+# Setup ssh
+mkdir $USER_HOME/.ssh
+touch $USER_HOME/.ssh/config
+
+# Setup local
+mkdir -p $USER_HOME/.local/bin
+
 true
