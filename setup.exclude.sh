@@ -1,8 +1,6 @@
 # --------------------------------
 # Clones and installs the dotfiles
 # --------------------------------
-echo TEST
-exit
 help() {
 	echo
 	echo "USAGE: $0 [-u/--user_home user_home] [-a/--alias alias]"
