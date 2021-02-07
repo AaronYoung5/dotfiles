@@ -38,6 +38,7 @@ done
 
 # Setup the pseudo user directory
 [ ! -d $USER_HOME ] && echo "$USER_HOME not a directory. Creating it." && mkdir -p $USER_HOME
+[ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
 USER_HOME=$(readlink -f $USER_HOME)
 cd $USER_HOME
 
