@@ -34,9 +34,6 @@ autoload -U promptinit
 promptinit
 prompt pure
 
-# Set the prompt to have my username
-export PURE_PROMPT_SYMBOL=$USER$'\u276F'
-
 # By default, if you type in a directory and hit enter
 # zsh will cd into that dir. I don't like that
 unsetopt AUTO_CD

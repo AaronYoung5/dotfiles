@@ -1,10 +1,26 @@
 #!/bin/zsh
 
 # source a python virtual environment
-function se() {
+se() {
 	# Ternary operator replicator
 	[[ $# -ne 0 ]] && env_name="$1" || env_name="env"
 	source "$env_name/bin/activate"
+}
+
+# Create a tmux session with a specific USER_HOME
+tu() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
+	[ ! -d $1 ] && echo "$1 is not a directory." && return
+	USER_HOME=$1
+
+	[ ! -z $2 ] && SESSION_NAME=$2
+	
+	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+}
+
+# Create a pseudo user
+create-psuedo-user() {
+
 }
 
 # This should be the last line of the file
