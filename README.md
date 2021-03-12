@@ -32,14 +32,14 @@ The `zsh` configuration files discussed in this section are the files prefixed w
 To configure `zsh` as I please, as item 1 of my philosophy outlines, each file as one purpose. There are four general categories to my `zsh` files:
 
 1. `rc`
- - Holds prompt level configurations; kind of the "leader"
- - Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
+  - Holds prompt level configurations; kind of the "leader"
+  - Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
 2. `_aliases`
- - Holds aliases
+  - Holds aliases
 3. `_exports`
- - Holds any exports needed when the prompt loads
+  - Holds any exports needed when the prompt loads
 4. `_functions`
- - Additional helper functions I may want
+  - Additional helper functions I may want
 
 ### Vim configuration files
 
@@ -54,30 +54,30 @@ I like to use [`tmux`](https://github.com/tmux/tmux/wiki) almost always when usi
 These files are include the keyword `exclude`. These files help setup or tear down my dotfiles on new computers. Currently, there are five different setup/helper files:
 
 1. `bootstrap.exclude.sh`
- - The main setup file that links all dotfiles on a new system (see [installation](#installation))
+  - The main setup file that links all dotfiles on a new system (see [installation](#installation))
 2. `bootstrap.user.exclude.sh`
- - The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
+  - The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
 3. `reset.eclude.sh`
- - **Use with caution**, deletes all `zsh` related files
- - Saves backups of all dotfiles in a directory named `backups`
+  - **Use with caution**, deletes all `zsh` related files
+  - Saves backups of all dotfiles in a directory named `backups`
 4. `setup_pseudouser.exclude.sh`
- - Creates a new pseudouser (see [pseudouser](#pseudousers))
+  - Creates a new pseudouser (see [pseudouser](#pseudousers))
 5. `update.exclude.sh`
- - An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
- - Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
+  - An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
+  - Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
 
 ## General concepts
 
 Conceptually, my `zsh` configuration dotfiles are organized into three groups:
 
 1. No suffix
- - General configurations common across _all_ computers
+  - General configurations common across _all_ computers
 2. `.local`
- - Local configurations that are system wide
- - Anything that is specific to the current computer and not to other ones (See philosophy #2)
+  - Local configurations that are system wide
+  - Anything that is specific to the current computer and not to other ones (See philosophy #2)
 3. `.user`
- - Pseudouser specific configurations
- - Only read when a pseudouser is active
+  - Pseudouser specific configurations
+  - Only read when a pseudouser is active
 
 ### Pseudousers
 
