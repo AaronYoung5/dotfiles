@@ -3,8 +3,10 @@
 # Reset the zsh environment
 # Will delete all symlinked files and delete zgen, oh-my-zsh and last_update
 
+mkdir backups
 for filename in $(find $HOME -maxdepth 1 -type l); do
 	if  [ -f "$filename" ]; then
+		cp $filename backups
 		unlink $filename
 	fi
 done

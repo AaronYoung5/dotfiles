@@ -5,23 +5,19 @@
 # zshrc files
 alias zrc="vi $HOME/.zshrc"
 alias zrcl="vi $HOME/.zshrc.local"
-alias zrcu="vi $USER_HOME/.zshrc.user"
 alias sz="source $HOME/.zshrc"
 
 # zsh_aliases files
 alias za="vi $HOME/.zsh_aliases"
 alias zal="vi $HOME/.zsh_aliases.local"
-alias zau="vi $USER_HOME/.zsh_aliases.user"
 
 # zsh_exports files
 alias ze="vi $HOME/.zsh_exports"
 alias zel="vi $HOME/.zsh_exports.local"
-alias zeu="vi $USER_HOME/.zsh_exports.user"
 
 # zsh_functions files
 alias zf="vi $HOME/.zsh_functions"
 alias zfl="vi $HOME/.zsh_functions.local"
-alias zfu="vi $USER_HOME/.zsh_functions.user"
 
 # edit .ssh/config file
 alias sc="vi $HOME/.ssh/config"

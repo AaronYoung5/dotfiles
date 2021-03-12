@@ -19,7 +19,6 @@ source "${HOME}/.zgen/zgen.zsh"
 
 # if the init script doesn't exist
 if ! zgen saved; then
-    zgen prezto prompt theme 'suse'
     zgen prezto
     zgen prezto archive
     zgen prezto autosuggestions
@@ -33,6 +32,10 @@ fi
 autoload -U promptinit
 promptinit
 prompt pure
+
+# Custom settings
+bindkey '^ ' autosuggest-toggle # ctrl+space will toggle autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6a6a6a' # Appears light gray on black background
 
 # By default, if you type in a directory and hit enter
 # zsh will cd into that dir. I don't like that

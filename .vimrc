@@ -1,3 +1,9 @@
+" I'm a big fan of what I call 'psuedo-users'
+" Try sourcing that users custom configurations
+let user_vimrc = '$USER_HOME/.vimrc'
+if !empty(glob(user_vimrc))
+	so '$USER_HOME/.vimrc'
+endif
 
 " plugins
 call plug#begin('~/.vim/plugged')
@@ -5,11 +11,11 @@ call plug#begin('~/.vim/plugged')
 " Atom One Dark / Light theme.
 Plug 'joshdick/onedark.vim'
 
-" Automatically show Vim's complete menu while typing.
-Plug 'vim-scripts/AutoComplPop'
-
 " light line styling
 Plug 'itchyny/lightline.vim'
+
+" CUDA syntax highlighting
+Plug 'bfrg/vim-cuda-syntax'
 
 " Tcomment -> automatic comments
 Plug 'tomtom/tcomment_vim'
@@ -17,6 +23,16 @@ Plug 'tomtom/tcomment_vim'
 " code formatting
 Plug 'rhysd/vim-clang-format' " C/C++
 Plug 'tell-k/vim-autopep8' " python
+
+" code autocomplete
+" Plug 'ycm-core/YouCompleteMe'
+
+" Automatically show Vim's complete menu while typing.
+" Plug 'vim-scripts/AutoComplPop'
+
+" NERDTree
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 
 call plug#end()
 
@@ -27,7 +43,7 @@ let mapleader = " "
 " easy save/quit mappings
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>e :wq<CR>
+" nmap <leader>e :wq<CR>
 imap <C-s> <C-o>:w<CR>
 
 " easy jumping around beginning and end of files
@@ -38,27 +54,27 @@ imap <C-e> <ESC>A
 cnoremap <C-A> <HOME>
 cnoremap <C-E> <END>
 
-" allow mouse. i use other gui applications and don't want to take my hand off the mouse when moving back
+" allow mouse. I use other gui applications and don't want to take my hand off the mouse when moving back
 set mouse=a
 
 " split options
-nnoremap H <C-W>h
-nnoremap L <C-W>l
-nnoremap J <C-W>j
-nnoremap K <C-W>k
+nnoremap H <C-w>h
+nnoremap L <C-w>l
+nnoremap J <C-w>j
+nnoremap K <C-w>k
 set splitbelow splitright
 
 " tab options
-nnoremap <C-H> gT
-nnoremap <C-L> gt
-nnoremap <C-N> :tabnew<CR>
+nnoremap <C-h> gT
+nnoremap <C-l> gt
+nnoremap <C-n> :tabnew 
 
 " source vimrc file
-map <C-l> :source ~/.vimrc<CR>
+nnoremap <C-\> :source ~/.vimrc<CR>
 
 " add numbers
 set number
-nmap <leader>nn :set invnumber<CR>
+nnoremap <C-i> :set invnumber<CR>
 
 " easy jump into paste mode
 nmap <leader>p :set invpaste<CR>
@@ -66,9 +82,17 @@ nmap <leader>p :set invpaste<CR>
 " run the previous command
 noremap <C-p> :<UP><CR>
 
-" i don't like automatic comments
-nmap <C-x><C-m> :set formatoptions+=r<CR>
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" automatic commenting
+set formatoptions+=ro
+function CommentStr() " Get the comment string
+	return split(&comments, ':')[-1]
+endfunction
+function IsSoloComment() " Does the current line only have one comment?
+	let comment = join(['^\s*', CommentStr(), '\s$'],'')
+	return getline('.') =~ comment
+endfunction
+autocmd FileType python set comments=b:#,fb:-:# " Fix for python files
+inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
 
 " Add semicolon to end of line
 inoremap <leader>; <C-o>A;
@@ -99,7 +123,7 @@ let g:lightline = { 'colorscheme': 'onedark' }
 let g:tcomment_mapleader1='?'
 
 " clang-format
-let g:clang_format#auto_format=1
+autocmd FileType h,c,cc,cpp,cuda ClangFormatAutoEnable
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
             \ "AllowShortIfStatementsOnASingleLine" : "true",
@@ -110,3 +134,16 @@ let g:clang_format#style_options = {
 let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff = 1
 
+" YouCompleteMe
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_complete_in_strings = 0
+" let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_complete_in_comments = 0
+" let g:ycm_always_populate_location_list = 1
+
+" NERDTree
+nnoremap <leader>n :NERDTreeTabsToggle<CR>
+
+" SWIG Syntax Highlighting
+au BufNewFile,BufRead *.i set filetype=swig
+au BufNewFile,BufRead *.swg set filetype=swig
