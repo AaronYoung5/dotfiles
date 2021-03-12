@@ -32,7 +32,7 @@ The `zsh` configuration files discussed in this section are the files prefixed w
 To configure `zsh` as I please, as item 1 of my philosophy outlines, each file as one purpose. There are four general categories to my `zsh` files:
 
 1. `rc`
-  - Holds prompt level configurations; kind of the "leader"
+	- Holds prompt level configurations; kind of the "leader"
   - Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
 2. `_aliases`
   - Holds aliases
