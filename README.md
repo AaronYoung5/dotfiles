@@ -33,13 +33,13 @@ To configure `zsh` as I please, as item 1 of my philosophy outlines, each file a
 
 1. `rc`
 	- Holds prompt level configurations; kind of the "leader"
-  - Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
+	- Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
 2. `_aliases`
-  - Holds aliases
+	- Holds aliases
 3. `_exports`
-  - Holds any exports needed when the prompt loads
+	- Holds any exports needed when the prompt loads
 4. `_functions`
-  - Additional helper functions I may want
+	- Additional helper functions I may want
 
 ### Vim configuration files
 
@@ -54,33 +54,33 @@ I like to use [`tmux`](https://github.com/tmux/tmux/wiki) almost always when usi
 These files are include the keyword `exclude`. These files help setup or tear down my dotfiles on new computers. Currently, there are five different setup/helper files:
 
 1. `bootstrap.exclude.sh`
-  - The main setup file that links all dotfiles on a new system (see [installation](#installation))
+	- The main setup file that links all dotfiles on a new system (see [installation](#installation))
 2. `bootstrap.user.exclude.sh`
-  - The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
+	- The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
 3. `reset.eclude.sh`
-  - **Use with caution**, deletes all `zsh` related files
-  - Saves backups of all dotfiles in a directory named `backups`
+	- **Use with caution**, deletes all `zsh` related files
+	- Saves backups of all dotfiles in a directory named `backups`
 4. `setup_pseudouser.exclude.sh`
-  - Creates a new pseudouser (see [pseudouser](#pseudousers))
+	- Creates a new pseudouser (see [pseudouser](#pseudousers))
 5. `update.exclude.sh`
-  - An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
-  - Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
+	- An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
+	- Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
 
 ## General concepts
 
 Conceptually, my `zsh` configuration dotfiles are organized into three groups:
 
 1. No suffix
-  - General configurations common across _all_ computers
+	- General configurations common across _all_ computers
 2. `.local`
-  - Local configurations that are system wide
-  - Anything that is specific to the current computer and not to other ones (See philosophy #2)
+	- Local configurations that are system wide
+	- Anything that is specific to the current computer and not to other ones (See philosophy #2)
 3. `.user`
-  - Pseudouser specific configurations
-  - Only read when a pseudouser is active
+	- Pseudouser specific configurations
+	- Only read when a pseudouser is active
 
 ### Pseudousers
 
-For the purpose of following philosophy #3, I tried to implement a way to separate different work environments in a clean and efficient manner. By "different work environments", I mean separate activities I'm involved in; for example, `School`, `Work`, `Personal` may be different pseudousers.  These pseudousers share the system and share global configurations, but are separate from each other. In a way, each pseudouser doesn't know about any other pseudouser, with it's own `USER_HOME` directory. Furthermore, each pseudouser lives inside a `tmux` session. By this, I mean that to activate/enter a pseudouser, an alias will be created that enters a `tmux` session named similar to the pseudouser and changes the directory to be insider `USER_HOME`.
+For the purpose of following philosophy #3, I tried to implement a way to separate different work environments in a clean and efficient manner. By "different work environments", I mean separate activities I'm involved in; for example, `School`, `Work`, `Personal` may be different pseudousers. These pseudousers share the system and share global configurations, but are separate from each other. In a way, each pseudouser doesn't know about any other pseudouser, with it's own `USER_HOME` directory. Furthermore, each pseudouser lives inside a `tmux` session. By this, I mean that to activate/enter a pseudouser, an alias will be created that enters a `tmux` session named similar to the pseudouser and changes the directory to be insider `USER_HOME`.
 
 Each psuedouser has a `USER_HOME` directory that holds it's personal dotfiles and any files specific to that pseudouser. The `setup_pseudouser.exclude.sh` script will create a pseudouser with a specified `USER_HOME` directory and add some local aliases to quickly enter a pseudouser. There is also a function in `zsh_functions` named `create-psuedo-user` that can be called with the name and alias for the psuedouser and will automatically call the setup script.
