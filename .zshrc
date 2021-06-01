@@ -35,7 +35,7 @@ prompt pure
 
 # Custom settings
 bindkey '^ ' autosuggest-toggle # ctrl+space will toggle autosuggestions
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6a6a6a' # Appears light gray on black background
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8' # Appears light gray on black background
 
 # By default, if you type in a directory and hit enter
 # zsh will cd into that dir. I don't like that

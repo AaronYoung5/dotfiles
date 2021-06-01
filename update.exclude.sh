@@ -68,7 +68,7 @@ check_for_updates() {
 	time_now=0
 
 	# Darwin uses BSD, check for gdate, else use date
-	if [[ $(uname) = "Darwin" && -n $(which gdate) ]]; then
+	if [[ $(uname) = "Darwin" && -n $(command -v gdate) ]]; then
 		last_login=$(gdate -r ~/.last_update +%s)
 		time_now=$(gdate +%s)
 	else
