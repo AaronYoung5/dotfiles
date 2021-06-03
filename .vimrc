@@ -23,6 +23,8 @@ Plug 'tomtom/tcomment_vim'
 " code formatting
 Plug 'rhysd/vim-clang-format' " C/C++
 Plug 'tell-k/vim-autopep8' " python
+Plug 'vim-scripts/json-formatter.vim' " json
+Plug 'tikhomirov/vim-glsl'
 
 " code autocomplete
 " Plug 'ycm-core/YouCompleteMe'
@@ -33,6 +35,9 @@ Plug 'tell-k/vim-autopep8' " python
 " NERDTree
 Plug 'preservim/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+
+" abolish.vim
+Plug 'tpope/vim-abolish'
 
 call plug#end()
 
@@ -82,6 +87,10 @@ nmap <leader>p :set invpaste<CR>
 " run the previous command
 noremap <C-p> :<UP><CR>
 
+" set cuda files to be seen as cpp files
+autocmd BufEnter *.cu :setlocal filetype=cuda
+autocmd BufEnter *.cuh :setlocal filetype=cuda
+
 " automatic commenting
 set formatoptions+=ro
 function CommentStr() " Get the comment string
@@ -92,7 +101,9 @@ function IsSoloComment() " Does the current line only have one comment?
 	return getline('.') =~ comment
 endfunction
 autocmd FileType python set comments=b:#,fb:-:# " Fix for python files
-inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
+autocmd FileType json set comments=b:#,fb:-:# " Fix for json files
+autocmd FileType cuda set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for cuda files
+autocmd FileType python,cpp,cuda,c inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
 
 " Add semicolon to end of line
 inoremap <leader>; <C-o>A;
@@ -133,6 +144,8 @@ let g:clang_format#style_options = {
 " autopep8
 let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff = 1
+noremap <leader>[ :let g:autopep8_on_save = 0<CR>
+noremap <leader>] :let g:autopep8_on_save = 1<CR>
 
 " YouCompleteMe
 " let g:ycm_confirm_extra_conf = 0
