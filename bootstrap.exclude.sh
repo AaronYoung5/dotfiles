@@ -31,7 +31,7 @@ install_platform_specific() {
 				brew install --cask anaconda
 			fi
 		fi
-		gsed -i "s,# Anaconda placeholder,# Anaconda path\nexport PATH=\"/usr/local/anaconda3/bin:\$PATH\",g" $PWD/.zshrc
+		# gsed -i "s,# Anaconda placeholder,# Anaconda path\nexport PATH=\"/usr/local/anaconda3/bin:\$PATH\",g" $PWD/.zshrc
 
 	fi
 }
