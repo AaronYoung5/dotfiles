@@ -56,8 +56,7 @@ USER_HOME=$($READLINK -f $USER_HOME)
 cd $USER_HOME
 
 # Clone the repo
-# git clone git@github.com:AaronYoung5/dotfiles .dotfiles
-git clone https://github.com/AaronYoung5/dotfiles .dotfiles
+git clone git@github.com:AaronYoung5/dotfiles .dotfiles
 [[ ! -d .dotfiles ]] && echo "Failed to clone dotfiles. Exitting..." && exit
 cd .dotfiles
 
