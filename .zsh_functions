@@ -24,7 +24,7 @@ create-psuedo-user() {
 	USER_HOME=$1
 	ALIAS=$2
 
-	zsh -c "$(curl -fsSL https://raw.githubusercontent.com/AaronYoung5/dotfiles/develop/setup_pseudouser.exclude.sh)" "" -a $ALIAS -u $USER_HOME
+	zsh -c "$(curl -fsSL https://raw.githubusercontent.com/AaronYoung5/dotfiles/develop/setup_psuedouser.exclude.sh)" "" -a $ALIAS -u $USER_HOME
 }
 
 # This should be the last line of the file
