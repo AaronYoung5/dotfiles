@@ -50,6 +50,9 @@ export HISTCONTROL=ignoredups # Ignore repeat commands when using the up arrow
 # Prepend the function path with the zsh completions functions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+# Anaconda path
+export PATH="/usr/local/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
 # source other files
 [ -f ~/.zsh_functions ] && source "$HOME/.zsh_functions"
 [ -f ~/.zsh_exports ] && source "$HOME/.zsh_exports"
