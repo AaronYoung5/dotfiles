@@ -8,6 +8,10 @@ endif
 " plugins
 call plug#begin('~/.vim/plugged')
 
+" Google code formatter
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+
 " Atom One Dark / Light theme.
 Plug 'joshdick/onedark.vim'
 
@@ -160,3 +164,8 @@ nnoremap <leader>n :NERDTreeTabsToggle<CR>
 " SWIG Syntax Highlighting
 au BufNewFile,BufRead *.i set filetype=swig
 au BufNewFile,BufRead *.swg set filetype=swig
+
+" vim-codefmt
+augroup autoformat_settings
+	autocmd FileType javascript AutoFormatBuffer prettier
+augroup END
