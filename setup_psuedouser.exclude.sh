@@ -49,7 +49,7 @@ else
 	READLINK=readlink
 fi
 
-# Setup the pseudo user directory
+# Setup the psuedo user directory
 [ ! -d $USER_HOME ] && echo "$USER_HOME not a directory. Creating it." && mkdir -p $USER_HOME
 [ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
 USER_HOME=$($READLINK -f $USER_HOME)
@@ -64,10 +64,10 @@ cd .dotfiles
 USER_HOME=$USER_HOME ./bootstrap.user.exclude.sh
 
 # Add alias to the zsh_aliases.local file
-$SED -i --follow-symlinks "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
+$SED -i --follow-symlinks "/psuedousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
 
 # Add include to ssh config file
-$SED -i --follow-symlinks "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config
+$SED -i --follow-symlinks "/psuedousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config
 
 # If anaconda installed, add additional aliases for it
 if [[ $(command -v conda) != "" ]]; then

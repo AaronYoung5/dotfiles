@@ -168,4 +168,5 @@ au BufNewFile,BufRead *.swg set filetype=swig
 " vim-codefmt
 augroup autoformat_settings
 	autocmd FileType javascript AutoFormatBuffer prettier
+	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
 augroup END
