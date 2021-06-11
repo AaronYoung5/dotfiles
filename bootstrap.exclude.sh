@@ -77,6 +77,9 @@ configure_git() {
 	  git config --global user.email $USER_EMAIL
   fi
 
+	# Set to default
+	git config pull.rebase false
+
   # Ignore local files
   git update-index --skip-worktree .zsh*.local
 }
