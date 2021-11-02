@@ -122,7 +122,7 @@ inoremap <leader>; <C-o>A;
 syntax on
 
 " use the atom one dark theme
-!silent colorscheme onedark
+silent! colorscheme onedark
 
 " tab related stuff
 set tabstop=2
