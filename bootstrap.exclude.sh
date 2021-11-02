@@ -29,6 +29,7 @@ install_platform_specific() {
 
 			if [[ $REPLY =~ ^[Yy]$ ]]; then
 				brew install --cask anaconda
+				/usr/local/anaconda3/bin/conda config --set changeps1 false
 			fi
 		fi
 		# gsed -i "s,# Anaconda placeholder,# Anaconda path\nexport PATH=\"/usr/local/anaconda3/bin:\$PATH\",g" $PWD/.zshrc
