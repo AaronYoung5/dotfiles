@@ -146,7 +146,7 @@ let g:clang_format#style_options = {
             \ "Standard" : "C++11"}
 
 " autopep8
-let g:autopep8_on_save = 1
+let g:autopep8_on_save = 0
 let g:autopep8_disable_show_diff = 1
 noremap <leader>[ :let g:autopep8_on_save = 0<CR>
 noremap <leader>] :let g:autopep8_on_save = 1<CR>
