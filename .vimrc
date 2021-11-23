@@ -43,6 +43,9 @@ Plug 'jistr/vim-nerdtree-tabs'
 " abolish.vim
 Plug 'tpope/vim-abolish'
 
+" LaTeX
+Plug 'vim-latex/vim-latex'
+
 call plug#end()
 
 " leader remapping
@@ -119,7 +122,7 @@ inoremap <leader>; <C-o>A;
 syntax on
 
 " use the atom one dark theme
-colorscheme onedark
+silent! colorscheme onedark
 
 " tab related stuff
 set tabstop=2
