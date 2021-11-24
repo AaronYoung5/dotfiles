@@ -52,6 +52,9 @@ call plug#end()
 let leader = " "
 let mapleader = " "
 
+" remap jk in edit mode to exit
+inoremap jk <Esc>
+
 " easy save/quit mappings
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
@@ -169,7 +172,7 @@ au BufNewFile,BufRead *.i set filetype=swig
 au BufNewFile,BufRead *.swg set filetype=swig
 
 " vim-codefmt
-augroup autoformat_settings
-	autocmd FileType javascript AutoFormatBuffer prettier
-	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-augroup END
+" augroup autoformat_settings
+" 	autocmd FileType javascript AutoFormatBuffer prettier
+" 	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+" augroup END
