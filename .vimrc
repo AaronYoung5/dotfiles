@@ -46,6 +46,9 @@ Plug 'tpope/vim-abolish'
 " LaTeX
 " Plug 'vim-latex/vim-latex'
 
+" typescript syntax highlighting
+Plug 'leafgarland/typescript-vim'
+
 call plug#end()
 
 set mmp=5000
@@ -117,8 +120,9 @@ function IsSoloComment() " Does the current line only have one comment?
 endfunction
 autocmd FileType python set comments=b:#,fb:-:# " Fix for python files
 autocmd FileType json set comments=b:#,fb:-:# " Fix for json files
+autocmd FileType java set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for java files
 autocmd FileType cuda set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for cuda files
-autocmd FileType python,cpp,cuda,c inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
+autocmd FileType python,cpp,cuda,c,java inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
 
 " Add semicolon to end of line
 inoremap <leader>; <C-o>A;
@@ -135,6 +139,7 @@ silent! colorscheme onedark
 " tab related stuff
 set tabstop=2
 set shiftwidth=2
+set expandtab
 
 " ---------------------
 " plugin customizations
