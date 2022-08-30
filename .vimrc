@@ -44,9 +44,11 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-abolish'
 
 " LaTeX
-Plug 'vim-latex/vim-latex'
+" Plug 'vim-latex/vim-latex'
 
 call plug#end()
+
+set mmp=5000
 
 " leader remapping
 let leader = " "
@@ -90,6 +92,9 @@ nnoremap <C-\> :source ~/.vimrc<CR>
 " add numbers
 set number
 nnoremap <C-i> :set invnumber<CR>
+
+" Highlight the line that the vim cursor is on
+set cursorline
 
 " easy jump into paste mode
 nmap <leader>p :set invpaste<CR>
@@ -176,3 +181,6 @@ au BufNewFile,BufRead *.swg set filetype=swig
 " 	autocmd FileType javascript AutoFormatBuffer prettier
 " 	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
 " augroup END
+
+" jlex
+au BufNewFile,BufRead *.jlex set filetype=jlex         
