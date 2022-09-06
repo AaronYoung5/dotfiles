@@ -49,6 +49,9 @@ Plug 'tpope/vim-abolish'
 " typescript syntax highlighting
 Plug 'leafgarland/typescript-vim'
 
+" Singularity
+Plug 'rbberger/vim-singularity-syntax'
+
 call plug#end()
 
 set mmp=5000
@@ -189,3 +192,6 @@ au BufNewFile,BufRead *.swg set filetype=swig
 
 " jlex
 au BufNewFile,BufRead *.jlex set filetype=jlex         
+
+" Singularity Syntax Highlighting
+au BufNewFile,BufRead *.singularity set filetype=singularity
