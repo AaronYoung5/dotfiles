@@ -52,6 +52,9 @@ Plug 'leafgarland/typescript-vim'
 " Singularity
 Plug 'rbberger/vim-singularity-syntax'
 
+" rst
+Plug 'habamax/vim-rst'
+
 call plug#end()
 
 set mmp=5000
@@ -126,6 +129,7 @@ autocmd FileType json set comments=b:#,fb:-:# " Fix for json files
 autocmd FileType java set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for java files
 autocmd FileType cuda set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for cuda files
 autocmd FileType python,cpp,cuda,c,java inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
+autocmd FileType rst set comments=b:..#,fb:-:.. " Fix for rst files
 
 " Add semicolon to end of line
 inoremap <leader>; <C-o>A;
