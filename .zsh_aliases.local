@@ -3,4 +3,7 @@
 # Local shell aliases
 # If aliases are computer specific, place them here
 
-# Configured psuedousers
+# Configured pseudousers
+alias drl="tu /Users/aaronyoung/Pseudos/drl drl"
+alias sbel="tu /Users/aaronyoung/Pseudos/sbel sbel"
+alias personal="tu /Users/aaronyoung/Pseudos/personal personal"

@@ -38,7 +38,7 @@ install_platform_specific() {
 }
 
 link() {
-  for file in $(ls -A | grep -vE '\.exclude*|\.git$|\.gitignore|\.gitmodules|.*.md|\.*.swp|\.last_update'); do
+  for file in $(ls -A | grep -vE '\.exclude*|\.git$|\.gitignore|\.gitmodules|.*.md|\.*.swp'); do
     # Silently ignore errors here because the files may already exist
     ln -svf "$PWD/$file" "$HOME" || true
   done
@@ -108,6 +108,7 @@ check_install git
 check_install curl
 check_install vim
 check_install tmux
+check_install wget
 check_install ssh
 
 # Install platform specific packages
