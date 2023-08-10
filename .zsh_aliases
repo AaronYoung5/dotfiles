@@ -29,6 +29,9 @@ alias vm="vi $HOME/.vimrc"
 alias tm="vi $HOME/.tmux.conf"
 alias tx="tmux new -A -s"
 
+# User stuff
+alias cdu="cd $USER_HOME"
+
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this

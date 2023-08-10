@@ -43,11 +43,28 @@ Plug 'jistr/vim-nerdtree-tabs'
 " abolish.vim
 Plug 'tpope/vim-abolish'
 
+" LaTeX
+" Plug 'vim-latex/vim-latex'
+
+" typescript syntax highlighting
+Plug 'leafgarland/typescript-vim'
+
+" Singularity
+Plug 'rbberger/vim-singularity-syntax'
+
+" rst
+Plug 'habamax/vim-rst'
+
 call plug#end()
+
+set mmp=5000
 
 " leader remapping
 let leader = " "
 let mapleader = " "
+
+" remap jk in edit mode to exit
+inoremap jk <Esc>
 
 " easy save/quit mappings
 nmap <leader>w :w<CR>
@@ -85,6 +102,9 @@ nnoremap <C-\> :source ~/.vimrc<CR>
 set number
 nnoremap <C-i> :set invnumber<CR>
 
+" Highlight the line that the vim cursor is on
+set cursorline
+
 " easy jump into paste mode
 nmap <leader>p :set invpaste<CR>
 
@@ -106,8 +126,10 @@ function IsSoloComment() " Does the current line only have one comment?
 endfunction
 autocmd FileType python set comments=b:#,fb:-:# " Fix for python files
 autocmd FileType json set comments=b:#,fb:-:# " Fix for json files
+autocmd FileType java set comments=sO:*-,mO:*,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for java files
 autocmd FileType cuda set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,:// " Fix for cuda files
-autocmd FileType python,cpp,cuda,c inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
+autocmd FileType python,cpp,cuda,c,java inoremap <expr> <enter> IsSoloComment() ? repeat('<bs>', strlen(CommentStr()) + 1) : '<enter>'
+autocmd FileType rst set comments=b:..#,fb:-:.. " Fix for rst files
 
 " Add semicolon to end of line
 inoremap <leader>; <C-o>A;
@@ -119,11 +141,12 @@ inoremap <leader>; <C-o>A;
 syntax on
 
 " use the atom one dark theme
-colorscheme onedark
+silent! colorscheme onedark
 
 " tab related stuff
 set tabstop=2
 set shiftwidth=2
+set expandtab
 
 " ---------------------
 " plugin customizations
@@ -146,7 +169,7 @@ let g:clang_format#style_options = {
             \ "Standard" : "C++11"}
 
 " autopep8
-let g:autopep8_on_save = 1
+let g:autopep8_on_save = 0
 let g:autopep8_disable_show_diff = 1
 noremap <leader>[ :let g:autopep8_on_save = 0<CR>
 noremap <leader>] :let g:autopep8_on_save = 1<CR>
@@ -166,7 +189,13 @@ au BufNewFile,BufRead *.i set filetype=swig
 au BufNewFile,BufRead *.swg set filetype=swig
 
 " vim-codefmt
-augroup autoformat_settings
-	autocmd FileType javascript AutoFormatBuffer prettier
-	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-augroup END
+" augroup autoformat_settings
+" 	autocmd FileType javascript AutoFormatBuffer prettier
+" 	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+" augroup END
+
+" jlex
+au BufNewFile,BufRead *.jlex set filetype=jlex         
+
+" Singularity Syntax Highlighting
+au BufNewFile,BufRead *.singularity set filetype=singularity

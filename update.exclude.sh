@@ -45,17 +45,20 @@ update() {
 
 	# --- Host-independent updates ---
 
-	# Check dotfiles repo
-	# echo "==> Checking repo for any changes"
-	cd $DOTFILES
-	git fetch origin
-	reslog=$(git log HEAD..origin/develop --oneline)
-	if [[ "$reslog" != "" ]]; then
-		echo "==> Updating dotfiles..."
-		git pull
-	else
-		true
-		# echo "==> No updates necessary"
+	wget -q --spider http://google.com
+	if [ $? -eq 0 ]; then
+		# Check dotfiles repo
+		# echo "==> Checking repo for any changes"
+		cd $DOTFILES
+		git fetch origin
+		reslog=$(git log HEAD..origin/develop --oneline)
+		if [[ "$reslog" != "" ]]; then
+			echo "==> Updating dotfiles..."
+			git pull
+		else
+			true
+			# echo "==> No updates necessary"
+		fi
 	fi
 
 	cd - &>/dev/null

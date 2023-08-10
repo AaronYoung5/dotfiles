@@ -64,10 +64,10 @@ cd .dotfiles
 USER_HOME=$USER_HOME ./bootstrap.user.exclude.sh
 
 # Add alias to the zsh_aliases.local file
-$SED -i --follow-symlinks "/psuedousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
+$SED -i --follow-symlinks "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
 
 # Add include to ssh config file
-$SED -i --follow-symlinks "/psuedousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config
+$SED -i --follow-symlinks "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config
 
 # If anaconda installed, add additional aliases for it
 if [[ $(command -v conda) != "" ]]; then
