@@ -34,6 +34,9 @@ install_platform_specific() {
 		fi
 		# gsed -i "s,# Anaconda placeholder,# Anaconda path\nexport PATH=\"/usr/local/anaconda3/bin:\$PATH\",g" $PWD/.zshrc
 
+	elif [[ $(uname) = "Linux" ]] && [[ -x "$(command -v apt)" ]]; then
+		# Ubuntu-based distro
+    echo ""
 	fi
 }
 
@@ -103,16 +106,17 @@ check_for_zsh() {
   fi
 }
 
+# Install platform specific packages
+install_platform_specific
+
 # Check for packages
+check_install zsh
 check_install git
 check_install curl
 check_install vim
 check_install tmux
 check_install wget
 check_install ssh
-
-# Install platform specific packages
-install_platform_specific
 
 install_oh_my_zsh
 install_zgen
