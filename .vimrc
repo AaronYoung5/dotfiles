@@ -30,6 +30,9 @@ Plug 'tell-k/vim-autopep8' " python
 Plug 'vim-scripts/json-formatter.vim' " json
 Plug 'tikhomirov/vim-glsl'
 
+" Dockerfile formatting
+Plug 'ekalinin/Dockerfile.vim'
+
 " code autocomplete
 " Plug 'ycm-core/YouCompleteMe'
 
