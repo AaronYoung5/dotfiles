@@ -148,10 +148,11 @@ platform_specific_sed() {
 }
 
 platform_specific_readlink() {
+    READLINK=""
     if [[ $(uname) = "Darwin" ]]; then
-        return "greadlink"
+        READLINK="greadlink"
     else
-        return "readlink"
+        READLINK="readlink"
     fi
 }
 
