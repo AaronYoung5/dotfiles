@@ -1,67 +1,43 @@
-# --------------------------------
-# Clones and installs the dotfiles
-# --------------------------------
-help() {
-	echo
-	echo "USAGE: $0 [-u/--user_home user_home] [-a/--alias alias]"
-	echo
-	exit
-}
+#!/usr/bin/env sh
 
-USER_HOME=$PWD
-ALIAS=$(basename $PWD)
+source ./helpers.exclude.sh
 
-# Parse command line inputs
-# Get the positional arguments first
-# [ -z $1 ] && echo "Script type required." && help && exit
-while [[ $# -gt 0 ]]; do
-	key="$1"
-	case $key in
-		-u|--user_home)
-			[ -z $2 ] && echo "Please specify a user_home" && help && exit
-			USER_HOME=$2
-			shift
-			shift
-			;;
-		-a|--alias)
-			[ -z $2 ] && echo "Please specify an alias" && help && exit
-			ALIAS=$2
-			shift
-			shift
-			;;
-		*)
-			echo "Unknown option: $1"
-			echo "Ignoring..."
-			shift
-	esac
-done
+# --------------------
 
-# Grab the correct sed command
-if [[ $(uname) = "Darwin" ]]; then
-	SED=gsed
-else
-	SED=sed
-fi
+SED=$(platform_specific_sed)
+READLINK=$(platform_specific_readlink)
 
-if [[ $(uname) = "Darwin" ]]; then
-	READLINK=greadlink
-else
-	READLINK=readlink
-fi
+# --------------------
 
-# Setup the psuedo user directory
-[ ! -d $USER_HOME ] && echo "$USER_HOME not a directory. Creating it." && mkdir -p $USER_HOME
-[ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
+[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ ALIAS ]" && exit
+USER_HOME=$1
+ALIAS=$2
+
+# --------------------
+
+confirm "USER_HOME is set to $USER_HOME and ALIAS is set to $ALIAS. Is that okay? [Y/n] " || exit
 USER_HOME=$($READLINK -f $USER_HOME)
+
+# --------------------
+
+[ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
+
+mkdir -p $USER_HOME
 cd $USER_HOME
+
+# --------------------
 
 # Clone the repo
 git clone git@github.com:AaronYoung5/dotfiles .dotfiles
 [[ ! -d .dotfiles ]] && echo "Failed to clone dotfiles. Exitting..." && exit
-cd .dotfiles
+cd $USER_HOME/.dotfiles
+
+# --------------------
 
 # Run the bootstrap script
 USER_HOME=$USER_HOME ./bootstrap.user.exclude.sh
+
+# --------------------
 
 # Add alias to the zsh_aliases.local file
 $SED -i --follow-symlinks "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.zsh_aliases.local
@@ -74,4 +50,3 @@ if [[ $(command -v conda) != "" ]]; then
 	conda create --prefix $USER_HOME/.conda/envs/$ALIAS python=3.8
 	$SED -i --follow-symlinks "/Additional aliases/a alias $ALIAS=\"conda activate \$USER_HOME/.conda/envs/$ALIAS\"" $USER_HOME/.zsh_aliases.user
 fi
-

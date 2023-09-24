@@ -1,24 +1,24 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-# Reset the zsh environment
-# Will delete all symlinked files and delete zgen, oh-my-zsh and last_update
+source ./helpers.exclude.sh
 
-mkdir backups.exclude
-for filename in $(find $HOME -maxdepth 1 -type l); do
-	if  [ -f "$filename" ]; then
-		cp $filename backups.exclude
-		unlink $filename
-	fi
-done
+# --------------------
 
-if [ -d "$HOME/.oh-my-zsh/" ]; then
-	rm -rf $HOME/.oh-my-zsh/
-fi
+check_args() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ DOTFILES ]" && exit 0
+}
 
-if [ -d "$HOME/.zgen/" ]; then
-	rm -rf $HOME/.zgen/
-fi
+confirm_args() {
+	confirm "Resetting directory $1 with dotfiles $2. Is that okay? [Y/n]" || exit 0
+}
 
-if [ -d "$HOME/.vim/" ]; then
-	rm -rf $HOME/.vim/
-fi
+rm_dotfiles() {
+	for file in $1/.*; do
+		if [ -L "$file" ]; then
+			if [[ "$(readlink "$file")" == *"$2"* ]]; then
+				echo "Removing symlink '$file'"
+				rm '$file'
+			fi
+		fi
+	done
+}

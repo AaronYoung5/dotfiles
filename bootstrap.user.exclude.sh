@@ -1,32 +1,15 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-link() {
-  [ -z $USER_HOME ] && echo "USER_HOME is unset. Set it before continuing." && exit
+source ./helpers.exclude.sh
 
-  read -p "USER_HOME is set to $USER_HOME. Is that okay? [yn] " -n 1 -r
-  echo
+# --------------------
 
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-	  for file in $(ls -A | grep '\.user' | grep -vE '\.exclude*|\.git$|\.gitignore|\.gitmodules|.*.md|\.*.swp|\.last_update'); do
-	    # Silently ignore errors here because the files may already exist
-	    if [[ -f "$USER_HOME/$file" ]]; then
-		    echo "$USER_HOME/$file already exists. Please delete before continuing."
-		    continue
-	    fi
-	    ln -svf "$USER_HOME/.dotfiles/$file" "$USER_HOME" || true
-	  done
-  fi
-}
+if ! confirm "USER_HOME is set to $USER_HOME. Is that okay? [yn] "; then
+	exit
+fi
 
-link
-
-git update-index --skip-worktree .zsh*.user
-
-# Setup ssh
-mkdir $USER_HOME/.ssh
-touch $USER_HOME/.ssh/config
-
-# Setup local
+symlink_configs $USER_HOME/.dotfiles $USER_HOME
+configure_ssh $USER_HOME/.ssh
 mkdir -p $USER_HOME/.local/bin
 
 true

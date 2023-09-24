@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Check for updates on initial load
 export DOTFILES="$HOME/.dotfiles"
@@ -34,7 +34,7 @@ promptinit
 prompt pure
 
 # Custom settings
-bindkey '^ ' autosuggest-toggle # ctrl+space will toggle autosuggestions
+bindkey '^ ' autosuggest-toggle               # ctrl+space will toggle autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8' # Appears light gray on black background
 
 # By default, if you type in a directory and hit enter

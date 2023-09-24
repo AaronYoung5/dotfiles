@@ -1,9 +1,9 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 # source a python virtual environment
 se() {
 	# Ternary operator replicator
-	[[ $# -ne 0 ]] && env_name="$1" || env_name="env"
+	env_name=${1:-"env"}
 	source "$env_name/bin/activate"
 }
 
@@ -14,7 +14,7 @@ tu() {
 	USER_HOME=$1
 
 	[ ! -z $2 ] && SESSION_NAME=$2
-	
+
 	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
 }
 
@@ -24,7 +24,7 @@ create-psuedo-user() {
 	USER_HOME=$1
 	ALIAS=$2
 
-	zsh -c "$(curl -fsSL https://raw.githubusercontent.com/AaronYoung5/dotfiles/develop/setup_psuedouser.exclude.sh)" "" -a $ALIAS -u $USER_HOME
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/AaronYoung5/dotfiles/develop/setup_psuedouser.exclude.sh)" "" $ALIAS $USER_HOME
 }
 
 # This should be the last line of the file

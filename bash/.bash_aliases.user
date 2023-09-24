@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Pseudo user shell aliases
+# If aliases are psuedo-user specific, place them here
+
+# bash related config files
+alias brcu="vi $USER_HOME/.bashrc.user"
+alias bau="vi $USER_HOME/.bash_aliases.user"
+alias beu="vi $USER_HOME/.bash_exports.user"
+alias bfu="vi $USER_HOME/.bash_functions.user"
+
+# edit $USER_HOME/.ssh/config file
+alias scu="vi $USER_HOME/.ssh/config"
+
+# vimrc
+alias vmu="vi $USER_HOME/.vimrc"
+
+# Additional aliases

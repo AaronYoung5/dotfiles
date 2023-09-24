@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# change default shell editor
+export EDITOR="vi"
+
+# This should be the last line of the file
+# For local changes
+# Don't make edits below this
+[ -f ".bash_exports.local" ] && source ".bash_exports.local"

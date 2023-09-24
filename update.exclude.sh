@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 #
 # check for updates (to anything) regularly
@@ -61,7 +61,8 @@ update() {
 		fi
 	fi
 
-	cd - &>/dev/null
+	cd - &
+	>/dev/null
 }
 
 check_for_updates() {

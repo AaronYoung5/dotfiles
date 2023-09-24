@@ -3,7 +3,7 @@
 # Pseudo user shell aliases
 # If aliases are psuedo-user specific, place them here
 
-# zsh* related config files
+# zsh related config files
 alias zrcu="vi $USER_HOME/.zshrc.user"
 alias zau="vi $USER_HOME/.zsh_aliases.user"
 alias zeu="vi $USER_HOME/.zsh_exports.user"

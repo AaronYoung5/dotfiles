@@ -1,5 +1,5 @@
-.*.local
-.*.user
+# .*.local
+# .*.user
 .*history
 .macos
 .last_update
