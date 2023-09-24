@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Pseudo-user shell functions
 # If functions are psuedo-user specific, place them here

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Pseudo user shell aliases
 # If aliases are psuedo-user specific, place them here
