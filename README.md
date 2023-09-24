@@ -6,40 +6,40 @@ _A dotfile is simply a file that is preceded by a ".". Ex: `.zshrc`. On Unix bas
 
 ## Philosophy
 
-The philosophy used herein imploys three general ideas:
+The philosophy used herein employs three general ideas:
 
 1. A single dotfile should have a single purpose
 2. Configurations specific to a computer should not conflict with other systems
 3. Separation of different working environments is encouraged
 
-Furthermore, `zsh` is the used shell. As I began to learn the command line and how to configure my shell environment, I was on a Mac. The default shell, beginning in early 2019, is `zsh`. The only other shell I've used extensively is `bash`, and I found it is not as configurable as `zsh`. 
+Furthermore, `zsh` and `bash` are both supported. As I began to learn the command line and how to configure my shell environment, I was on a Mac which defaults to `zsh`. Examples described herein will reference `zsh` since it's far more configurable and makes for a more interesting read.
 
-To faciliate plugin management and provide a better user experience, [oh-my-zsh](https://ohmyz.sh/) and [zgen](https://github.com/tarjoilija/zgen) are used.
+To facilitate plugin management and provide a better user experience in `zsh`, [oh-my-zsh](https://ohmyz.sh/) and [zgen](https://github.com/tarjoilija/zgen) are used.
 
 ## General structure
 
 In this repository, there are four types of files:
 
-1. `zsh` configuration files
+1. `zsh` or `bash` configuration files
 2. `vim` configuration files
 3. `tmux` configuration files
 4. dotfile setup/helper files
 
-### Zsh configuration files
+### Zsh/Bash configuration files
 
-The `zsh` configuration files discussed in this section are the files prefixed with `.zsh...`. Ex: `.zshrc` and `.zsh_functions.user`.
+The `zsh`/`bash` configuration files discussed in this section are the files prefixed with `.zsh...` and `.bash...`, respectively. Ex: `.zshrc` and `.bash_functions.user`.
 
-To configure `zsh` as I please, as item 1 of my philosophy outlines, each file as one purpose. There are four general categories to my `zsh` files:
+To configure the shell as I please, as item 1 of my philosophy outlines, each file has one purpose. There are four general categories to my config files:
 
 1. `rc`
-	- Holds prompt level configurations; kind of the "leader"
-	- Ex: oh-my-zsh/zgen setup, plugin install, sourcing all other files below
+   - Holds prompt level configurations; kind of the "leader"
+   - Ex: `oh-my-zsh`/`zgen` setup, plugin install, sourcing all other files below
 2. `_aliases`
-	- Holds aliases
+   - Holds aliases
 3. `_exports`
-	- Holds any exports needed when the prompt loads
+   - Holds any exports needed when the prompt loads
 4. `_functions`
-	- Additional helper functions I may want
+   - Additional helper functions I may want
 
 ### Vim configuration files
 
@@ -47,37 +47,37 @@ As off early February, 2021, I use [`vim`](https://www.vim.org/) as my main edit
 
 ### Tmux configuration files
 
-I like to use [`tmux`](https://github.com/tmux/tmux/wiki) almost always when using the command line. It allows me to separate different working environments (see philosophy #3) and maintain multiple active shells without multiple terminal windows or tabs. Configurations are helpd in all files beginning with `.tmux.conf`.
+I like to use [`tmux`](https://github.com/tmux/tmux/wiki) almost always when using the command line. It allows me to separate different working environments (see philosophy #3) and maintain multiple active shells without multiple terminal windows or tabs. Configurations are helped in all files beginning with `.tmux.conf`.
 
 ### Dotfile setup/helper files
 
 These files are include the keyword `exclude`. These files help setup or tear down my dotfiles on new computers. Currently, there are five different setup/helper files:
 
-1. `bootstrap.exclude.sh`
-	- The main setup file that links all dotfiles on a new system (see [installation](#installation))
+1. `bootstrap.exclude.[sh|bash|zsh]`
+   - The main setup file that links all dotfiles on a new system (see [installation](#installation))
 2. `bootstrap.user.exclude.sh`
-	- The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
-3. `reset.eclude.sh`
-	- **Use with caution**, deletes all `zsh` related files
-	- Saves backups of all dotfiles in a directory named `backups`
+   - The setup file the links files for a new pseudouser (see [psuedouser](#psuedousers))
+3. `reset.exclude.[sh|bash|zsh]`
+   - **Use with caution**, deletes all `[bash|zsh]` related files
+   - Saves backups of all dotfiles in a directory named `backups`
 4. `setup_pseudouser.exclude.sh`
-	- Creates a new pseudouser (see [pseudouser](#pseudousers))
+   - Creates a new pseudouser (see [pseudouser](#pseudousers))
 5. `update.exclude.sh`
-	- An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
-	- Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
+   - An automated script called in `.zshrc` (unless `DISABLE_AUTO_UPDATE` is set to 'true')
+   - Checks at some fixed rate whether my dotfiles in this repo have been updated, (updates if necessary)
 
 ## General concepts
 
-Conceptually, my `zsh` configuration dotfiles are organized into three groups:
+Conceptually, my `zsh`/`bash` configuration dotfiles are organized into three groups:
 
 1. No suffix
-	- General configurations common across _all_ computers
+   - General configurations common across _all_ computers
 2. `.local`
-	- Local configurations that are system wide
-	- Anything that is specific to the current computer and not to other ones (See philosophy #2)
+   - Local configurations that are system wide
+   - Anything that is specific to the current computer and not to other ones (See philosophy #2)
 3. `.user`
-	- Pseudouser specific configurations
-	- Only read when a pseudouser is active
+   - Pseudouser specific configurations
+   - Only read when a pseudouser is active
 
 ### Pseudousers
 
