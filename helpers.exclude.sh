@@ -16,7 +16,7 @@ check_for_required_commands() {
 }
 
 request_response() {
-    echo "$1 \c"
+    printf "$1 "
     read response
 }
 
@@ -35,9 +35,9 @@ confirm() {
 }
 
 check_platform() {
-    if [[ $(uname) = "Darwin" ]]; then
+    if [ $(uname) = "Darwin" ]; then
         echo "MacOS"
-    elif [[ $(uname) = "Linux" ]]; then
+    elif [ $(uname) = "Linux" ]; then
         echo $(lsb_release -si)
     fi
 }
@@ -45,7 +45,7 @@ check_platform() {
 check_shell() {
     shell=$(basename $SHELL)
     desired_shell=$1
-    if [[ $shell != $desired_shell ]]; then
+    if [ $shell != $desired_shell ]; then
         echo "Please set your default shell to $desired_shell to have the changes take effect."
         echo "Your current shell is $shell"
         exit
@@ -70,9 +70,9 @@ symlink_configs() {
 
 setup_platform_specific() {
     platform=$(check_platform)
-    if [[ $platform = "MacOS" ]]; then
+    if [ $platform = "MacOS" ]; then
         setup_mac_software $@
-    elif [[ $platform = "Ubuntu" ]]; then
+    elif [ $platform = "Ubuntu" ]; then
         setup_ubuntu_software $@
     else
         echo "WARNING: Unknown platform: $platform. This might cause problems." >&2
@@ -117,7 +117,7 @@ setup_ubuntu_software() {
     echo "Setting up Ubuntu software..."
     required_packages=$@
 
-    required_packages = $(check_for_required_installs $required_packages)
+    required_packages=$(check_for_required_commands $required_packages)
     if confirm "Would you like to install the required packages? Packages to be installed: $required_packages. This requires administrative privileges. [Y/n]"; then
         sudo apt-get install $required_packages 1>/dev/null
     fi
@@ -126,9 +126,9 @@ setup_ubuntu_software() {
 }
 
 setup_unknown_software() {
-    platform = $(check_platform)
+    platform=$(check_platform)
     echo "Setting up unknown platform: $platform"
-    required_packages = $(check_for_required_installs $required_packages)
+    required_packages=$(check_for_required_commands $required_packages)
     # Only print statement if required packages is not empty
     if [ ! -z "$required_packages" ]; then
         echo "WARNING: These packages are required: $required_packages. Cannot be installed because platform is unknown." >&2
@@ -170,7 +170,7 @@ configure_ssh() {
     if ! test -f "$home/.ssh/config"; then
         touch $home/.ssh/config
 
-        if [[ home = "$HOME" ]]; then
+        if [ home = "$HOME" ]; then
             echo " # Include files for pseudousers" >>$home/.ssh/config
         fi
     fi
