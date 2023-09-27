@@ -8,7 +8,7 @@ source ./reset.exclude.sh
 
 # --------------------
 
-check_args "$@"
+check_args "$0 $@"
 confirm_args "$@"
 rm_dotfiles "$@"
 

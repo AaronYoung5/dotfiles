@@ -5,7 +5,7 @@ source ./helpers.exclude.sh
 # --------------------
 
 check_args() {
-	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ DOTFILES ]" && exit 0
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $1 [ USER_HOME ] [ DOTFILES ]" && exit 0
 }
 
 confirm_args() {
