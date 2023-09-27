@@ -19,7 +19,7 @@ confirm "USER_HOME is set to '$USER_HOME' and ALIAS is set to '$ALIAS'. Is that 
 
 # --------------------
 
-# [ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
+[ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
 
 mkdir -p $USER_HOME
 cd $USER_HOME
@@ -27,8 +27,8 @@ cd $USER_HOME
 # --------------------
 
 # Clone the repo
-# git clone git@github.com:AaronYoung5/dotfiles .dotfiles
-# [ ! -d .dotfiles ] && echo "Failed to clone dotfiles. Exitting..." && exit
+git clone git@github.com:AaronYoung5/dotfiles .dotfiles
+[ ! -d .dotfiles ] && echo "Failed to clone dotfiles. Exitting..." && exit
 cd $USER_HOME/.dotfiles
 
 # --------------------
@@ -39,7 +39,7 @@ USER_HOME=$USER_HOME ./bootstrap.user.exclude.sh
 # --------------------
 
 # Add alias to the $SHELL_aliases.local file
-$SED -i --follow-symlinks "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.$SHELL_aliases.local
+$SED -i --follow-symlinks "/pseudousers/a alias $ALIAS=\"tu $USER_HOME $ALIAS\"" $HOME/.$(basename $SHELL)_aliases.local
 
 # Add include to ssh config file
 $SED -i --follow-symlinks "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/.ssh/config
@@ -47,5 +47,5 @@ $SED -i --follow-symlinks "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/
 # If anaconda installed, add additional aliases for it
 if [ $(command -v conda) != "" ]; then
 	conda create --prefix $USER_HOME/.conda/envs/$ALIAS python=3.8
-	$SED -i --follow-symlinks "/Additional aliases/a alias $ALIAS=\"conda activate \$USER_HOME/.conda/envs/$ALIAS\"" $USER_HOME/.$SHELL_aliases.user
+	$SED -i --follow-symlinks "/Additional aliases/a alias $ALIAS=\"conda activate \$USER_HOME/.conda/envs/$ALIAS\"" $USER_HOME/.$(basename $SHELL)_aliases.user
 fi
