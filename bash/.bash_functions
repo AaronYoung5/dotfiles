@@ -24,7 +24,7 @@ create-psuedo-user() {
 	USER_HOME=$1
 	ALIAS=$2
 
-	sh $DOTFILES/setup_pseudouser.exclude.sh $ALIAS $USER_HOME
+	sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }
 
 # This should be the last line of the file
