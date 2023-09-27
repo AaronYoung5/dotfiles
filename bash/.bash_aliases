@@ -32,6 +32,9 @@ alias tx="tmux new -A -s"
 # User stuff
 alias cdu="cd $USER_HOME"
 
+# Shortcut to edit the dotfiles
+alias dotfiles="cd $DOTFILES"
+
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this

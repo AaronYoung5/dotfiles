@@ -12,11 +12,11 @@ check_for_required_commands() {
             not_present_list="$install_list $install"
         fi
     done
-    return $not_present_list
+    echo $not_present_list
 }
 
 request_response() {
-    echo -n "$1 "
+    echo "$1 \c"
     read response
 }
 
@@ -57,22 +57,22 @@ check_shell() {
 # --------------------
 
 symlink_configs() {
-    path=$(readlink -f ${1:-"."})
+    _path=$(readlink -f ${1:-"."})
     home=${2:-"$HOME"}
 
-    for file in $(find $path -type f -not -name "*exclude*" -not -name ".git*" -not -name "*.md" -not -name ".*.swp"); do
+    for file in $(ls -A $_path | grep -vE '\.exclude*|\.git$|\.gitignore|\.gitmodules|.*.md|\.*.swp'); do
         # Silently ignore errors here because the files may already exist
-        ln -svf "$file" "$home" || true
+        ln -svf "$(readlink -f $_path/$file)" "$home"
     done
 }
 
 # --------------------
 
 setup_platform_specific() {
-    platform = $(check_platform)
-    if [[ $(platform) = "MacOS" ]]; then
+    platform=$(check_platform)
+    if [[ $platform = "MacOS" ]]; then
         setup_mac_software $@
-    elif [[ $(platform) = "Ubuntu" ]]; then
+    elif [[ $platform = "Ubuntu" ]]; then
         setup_ubuntu_software $@
     else
         echo "WARNING: Unknown platform: $platform. This might cause problems." >&2
@@ -99,7 +99,7 @@ setup_mac_software() {
     fi
 
     # Install the required and mac specific packages (if not present)
-    required_packages = $(check_for_required_installs $required_packages gnu-sed coreutils)
+    required_packages=$(check_for_required_commands $required_packages gnu-sed coreutils)
     if confirm "Would you like to install the required packages? Packages to be installed: $required_packages. [Y/n]"; then
         brew install $required_packages 1>/dev/null
     fi
@@ -141,9 +141,9 @@ setup_unknown_software() {
 
 platform_specific_sed() {
     if [[ $(uname) = "Darwin" ]]; then
-        return "gsed"
+        SED="gsed"
     else
-        return "sed"
+        SED="sed"
     fi
 }
 

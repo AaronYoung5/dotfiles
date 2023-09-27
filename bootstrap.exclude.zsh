@@ -19,7 +19,7 @@ install_zgen() {
 
 # --------------------
 
-sh ./bootstrap.exclude.sh zsh
+# sh ./bootstrap.exclude.sh zsh
 
 # --------------------
 # zsh specific
