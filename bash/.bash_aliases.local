@@ -4,3 +4,4 @@
 # If aliases are computer specific, place them here
 
 # Configured pseudousers
+alias bees="tu /home/gridsan/ayoung/Pseudos/bees/ bees"
