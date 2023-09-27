@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-. ./helpers.exclude.sh
+. $DOTFILES/helpers.exclude.sh
 
 # --------------------
 
