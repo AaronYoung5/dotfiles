@@ -22,6 +22,7 @@ confirm "USER_HOME is set to '$USER_HOME' and ALIAS is set to '$ALIAS'. Is that 
 [ -d $USER_HOME/.dotfiles ] && echo "$USER_HOME already seems to be setup. Exitting..." && exit
 
 mkdir -p $USER_HOME
+USER_HOME=$($READLINK -f $USER_HOME)
 cd $USER_HOME
 
 # --------------------

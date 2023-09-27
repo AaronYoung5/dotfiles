@@ -116,6 +116,12 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# Check for updates on initial load
+export DOTFILES="$HOME/.dotfiles"
+if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
+    source $DOTFILES/update.exclude.sh
+fi
+
 # source other files
 [ -f ~/.bash_functions ] && source "$HOME/.bash_functions"
 [ -f ~/.bash_exports ] && source "$HOME/.bash_exports"
