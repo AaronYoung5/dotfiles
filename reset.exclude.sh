@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-source ./helpers.exclude.sh
+. ./helpers.exclude.sh
 
 # --------------------
 

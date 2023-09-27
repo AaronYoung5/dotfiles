@@ -140,7 +140,7 @@ setup_unknown_software() {
 # --------------------
 
 platform_specific_sed() {
-    if [[ $(uname) = "Darwin" ]]; then
+    if [ $(uname) = "Darwin" ]; then
         SED="gsed"
     else
         SED="sed"
@@ -149,7 +149,7 @@ platform_specific_sed() {
 
 platform_specific_readlink() {
     READLINK=""
-    if [[ $(uname) = "Darwin" ]]; then
+    if [ $(uname) = "Darwin" ]; then
         READLINK="greadlink"
     else
         READLINK="readlink"
