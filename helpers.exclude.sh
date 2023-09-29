@@ -100,7 +100,7 @@ setup_mac_software() {
 
     # Install the required and mac specific packages (if not present)
     required_packages=$(check_for_required_commands $required_packages gnu-sed coreutils)
-    if confirm "Would you like to install the required packages? Packages to be installed: $required_packages. [Y/n]"; then
+    if [ ! -z "$required_packages" ] && confirm "Would you like to install the required packages? Packages to be installed: $required_packages. [Y/n]"; then
         brew install $required_packages 1>/dev/null
     fi
 

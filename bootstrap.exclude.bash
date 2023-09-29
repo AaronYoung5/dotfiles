@@ -8,7 +8,7 @@ sh ./bootstrap.exclude.sh bash
 
 # --------------------
 # bash specific
-symlink_configs bash/
+symlink_configs bash.exclude/
 check_shell bash
 # --------------------
 

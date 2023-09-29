@@ -19,11 +19,11 @@ install_zgen() {
 
 # --------------------
 
-# sh ./bootstrap.exclude.sh zsh
+sh ./bootstrap.exclude.sh zsh
 
 # --------------------
 # zsh specific
-symlink_configs zsh/
+symlink_configs zsh.exclude/
 install_oh_my_zsh
 install_zgen
 check_shell zsh

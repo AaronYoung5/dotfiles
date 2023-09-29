@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 
 # Local shell aliases
 # If aliases are computer specific, place them here

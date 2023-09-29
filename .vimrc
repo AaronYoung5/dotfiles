@@ -58,6 +58,9 @@ Plug 'rbberger/vim-singularity-syntax'
 " rst
 Plug 'habamax/vim-rst'
 
+" gitignore
+Plug 'gisphm/vim-gitignore'
+
 call plug#end()
 
 set mmp=5000
