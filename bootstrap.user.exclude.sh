@@ -4,7 +4,7 @@
 
 # --------------------
 
-symlink_configs $USER_HOME/.dotfiles/$(basename $SHELL) $USER_HOME
+symlink_configs $USER_HOME/.dotfiles/$(basename $SHELL).exclude $USER_HOME
 configure_ssh $USER_HOME/.ssh
 mkdir -p $USER_HOME/.local/bin
 
