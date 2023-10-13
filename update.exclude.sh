@@ -48,16 +48,18 @@ update() {
 	wget -q --spider http://google.com
 	if [ $? -eq 0 ]; then
 		# Check dotfiles repo
-		echo "==> Checking repo for any changes"
+		# echo "==> Checking repo for any changes"
 		cd $DOTFILES
 		git fetch origin
 		reslog=$(git log HEAD..origin/develop --oneline)
 		if [[ "$reslog" != "" ]]; then
-			echo "==> Updating dotfiles..."
+			# echo "==> Updating dotfiles..."
+      git stash
 			git pull
+      git stash pop
 		else
 			true
-			echo "==> No updates necessary"
+			# echo "==> No updates necessary"
 		fi
 	fi
 
@@ -85,7 +87,7 @@ check_for_updates() {
 	time_since_check=$((time_now - last_login))
 
 	if [ "$time_since_check" -ge "$UPDATE_THRESHOLD" ]; then
-		echo "==> Your system is out of date!"
+		# echo "==> Your system is out of date!"
 
 		update
 	fi
