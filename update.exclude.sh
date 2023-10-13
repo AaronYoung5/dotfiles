@@ -30,7 +30,7 @@
 #   most things are hard coded.
 
 # Number of seconds to wait before printing a reminder
-UPDATE_THRESHOLD="0"
+UPDATE_THRESHOLD="86400"
 
 # update - fetch updates
 # usage:
