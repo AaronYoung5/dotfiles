@@ -2,6 +2,3 @@
 
 # Local shell exports
 # If exports are computer specific, place them here
-
-export PYGAME_HIDE_SUPPORT_PROMPT=0
-export AUDIODEV=null
