@@ -8,7 +8,7 @@
 #
 # Authors
 #   Jake Zimmerman <jake@zimmerman.io>
-#	Aaron Young <aarony3131@gmail.com> (editted original)
+#	  Aaron Young <aarony3131@gmail.com> (editted original)
 #
 # Usage
 #   - Requires my colors.sh to have been sourced already for colorized output
@@ -30,7 +30,7 @@
 #   most things are hard coded.
 
 # Number of seconds to wait before printing a reminder
-UPDATE_THRESHOLD="86400"
+UPDATE_THRESHOLD="0"
 
 # update - fetch updates
 # usage:
@@ -48,7 +48,7 @@ update() {
 	wget -q --spider http://google.com
 	if [ $? -eq 0 ]; then
 		# Check dotfiles repo
-		# echo "==> Checking repo for any changes"
+		echo "==> Checking repo for any changes"
 		cd $DOTFILES
 		git fetch origin
 		reslog=$(git log HEAD..origin/develop --oneline)
@@ -57,12 +57,11 @@ update() {
 			git pull
 		else
 			true
-			# echo "==> No updates necessary"
+			echo "==> No updates necessary"
 		fi
 	fi
 
-	cd - &
-	>/dev/null
+	cd - &>/dev/null
 }
 
 check_for_updates() {
@@ -86,10 +85,12 @@ check_for_updates() {
 	time_since_check=$((time_now - last_login))
 
 	if [ "$time_since_check" -ge "$UPDATE_THRESHOLD" ]; then
-		# echo "==> Your system is out of date!"
+		echo "==> Your system is out of date!"
 
 		update
 	fi
 }
 
 check_for_updates
+
+true
