@@ -19,7 +19,7 @@ tu() {
 }
 
 # Create a pseudo user
-create-psuedo-user() {
+create-pseudo-user() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ ALIAS / SESSION_NAME ]" && return
 	USER_HOME=$1
 	ALIAS=$2
