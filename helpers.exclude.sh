@@ -9,7 +9,7 @@ check_for_required_commands() {
     not_present_list=""
     for install in $required_list; do
         if ! check_command $install; then
-            not_present_list="$install_list $install"
+            not_present_list="$not_present_list $install"
         fi
     done
     echo $not_present_list
@@ -94,20 +94,19 @@ setup_mac_software() {
         fi
     elif confirm "Homebrew is installed. Would you like to update it? [Y/n]"; then
         echo "Updating Brew..."
-        brew update
-        brew upgrade
+        /opt/homebrew/bin/brew update
+        /opt/homebrew/bin/brew upgrade
     fi
 
     # Install the required and mac specific packages (if not present)
-    required_packages=$(check_for_required_commands $required_packages gnu-sed coreutils)
+    required_packages=$(check_for_required_commands "$required_packages gnu-sed coreutils")
     if [ ! -z "$required_packages" ] && confirm "Would you like to install the required packages? Packages to be installed: $required_packages. [Y/n]"; then
-        brew install $required_packages 1>/dev/null
+        /opt/homebrew/bin/brew install $required_packages 1>/dev/null
     fi
 
     # Conda
     if ! check_command conda && confirm "Anaconda is not installed. Would you like to install it? [Y/n]"; then
-        brew install --cask anaconda
-        /usr/local/anaconda3/bin/conda config --set changeps1 false
+        /opt/homebrew/bin/brew install --cask anaconda
     fi
 
     echo "Done setting up MacOS software."
