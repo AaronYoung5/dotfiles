@@ -170,7 +170,7 @@ configure_ssh() {
         touch $home/.ssh/config
 
         if [ home = "$HOME" ]; then
-            echo " # Include files for pseudousers" >>$home/.ssh/config
+            echo " # Include files for pseudousers" >> $home/.ssh/config
         fi
     fi
 }
