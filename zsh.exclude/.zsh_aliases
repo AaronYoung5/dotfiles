@@ -38,4 +38,4 @@ alias dotfiles="cd $DOTFILES"
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this
-[ -f ".zsh_aliases.local" ] && source ".zsh_aliases.local"
+[ -f "$HOME/.zsh_aliases.local" ] && source "$HOME/.zsh_aliases.local"

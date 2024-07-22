@@ -51,14 +51,15 @@ export HISTCONTROL=ignoredups # Ignore repeat commands when using the up arrow
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source other files
-[ -f ~/.zsh_functions ] && source "$HOME/.zsh_functions"
-[ -f ~/.zsh_exports ] && source "$HOME/.zsh_exports"
-[ -f ~/.zsh_aliases ] && source "$HOME/.zsh_aliases"
+[ -f "$HOME/.zsh_functions" ] && source "$HOME/.zsh_functions"
+[ -f "$HOME/.zsh_exports" ] && source "$HOME/.zsh_exports"
+[ -f "$HOME/.zsh_aliases" ] && source "$HOME/.zsh_aliases"
 
 # For local changes
-[ -f ".zshrc.local" ] && source ".zshrc.local"
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
 # If a psuedo user is active, source its zshrc file
 [ ! -z "$USER_HOME" ] && [ -f "$USER_HOME/.zshrc.user" ] && source "$USER_HOME/.zshrc.user"
 
 # Don't make edits below this
+

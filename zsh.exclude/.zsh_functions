@@ -7,6 +7,13 @@ se() {
 	source "$env_name/bin/activate"
 }
 
+# source a conda environment
+ce() {
+  env_name=${1:-"env"}
+  conda activate ./${env_name}
+  export CONDA_DEFAULT_ENV=${env_name}
+}
+
 # Create a tmux session with a specific USER_HOME
 tu() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
@@ -28,6 +35,6 @@ create-pseudo-user() {
 }
 
 # This should be the last line of the file
-# For local changes
+# For local/user changes
 # Don't make edits below this
-[ -f ".zsh_functions.local" ] && source ".zsh_functions.local"
+[ -f "$HOME/.zsh_functions.local" ] && source "$HOME/.zsh_functions.local"

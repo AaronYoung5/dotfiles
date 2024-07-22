@@ -10,4 +10,4 @@ export LSCOLORS=GxFxBxDxCxegedabagacad
 # This should be the last line of the file
 # For local changes
 # Don't make edits below this
-[ -f ".zsh_exports.local" ] && source ".zsh_exports.local"
+[ -f "$HOME/.zsh_exports.local" ] && source "$HOME/.zsh_exports.local"
