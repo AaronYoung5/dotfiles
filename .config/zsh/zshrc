@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Source the shared profile
+source ${HOME}/.config/profile
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -24,7 +27,7 @@ zinit snippet OMZP::git
 autoload -Uz compinit && compinit
 
 # zsh theme
-export POWERLEVEL9K_CONFIG_FILE=${ZDOTDIR}
+export POWERLEVEL10K_CONFIG_FILE=${ZDOTDIR}/p10k.zsh
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # History
