@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-mkdir -p $HOME/.ssh
-if ! test -f "$HOME/.ssh/config"; then
-    touch $HOME/.ssh/config
+mkdir -p ${HOME}/.ssh
+if ! test -f "${HOME}/.ssh/config"; then
+    touch ${HOME}/.ssh/config
 fi
 

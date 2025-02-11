@@ -3,39 +3,40 @@
 # Alias Shortcuts
 
 # zshrc files
-alias zrc="vi ${ZDOTDIR}/zshrc##default"
-alias zrcl="vi ${ZDOTDIR}/zshrc"
-alias sz="source ${ZDOTDIR}/zshrc"
+alias zrc="vi ${USER_ZDOTDIR}/zshrc##default"
+alias zrcl="vi ${USER_ZDOTDIR}/zshrc"
+alias sz="source ${USER_ZDOTDIR}/zshrc"
 
 # zsh_aliases files
-alias za="vi ${ZDOTDIR}/zsh_aliases##default"
-alias zal="vi ${ZDOTDIR}/zsh_aliases"
+alias za="vi ${USER_ZDOTDIR}/zsh_aliases##default"
+alias zal="vi ${USER_ZDOTDIR}/zsh_aliases"
 
 # zsh_exports files
-alias ze="vi ${ZDOTDIR}/zsh_exports##default"
-alias zel="vi ${ZDOTDIR}/zsh_exports"
+alias ze="vi ${USER_ZDOTDIR}/zsh_exports##default"
+alias zel="vi ${USER_ZDOTDIR}/zsh_exports"
 
 # zsh_functions files
-alias zf="vi ${ZDOTDIR}/zsh_functions##default"
-alias zfl="vi ${ZDOTDIR}/zsh_functions"
+alias zf="vi ${USER_ZDOTDIR}/zsh_functions##default"
+alias zfl="vi ${USER_ZDOTDIR}/zsh_functions"
 
 # edit .ssh/config file
 alias sc="vi ${HOME}/.ssh/config"
 
 # vimrc
-alias vm="vi ${DOTFILES}/vim/vimrc"
+alias vm="vi ${USER_DOTFILES}/vim/vimrc"
 
 # Tmux
-alias tm="vi ${DOTFILES}/tmux.conf"
+# alias tmux='tmux new bash'
+alias tm="vi ${USER_DOTFILES}/tmux/tmux.conf"
 alias tx="tmux new -A -s"
 
 # User stuff
-alias cdu="cd $USER_HOME"
+alias cdu="cd ${USER_HOME}"
 
 # Shortcut to edit the dotfiles
-alias cdc="cd ${CONFIG_DIR}"
-alias cdd="cd ${DOTFILES}"
-alias cdz="cd ${ZDOTDIR}"
+alias cdc="cd ${USER_CONFIG_DIR}"
+alias cdd="cd ${USER_DOTFILES}"
+alias cdz="cd ${USER_ZDOTDIR}"
 
 # Global stuff
 alias cdcg="cd ${GLOBAL_CONFIG_DIR}"

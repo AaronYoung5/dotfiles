@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Source the shared profile
-source ${DOTFILES}/profile
+. ${USER_DOTFILES}/profile
 
 # Enable Powerlevel10k instant prompt. 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -33,7 +33,7 @@ autoload -Uz compinit && compinit
 
 # zsh theme
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh.
-[[ ! -f ${ZDOTDIR}/p10k.zsh ]] || source ${ZDOTDIR}/p10k.zsh
+[[ ! -f ${USER_ZDOTDIR}/p10k.zsh ]] || source ${USER_ZDOTDIR}/p10k.zsh
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # History
@@ -63,15 +63,6 @@ unsetopt AUTO_CD
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source other files
-[ -f "${ZDOT_DIR}/zsh_functions" ] && source "${ZDOTDIR}/zsh_functions"
-[ -f "${ZDOTDIR}/zsh_exports" ] && source "${ZDOTDIR}/zsh_exports"
-[ -f "${ZDOTDIR}/zsh_aliases" ] && source "${ZDOTDIR}/zsh_aliases"
-
-# For local changes
-[ -f "${ZDOTDIR}/zshrc.local" ] && source "${ZDOTDIR}/zshrc.local"
-
-# If a psuedo user is active, source its zshrc file
-[ ! -z "${USER_HOME}" ] && [ -f "${USER_HOME}/zshrc.user" ] && source "${USER_HOME}/zshrc.user"
-
-# Don't make edits below this
-
+[ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions"
+[ -f "${USER_ZDOTDIR}/zsh_exports" ] && source "${USER_ZDOTDIR}/zsh_exports"
+[ -f "${USER_ZDOTDIR}/zsh_aliases" ] && source "${USER_ZDOTDIR}/zsh_aliases"
