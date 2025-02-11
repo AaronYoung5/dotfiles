@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-export GIT_CONFIG='${HOME}/.config/git/gitconfig'
-export VIMINIT='source ${HOME}/.config/vim/vimrc'

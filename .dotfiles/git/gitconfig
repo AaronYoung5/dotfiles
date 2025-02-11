@@ -1,3 +1,5 @@
 [user]
 	name = AaronYoung5
 	email = aryoung@mit.edu
+[local]
+	class = CC-mac
