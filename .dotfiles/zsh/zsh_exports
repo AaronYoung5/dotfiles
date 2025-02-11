@@ -1,13 +1,1 @@
-#!/usr/bin/env zsh
-
-# change default shell editor
-export EDITOR="vi"
-
-# custom color stuff
-export CLICOLOR=1 # Set to true to use the following configuration
-export LSCOLORS=GxFxBxDxCxegedabagacad
-
-# This should be the last line of the file
-# For local changes
-# Don't make edits below this
-[ -f "$HOME/.zsh_exports.local" ] && source "$HOME/.zsh_exports.local"
+zsh_exports##default

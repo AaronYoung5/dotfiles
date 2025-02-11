@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+# Alias Shortcuts
+
+# zshrc files
+alias zrc="vi ${ZDOTDIR}/zshrc##default"
+alias zrcl="vi ${ZDOTDIR}/zshrc"
+alias sz="source ${ZDOTDIR}/zshrc"
+
+# zsh_aliases files
+alias za="vi ${ZDOTDIR}/zsh_aliases##default"
+alias zal="vi ${ZDOTDIR}/zsh_aliases"
+
+# zsh_exports files
+alias ze="vi ${ZDOTDIR}/zsh_exports##default"
+alias zel="vi ${ZDOTDIR}/zsh_exports"
+
+# zsh_functions files
+alias zf="vi ${ZDOTDIR}/zsh_functions##default"
+alias zfl="vi ${ZDOTDIR}/zsh_functions"
+
+# edit .ssh/config file
+alias sc="vi ${HOME}/.ssh/config"
+
+# vimrc
+alias vm="vi ${DOTFILES}/vim/vimrc"
+
+# Tmux
+alias tm="vi ${DOTFILES}/tmux.conf"
+alias tx="tmux new -A -s"
+
+# User stuff
+alias cdu="cd $USER_HOME"
+
+# Shortcut to edit the dotfiles
+alias cdc="cd ${CONFIG_DIR}"
+alias cdd="cd ${DOTFILES}"
+alias cdz="cd ${ZDOTDIR}"
+
+# Global stuff
+alias cdcg="cd ${GLOBAL_CONFIG_DIR}"
+alias cddg="cd ${GLOBAL_DOTFILES}"
+alias cdzg="cd ${GLOBAL_ZDOTDIR}"
+alias zrcg="vi ${GLOBAL_ZDOTDIR}/zshrc.user"
+alias zag="vi ${GLOBAL_ZDOTDIR}/zsh_aliases.user"
+alias zeg="vi ${GLOBAL_ZDOTDIR}/zsh_exports.user"
+alias zfg="vi ${GLOBAL_ZDOTDIR}/zsh_functions.user"
+alias scg="vi ${GLOBAL_ZDOTDIR}/.ssh/config"
+alias vmg="vi ${GLOBAL_DOTFILES}/vim/vimrc"

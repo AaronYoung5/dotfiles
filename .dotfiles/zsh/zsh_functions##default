@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+# source a python virtual environment
+se() {
+	# Ternary operator replicator
+	env_name=${1:-"env"}
+	source "$env_name/bin/activate"
+}
+
+# source a conda environment
+ce() {
+  env_name=${1:-"env"}
+  conda activate ./${env_name}
+  export CONDA_DEFAULT_ENV=${env_name}
+}
+
+# Create a tmux session with a specific USER_HOME
+tu() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
+	[ ! -d $1 ] && echo "$1 is not a directory." && return
+	USER_HOME=$1
+
+	[ ! -z $2 ] && SESSION_NAME=$2
+
+	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+}
+
+# Create a pseudo user
+create-pseudo-user() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ ALIAS / SESSION_NAME ]" && return
+	USER_HOME=$1
+	ALIAS=$2
+
+	sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
+}

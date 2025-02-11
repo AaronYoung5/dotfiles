@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
 
-export CONFIG_DIR=${CONFIG_DIR:-${HOME}/.config}
-
-export GIT_CONFIG=${CONFIG_DIR}/git/gitconfig
-export VIMINIT='source ${CONFIG_DIR}/vim/vimrc'
+export GIT_CONFIG=${DOTFILES}/git/gitconfig
+export VIMINIT='source ${DOTFILES}/vim/vimrc'
