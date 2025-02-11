@@ -63,9 +63,9 @@ unsetopt AUTO_CD
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Conditionally load the brew shellenv
-{% if yadm.os == "Darwin" %}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{% endif %}
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # source other files
 [ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions"
