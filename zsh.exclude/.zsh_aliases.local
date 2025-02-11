@@ -3,4 +3,12 @@
 # Local shell aliases
 # If aliases are computer specific, place them here
 
+alias ard=arduino-cli
+alias convert="magick convert"
+
 # Configured pseudousers
+alias personal="tu /Users/aaronyoung/Pseudos/personal personal"
+alias tbrn="tu /Users/aaronyoung/Pseudos/tbrn tbrn"
+alias mit="tu /Users/aaronyoung/Pseudos/mit mit"
+alias classes="tu /Users/aaronyoung/Pseudos/classes classes"
+alias cc="tu /Users/aaronyoung/Pseudos/cc cc"

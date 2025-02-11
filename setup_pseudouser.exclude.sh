@@ -47,6 +47,6 @@ $SED -i --follow-symlinks "/pseudousers/a Include $USER_HOME/.ssh/config" $HOME/
 
 # If anaconda installed, add additional aliases for it
 if command -v conda --version $ >/dev/null; then
-	conda create --prefix $USER_HOME/.conda/envs/$ALIAS python=3.8
+	conda create --prefix $USER_HOME/.conda/envs/$ALIAS
 	$SED -i --follow-symlinks "/Additional aliases/a alias $ALIAS=\"conda activate \$USER_HOME/.conda/envs/$ALIAS\"" $USER_HOME/.$(basename $SHELL)_aliases.user
 fi

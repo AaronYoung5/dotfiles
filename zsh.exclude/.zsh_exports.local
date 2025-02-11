@@ -2,3 +2,7 @@
 
 # Local shell exports
 # If exports are computer specific, place them here
+
+export PATH=$PATH:/opt/homebrew/bin
+
+export JAVA_HOME=/usr/bin/java
