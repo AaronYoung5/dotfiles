@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 # symlink the tmux configuration file at DOTFILES/tmux/tmux.conf to ~/.tmux.conf
-[ -f "${DOTFILES}/tmux/tmux.conf" ] && ln -sf "${GLOBAL_DOTFILES}/tmux/tmux.conf" "${HOME}/.tmux.conf"
+[ -f "${USER_DOTFILES}/tmux/tmux.conf" ] && ln -sf "${USER_DOTFILES}/tmux/tmux.conf" "${HOME}/.tmux.conf"

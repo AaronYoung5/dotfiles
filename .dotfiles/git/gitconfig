@@ -9,6 +9,12 @@
 [core]
 	autocrlf = false
 	symlinks = true
+	bare = false
+	worktree = /tmp/test5
 [homebrew]
 	analyticsmessage = true
 	caskanalyticsmessage = true
+[status]
+	showUntrackedFiles = no
+[yadm]
+	managed = true

@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-export GIT_CONFIG=${DOTFILES}/git/gitconfig
-export VIMINIT='source ${DOTFILES}/vim/vimrc'
+export GIT_CONFIG=${GLOBAL_DOTFILES}/git/gitconfig
+export VIMINIT='source ${GLOBAL_DOTFILES}/vim/vimrc'
