@@ -1,0 +1,3 @@
+#!/bin/sh
+
+export GIT_CONFIG=$HOME/.config/git/gitconfig
