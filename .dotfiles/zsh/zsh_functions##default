@@ -18,11 +18,11 @@ ce() {
 tu() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
 	[ ! -d $1 ] && echo "$1 is not a directory." && return
-	USER_HOME=$1
+	TEMP_USER_HOME=$1
 
 	[ ! -z $2 ] && SESSION_NAME=$2
 
-	PSEUDO_USER=$SESSION_NAME USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+	PSEUDO_USER=$SESSION_NAME USER_HOME=$TEMP_USER_HOME tmux -S $TEMP_USER_HOME/.tmux_socket new -A -s $SESSION_NAME
 }
 
 yadm() {

@@ -9,10 +9,13 @@ DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
 if ! check_command mamba; then
-    echo "Mamba isn't installed. Ignoring..."
+    echo -e "\t\tMamba isn't installed. Ignoring..."
     exit 0
 fi
 
 # Create a mamba environment with the same name as the pseudo user
-echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
-mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
+# Only create if it doesn't exist
+if [ ! -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
+  echo -e "\t\tCreating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+  mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
+fi
