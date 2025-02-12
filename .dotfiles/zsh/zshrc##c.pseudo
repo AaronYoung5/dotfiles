@@ -1,3 +1,15 @@
 #!/usr/bin/env zsh
 
-echo "This is an empty zshrc file meant for pseudo users. Consider creating a new zshrc file for this specific user."
+if [ -z "${PSEUDO_USER}" ]; then
+  echo "This is not a pseudo user. Exiting..."
+  exit 0
+fi
+
+if [ -z "${_PSEUDO_USER_RUNNING}" ]; then
+    echo "This is an empty zshrc file meant for pseudo users. Consider creating a new zshrc file for this specific user."
+    return
+fi
+
+if [ -d $USER_HOME/.conda/envs/${PSEUDO_USER} ]; then
+  conda activate $USER_HOME/.conda/envs/${PSEUDO_USER}
+fi
