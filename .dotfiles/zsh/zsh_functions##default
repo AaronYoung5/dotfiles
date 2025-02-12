@@ -41,7 +41,7 @@ create-pseudo-user() {
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class pseudo
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu alt
-	yadmu bootstrap
+	USER_HOME=${USER_HOME} yadmu bootstrap
 
 	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }

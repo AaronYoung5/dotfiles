@@ -3,8 +3,7 @@
 # Go to the USER_HOME folder (usually unset unless in pseudo user)
 if [ -n "${USER_HOME}" ]; then
   cd ${USER_HOME}
-  echo "source ${USER_HOME}/.dotfiles/zsh/zshrc"
-  # source ${USER_HOME}/.dotfiles/zsh/zshrc
+  source ${USER_HOME}/.dotfiles/zsh/zshrc
 fi
 
 # Enable Powerlevel10k instant prompt. 
