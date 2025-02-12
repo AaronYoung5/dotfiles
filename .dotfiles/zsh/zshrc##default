@@ -1,14 +1,14 @@
 #!/usr/bin/env zsh
 
+# Enable Powerlevel10k instant prompt. 
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
 # Go to the USER_HOME folder (usually unset unless in pseudo user)
 if [ -n "${USER_HOME}" ]; then
   cd ${USER_HOME}
   source ${USER_HOME}/.dotfiles/zsh/zshrc
-fi
-
-# Enable Powerlevel10k instant prompt. 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # Set the directory we want to store zgen and plugins
@@ -80,3 +80,4 @@ fi
 [ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions"
 [ -f "${USER_ZDOTDIR}/zsh_exports" ] && source "${USER_ZDOTDIR}/zsh_exports"
 [ -f "${USER_ZDOTDIR}/zsh_aliases" ] && source "${USER_ZDOTDIR}/zsh_aliases"
+[ -f "${USER_ZDOTDIR}/zsh_pseudos" ] && source "${USER_ZDOTDIR}/zsh_pseudos"

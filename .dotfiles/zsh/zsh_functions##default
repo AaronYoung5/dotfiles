@@ -22,7 +22,7 @@ tu() {
 
 	[ ! -z $2 ] && SESSION_NAME=$2
 
-	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+	PSEUDO_USER=$SESSION_NAME USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
 }
 
 yadm() {
@@ -41,23 +41,24 @@ yadmu() {
 # Create a pseudo user
 create-pseudo-user() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
-	USER_HOME=$1
+	TEMP_USER_HOME=$1
 	CLASS=$2
 
-	mkdir -p ${USER_HOME}
-	echo "Creating pseudo user at ${USER_HOME}"
-	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
-	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
-	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class pseudo
-	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu alt
-	USER_HOME=${USER_HOME} yadmu bootstrap
+	# Class can't be an existing command
+	[ -n "$(command -v ${CLASS})" ] && echo "${CLASS} is an existing command." && return
+
+	mkdir -p ${TEMP_USER_HOME}
+	echo "Creating pseudo user at ${TEMP_USER_HOME}"
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt
+	USER_HOME=${TEMP_USER_HOME} yadmu bootstrap
+
+	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\'
 }
 
 update-pseudo-user() {
-	yadmu() {
-		HOME=${USER_HOME} yadm "$@"
-	}
-
 	# Only continue if it's a pseudo user (i.e. any of the classes == pseudo and USER_HOME is set)
 	[ -z "${USER_HOME}" ] && echo "USER_HOME is not set." && return
 	[ -z "$(yadmu config --includes --get-all local.class | grep pseudo)" ] && echo "This is not a pseudo user." && return
