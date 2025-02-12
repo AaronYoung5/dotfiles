@@ -45,3 +45,16 @@ create-pseudo-user() {
 
 	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }
+
+update-pseudo-user() {
+	yadmu() {
+		HOME=${USER_HOME} yadm "$@"
+	}
+
+	# Only continue if there are no changes
+	[ ! -z "$(yadmu status --porcelain)" ] && echo "There are changes in the pseudo user. Please commit or stash them." && return
+	# Only continue if it's a pseudo user (i.e. any of the classes == pseudo)
+	[ -z "$(yadmu config --local --get-regexp local.class | grep pseudo)" ] && echo "This is not a pseudo user." && return
+
+	yadmu reset --hard
+}
