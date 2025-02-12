@@ -66,5 +66,6 @@ update-pseudo-user() {
 	[ ! -z "$(yadmu status --porcelain)" ] && echo "There are changes in the pseudo user. Please commit or stash them." && return
 # 
 	echo "Updating pseudo user at ${USER_HOME}"
+	yadmu fetch
 	yadmu reset --hard
 }
