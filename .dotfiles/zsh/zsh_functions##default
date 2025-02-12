@@ -22,7 +22,7 @@ tu() {
 
 	[ ! -z $2 ] && SESSION_NAME=$2
 
-	HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
 }
 
 # Create a pseudo user
@@ -31,9 +31,12 @@ create-pseudo-user() {
 	USER_HOME=$1
 	CLASS=$2
 
-	HOME=${USER_HOME} yadm clone git@github.com:AaronYoung5/dotfiles.git -b develop2
-	HOME=${USER_HOME} yadm alt
-	HOME=${USER_HOME} yadm bootstrap
+	mkdir -p $USER_HOME
+	echo "Creating pseudo user at $USER_HOME"
+	HOME=${USER_HOME} yadm clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
+	git config --unset core.worktree
+	# HOME=${USER_HOME} yadm alt
+	# HOME=${USER_HOME} yadm bootstrap
 
 	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }

@@ -1,0 +1,34 @@
+# ssh-config
+
+Host cc-pi-1
+  User camera
+  HostName camera-pi-1.media.mit.edu
+
+Host cc-pi-1-eth
+  User camera
+  HostName camera-pi-1.local
+
+Host cc-pi-2
+  User camera
+  HostName camera-pi-2.media.mit.edu
+
+Host cc-pi-2-eth
+  User camera
+  HostName camera-pi-2.local
+
+Host cc-pi-1-jump
+  User camera
+  HostName camera-pi-1.local
+  ProxyCommand ssh -q -W %h:%p connor
+
+Host cc-connor
+  User Camera
+  HostName 172.16.22.85
+
+Host cc-pet
+  User ayoung
+  HostName 127.0.0.1
+  RemoteCommand cd /home/gridsan/ayoung/Pseudos/pet; /home/gridsan/ayoung/packages/apptainer/bin/apptainer shell --no-home --cleanenv /home/gridsan/ayoung/Pseudos/pet/nerfacc/
+  RequestTTY yes
+
+  ProxyJump sc

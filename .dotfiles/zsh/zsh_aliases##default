@@ -20,10 +20,13 @@ alias zf="vi ${USER_ZDOTDIR}/zsh_functions##default"
 alias zfl="vi ${USER_ZDOTDIR}/zsh_functions"
 
 # edit .ssh/config file
-alias sc="vi ${HOME}/.ssh/config"
+alias sc="vi ${USER_DOTFILES}/ssh/config.d"
 
 # vimrc
 alias vm="vi ${USER_DOTFILES}/vim/vimrc"
+
+# git
+alias gc="vi ${USER_DOTFILES}/git/gitconfig"
 
 # Tmux
 # alias tmux='tmux new bash'
@@ -46,5 +49,5 @@ alias zrcg="vi ${GLOBAL_ZDOTDIR}/zshrc.user"
 alias zag="vi ${GLOBAL_ZDOTDIR}/zsh_aliases.user"
 alias zeg="vi ${GLOBAL_ZDOTDIR}/zsh_exports.user"
 alias zfg="vi ${GLOBAL_ZDOTDIR}/zsh_functions.user"
-alias scg="vi ${GLOBAL_ZDOTDIR}/.ssh/config"
 alias vmg="vi ${GLOBAL_DOTFILES}/vim/vimrc"
+alias gcm="vi ${GLOBAL_DOTFILES}/git/gitconfig"
