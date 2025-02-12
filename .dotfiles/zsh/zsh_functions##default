@@ -54,7 +54,13 @@ yadm() {
 }
 
 yadmu() {
-	HOME=${USER_HOME} command yadm "$@"
+	# Check that USER_HOME is set
+	if [ -z "${USER_HOME}" ]; then
+		echo "USER_HOME is not set. Please set it before running yadmu."
+		return 1
+	fi
+
+	HOME=${USER_HOME} command yadm -w ${USER_HOME} "$@"
 }
 
 # Create a pseudo user
@@ -74,6 +80,8 @@ create-pseudo-user() {
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt
 	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap
 
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class ${CLASS}
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class pseudo
 	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\'
 }
 

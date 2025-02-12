@@ -3,23 +3,23 @@
 # Alias Shortcuts
 
 # zshrc files
-alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc##default"
+alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc\#\#default"
 alias zrcl="vi ${GLOBAL_ZDOTDIR}/zshrc"
 alias zrcu="vi ${USER_ZDOTDIR}/zshrc"
 alias sz="source ${USER_ZDOTDIR}/zshrc"
 
 # zsh_aliases files
-alias za="vi ${GLOBAL_ZDOTDIR}/zsh_aliases##default"
+alias za="vi ${GLOBAL_ZDOTDIR}/zsh_aliases\#\#default"
 alias zal="vi ${GLOBAL_ZDOTDIR}/zsh_aliases"
 alias zau="vi ${USER_ZDOTDIR}/zsh_aliases"
 
 # zsh_exports files
-alias ze="vi ${GLOBAL_ZDOTDIR}/zsh_exports##default"
+alias ze="vi ${GLOBAL_ZDOTDIR}/zsh_exports\#\#default"
 alias zel="vi ${GLOBAL_ZDOTDIR}/zsh_exports"
 alias zeu="vi ${USER_ZDOTDIR}/zsh_exports"
 
 # zsh_functions files
-alias zf="vi ${GLOBAL_ZDOTDIR}/zsh_functions##default"
+alias zf="vi ${GLOBAL_ZDOTDIR}/zsh_functions\#\#default"
 alias zfl="vi ${GLOBAL_ZDOTDIR}/zsh_functions"
 alias zfu="vi ${USER_ZDOTDIR}/zsh_functions"
 
@@ -28,12 +28,12 @@ alias sc="vi ${GLOBAL_DOTFILES}/ssh/config.d"
 alias scu="vi ${USER_DOTFILES}/ssh/config.d"
 
 # vimrc
-alias vm="vi ${GLOBAL_DOTFILES}/vim/vimrc##default"
+alias vm="vi ${GLOBAL_DOTFILES}/vim/vimrc\#\#default"
 alias vml="vi ${GLOBAL_DOTFILES}/vim/vimrc"
 alias vmu="vi ${USER_DOTFILES}/vim/vimrc"
 
 # git
-alias gc="vi ${GLOBAL_DOTFILES}/git/gitconfig##default"
+alias gc="vi ${GLOBAL_DOTFILES}/git/gitconfig\#\#default"
 alias gcl="vi ${GLOBAL_DOTFILES}/git/gitconfig"
 alias gcu="vi ${USER_DOTFILES}/git/gitconfig"
 
