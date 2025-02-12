@@ -68,7 +68,7 @@ create-pseudo-user() {
 
 	mkdir -p ${TEMP_USER_HOME}
 	echo "Creating pseudo user at ${TEMP_USER_HOME}"
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git --no-bootstrap
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt
