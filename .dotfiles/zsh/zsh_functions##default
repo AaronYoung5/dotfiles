@@ -1,5 +1,24 @@
 #!/usr/bin/env zsh
 
+request_response() {
+    printf "$1 "
+    read response
+}
+
+confirm() {
+    local prompt="${1:-Are you sure you want to continue? [Y/n]}"
+
+    request_response "$prompt"
+    case "$response" in
+    [yY][eE][sS] | [yY] | "")
+        return 0 # User confirmed, continue
+        ;;
+    *)
+        return 1 # User canceled, exit with an error code
+        ;;
+    esac
+}
+
 # source a python virtual environment
 se() {
 	# Ternary operator replicator
@@ -68,4 +87,41 @@ update-pseudo-user() {
 	echo "Updating pseudo user at ${USER_HOME}"
 	yadmu fetch
 	yadmu reset --hard
+}
+
+remove-pseudo-user() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
+	TEMP_USER_HOME=$1
+	CLASS=$2
+
+	# USER_HOME cannot be set
+	[ -n "${USER_HOME}" ] && echo "USER_HOME is set. Please exit the pseudo user." && return
+	# class must be present as a pseudo user
+	[ -z "$(yadm config --includes --get-all local.class | grep pseudo__${CLASS}__)" ] && echo "${CLASS} is not a pseudo user." && return
+	# temp user dir must exist
+	[ ! -d ${TEMP_USER_HOME} ] && echo "${TEMP_USER_HOME} does not exist." && return
+
+	# Get all the class names and remove the one we want to delete
+	CLASSES=$(yadm config --includes --get-all local.class | grep -v pseudo__${CLASS}__)
+	[ -z "${CLASSES}" ] && echo "No pseudo users found." && return
+
+	# Warn the user that they are about to delete the pseudo user
+	if confirm "Are you sure you want to delete the pseudo user ${CLASS} at ${TEMP_USER_HOME}? [Y/n]"; then
+		echo "Deleting pseudo user at ${TEMP_USER_HOME}"
+	else
+		echo "Exiting..."
+		return
+	fi
+
+	# Remove all the classes
+	yadm config --unset-all local.class
+	for c in $CLASSES; do
+		yadm config --add local.class $c
+	done
+
+	# Remove the pseudo user folder
+	rm -rf ${TEMP_USER_HOME}
+	if [ -n "$(alias | grep ${CLASS})" ]; then
+		unalias ${CLASS}
+	fi
 }

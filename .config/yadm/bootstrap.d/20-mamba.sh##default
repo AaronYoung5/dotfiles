@@ -16,8 +16,8 @@ fi
 # Create a mamba environment with the same name as the pseudo user
 # Only create if it doesn't exist
 if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
-  echo "\t\tMamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+  echo "Mamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
 else
-  echo "\t\tCreating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+  echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
   mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
 fi
