@@ -8,7 +8,7 @@ export CLICOLOR=1 # Set to true to use the following configuration
 export LSCOLORS=GxFxBxDxCxegedabagacad
 
 # git stuff
-export GIT_CONFIG=${GLOBAL_DOTFILES}/git/gitconfig
+export GIT_CONFIG=${LOCAL_DOTFILES}/git/gitconfig
 
 # vim stuff
 export VIMINIT='source ${GLOBAL_DOTFILES}/vim/vimrc'

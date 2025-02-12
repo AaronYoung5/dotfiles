@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# Only for global configs
+if [ -n "${USER_HOME+x}" ]; then
+  exit 0
+fi
+
 # requires xcode and tools!
 if ! command -v xcode-select -p &> /dev/null
 then

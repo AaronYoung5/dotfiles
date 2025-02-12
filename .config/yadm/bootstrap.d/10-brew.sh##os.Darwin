@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# Only for global configs
+if [ -n "${USER_HOME+x}" ]; then
+  exit 0
+fi
+
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 

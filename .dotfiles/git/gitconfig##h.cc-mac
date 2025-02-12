@@ -1,5 +1,5 @@
 [include]
-	path = "gitconfig##default"
+	path = "~/.dotfiles/git/gitconfig##default"
 [local]
 	class = cc
 	class = cc-mac
