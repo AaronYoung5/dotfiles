@@ -11,5 +11,6 @@ if [ -z "${_PSEUDO_USER_RUNNING}" ]; then
 fi
 
 if [ -d $USER_HOME/.conda/envs/${PSEUDO_USER} ]; then
-  conda activate $USER_HOME/.conda/envs/${PSEUDO_USER}
+    eval "$(mamba shell hook --shell zsh)"
+    mamba activate $USER_HOME/.conda/envs/${PSEUDO_USER}
 fi
