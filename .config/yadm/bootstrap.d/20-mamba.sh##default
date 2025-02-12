@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Only for pseudo configs
-if [ -n "${PSEUDO_USER}" ]; then
+if [ -z "${PSEUDO_USER}" ]; then
   exit 0
 fi
 

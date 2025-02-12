@@ -53,7 +53,7 @@ create-pseudo-user() {
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt
-	USER_HOME=${TEMP_USER_HOME} yadmu bootstrap
+	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap
 
 	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\'
 }
