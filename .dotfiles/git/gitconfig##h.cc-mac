@@ -2,3 +2,4 @@
 	path = "~/.dotfiles/git/gitconfig##default"
 [local]
 	class = cc-mac
+	class = 'pseudo__cam__/tmp/test44'

@@ -56,6 +56,7 @@
     # =========================[ Line #2 ]=========================
     newline                   # \n
     virtualenv                # python virtual environment
+    anaconda                  # conda environment (https://conda.io/)
     prompt_char               # prompt symbol
   )
 
@@ -99,6 +100,10 @@
   # Don't show Python version.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
+
+  # Anaconda environment color.
+  # typeset -g POWERLEVEL9K_ANACONDA_FOREGROUND=$grey
+  # typeset -g POWERLEVEL9K_ANACONDA_CONTENT_EXPANSION='${${${${CONDA_PROMPT_MODIFIER#\(}% }%\)}:-${CONDA_PREFIX:t}}'
 
   # Blue current directory.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue
