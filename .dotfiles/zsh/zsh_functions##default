@@ -31,10 +31,16 @@ create-pseudo-user() {
 	USER_HOME=$1
 	CLASS=$2
 
-	mkdir -p $USER_HOME
-	echo "Creating pseudo user at $USER_HOME"
+	yadmu() {
+		HOME=${USER_HOME} yadm "$@"
+	}
+
+	mkdir -p ${USER_HOME}
+	echo "Creating pseudo user at ${USER_HOME}"
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
-	yadmu alt
+	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
+	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class pseudo
+	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu alt
 	yadmu bootstrap
 
 	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS

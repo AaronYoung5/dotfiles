@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
 # Go to the USER_HOME folder (usually unset unless in pseudo user)
-cd ${USER_HOME}
+if [ -n "${USER_HOME}" ]; then
+  cd ${USER_HOME}
+  echo "source ${USER_HOME}/.dotfiles/zsh/zshrc"
+  # source ${USER_HOME}/.dotfiles/zsh/zshrc
+fi
 
 # Enable Powerlevel10k instant prompt. 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then

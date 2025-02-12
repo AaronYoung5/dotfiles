@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+echo "This is an empty zshrc file meant for pseudo users. Consider creating a new zshrc file for this specific user."

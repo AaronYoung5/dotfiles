@@ -6,30 +6,39 @@
 alias yadmu="HOME=${USER_HOME} yadm"
 
 # zshrc files
-alias zrc="vi ${USER_ZDOTDIR}/zshrc##default"
-alias zrcl="vi ${USER_ZDOTDIR}/zshrc"
+alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc##default"
+alias zrcl="vi ${GLOBAL_ZDOTDIR}/zshrc"
+alias zrcu="vi ${USER_ZDOTDIR}/zshrc"
 alias sz="source ${USER_ZDOTDIR}/zshrc"
 
 # zsh_aliases files
-alias za="vi ${USER_ZDOTDIR}/zsh_aliases##default"
-alias zal="vi ${USER_ZDOTDIR}/zsh_aliases"
+alias za="vi ${GLOBAL_ZDOTDIR}/zsh_aliases##default"
+alias zal="vi ${GLOBAL_ZDOTDIR}/zsh_aliases"
+alias zau="vi ${USER_ZDOTDIR}/zsh_aliases"
 
 # zsh_exports files
-alias ze="vi ${USER_ZDOTDIR}/zsh_exports##default"
-alias zel="vi ${USER_ZDOTDIR}/zsh_exports"
+alias ze="vi ${GLOBAL_ZDOTDIR}/zsh_exports##default"
+alias zel="vi ${GLOBAL_ZDOTDIR}/zsh_exports"
+alias zeu="vi ${USER_ZDOTDIR}/zsh_exports"
 
 # zsh_functions files
-alias zf="vi ${USER_ZDOTDIR}/zsh_functions##default"
-alias zfl="vi ${USER_ZDOTDIR}/zsh_functions"
+alias zf="vi ${GLOBAL_ZDOTDIR}/zsh_functions##default"
+alias zfl="vi ${GLOBAL_ZDOTDIR}/zsh_functions"
+alias zfu="vi ${USER_ZDOTDIR}/zsh_functions"
 
 # edit .ssh/config file
-alias sc="vi ${USER_DOTFILES}/ssh/config.d"
+alias sc="vi ${GLOBAL_DOTFILES}/ssh/config.d"
+alias scu="vi ${USER_DOTFILES}/ssh/config.d"
 
 # vimrc
-alias vm="vi ${USER_DOTFILES}/vim/vimrc"
+alias vm="vi ${GLOBAL_DOTFILES}/vim/vimrc##default"
+alias vml="vi ${GLOBAL_DOTFILES}/vim/vimrc"
+alias vmu="vi ${USER_DOTFILES}/vim/vimrc"
 
 # git
-alias gc="vi ${USER_DOTFILES}/git/gitconfig"
+alias gc="vi ${GLOBAL_DOTFILES}/git/gitconfig##default"
+alias gcl="vi ${GLOBAL_DOTFILES}/git/gitconfig"
+alias gcu="vi ${USER_DOTFILES}/git/gitconfig"
 
 # Tmux
 # alias tmux='tmux new bash'
