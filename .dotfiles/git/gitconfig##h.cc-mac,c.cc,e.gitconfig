@@ -1,5 +1,2 @@
 [include]
 	path = "~/.dotfiles/git/gitconfig##h.cc-mac"
-[local]
-	class = pseudo
-	class = cc

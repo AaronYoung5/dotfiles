@@ -25,15 +25,24 @@ tu() {
 	USER_HOME=$USER_HOME tmux -S $USER_HOME/.tmux_socket new -A -s $SESSION_NAME
 }
 
+yadm() {
+  # Only allow yadm if USER_HOME is not set
+  if [ -n "${USER_HOME}" ]; then
+    echo "USER_HOME is set. Please use 'yadmu' or exit the pseudo user."
+    return 1
+  fi
+  command yadm "$@"
+}
+
+yadmu() {
+	HOME=${USER_HOME} command yadm "$@"
+}
+
 # Create a pseudo user
 create-pseudo-user() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
 	USER_HOME=$1
 	CLASS=$2
-
-	yadmu() {
-		HOME=${USER_HOME} yadm "$@"
-	}
 
 	mkdir -p ${USER_HOME}
 	echo "Creating pseudo user at ${USER_HOME}"
@@ -42,8 +51,6 @@ create-pseudo-user() {
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu config --add local.class pseudo
 	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu alt
 	USER_HOME=${USER_HOME} yadmu bootstrap
-
-	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }
 
 update-pseudo-user() {
@@ -51,10 +58,12 @@ update-pseudo-user() {
 		HOME=${USER_HOME} yadm "$@"
 	}
 
+	# Only continue if it's a pseudo user (i.e. any of the classes == pseudo and USER_HOME is set)
+	[ -z "${USER_HOME}" ] && echo "USER_HOME is not set." && return
+	[ -z "$(yadmu config --includes --get-all local.class | grep pseudo)" ] && echo "This is not a pseudo user." && return
 	# Only continue if there are no changes
 	[ ! -z "$(yadmu status --porcelain)" ] && echo "There are changes in the pseudo user. Please commit or stash them." && return
-	# Only continue if it's a pseudo user (i.e. any of the classes == pseudo)
-	[ -z "$(yadmu config --local --get-regexp local.class | grep pseudo)" ] && echo "This is not a pseudo user." && return
-
+# 
+	echo "Updating pseudo user at ${USER_HOME}"
 	yadmu reset --hard
 }

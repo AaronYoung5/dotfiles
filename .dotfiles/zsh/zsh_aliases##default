@@ -2,9 +2,6 @@
 
 # Alias Shortcuts
 
-# User yadm
-alias yadmu="HOME=${USER_HOME} yadm"
-
 # zshrc files
 alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc##default"
 alias zrcl="vi ${GLOBAL_ZDOTDIR}/zshrc"
