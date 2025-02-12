@@ -33,9 +33,9 @@ create-pseudo-user() {
 
 	mkdir -p $USER_HOME
 	echo "Creating pseudo user at $USER_HOME"
-	GIT_CONFIG=${USER_HOME}/.gitconfig HOME=${USER_HOME} yadm clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
-	HOME=${USER_HOME} yadm alt
-	HOME=${USER_HOME} yadm bootstrap
+	GIT_CONFIG=${USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git -b develop2 --no-bootstrap
+	yadmu alt
+	yadmu bootstrap
 
 	# sh $DOTFILES/setup_pseudouser.exclude.sh $USER_HOME $ALIAS
 }
