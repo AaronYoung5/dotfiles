@@ -1,0 +1,17 @@
+[user]
+	name = AaronYoung5
+	email = aryoung@mit.edu
+[remote "origin"]
+	url = https://github.com/Homebrew/brew
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[core]
+	autocrlf = false
+	symlinks = true
+	bare = false
+[homebrew]
+	analyticsmessage = true
+	caskanalyticsmessage = true
+[status]
+	showUntrackedFiles = no
+[yadm]
+	managed = true

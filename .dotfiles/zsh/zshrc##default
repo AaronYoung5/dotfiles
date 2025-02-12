@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-# Source the shared profile
-. ${USER_DOTFILES}/profile
+# Go to the USER_HOME folder (usually unset unless in pseudo user)
+cd ${USER_HOME}
 
 # Enable Powerlevel10k instant prompt. 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then

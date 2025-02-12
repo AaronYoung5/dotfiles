@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-# Go to the USER_HOME folder (usually unset unless in pseudo user)
-cd ${USER_HOME}
-
-export GIT_CONFIG=${GLOBAL_DOTFILES}/git/gitconfig
-export VIMINIT='source ${GLOBAL_DOTFILES}/vim/vimrc'

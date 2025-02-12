@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-DIR=$(cd "$(dirname -- "$0")" && pwd)
-FILE=$(basename "$0")
-${DIR}/${FILE}##default
-
-

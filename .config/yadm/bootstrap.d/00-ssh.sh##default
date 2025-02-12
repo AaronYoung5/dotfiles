@@ -5,3 +5,5 @@ if ! test -f "${HOME}/.ssh/config"; then
     touch ${HOME}/.ssh/config
 fi
 
+echo "Include ~/.dotfiles/ssh/config" >> ${HOME}/.ssh/config
+
