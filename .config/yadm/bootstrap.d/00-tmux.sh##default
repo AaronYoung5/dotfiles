@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
 
+# Only for global configs
+if [ -n "${USER_HOME+x}" ]; then
+  exit 0
+fi
+
 # symlink the tmux configuration file at DOTFILES/tmux/tmux.conf to ~/.tmux.conf
 [ -f "${USER_DOTFILES}/tmux/tmux.conf" ] && ln -sf "${USER_DOTFILES}/tmux/tmux.conf" "${HOME}/.tmux.conf"
