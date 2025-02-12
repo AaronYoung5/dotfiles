@@ -14,4 +14,5 @@ if ! check_command mamba; then
 fi
 
 # Create a mamba environment with the same name as the pseudo user
+echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
 mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
