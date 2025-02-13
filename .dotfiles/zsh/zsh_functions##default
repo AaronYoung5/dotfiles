@@ -73,16 +73,24 @@ create-pseudo-user() {
 	# Class can't be an existing command
 	[ -n "$(command -v ${CLASS})" ] && echo "${CLASS} is an existing command." && return
 
-	mkdir -p ${TEMP_USER_HOME}
 	echo "Creating pseudo user at ${TEMP_USER_HOME}"
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS} || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt || return 1
+	mkdir -p ${TEMP_USER_HOME}
+
+	TEMP_GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/$(basename $(readlink -f ${GIT_CONFIG})),c.${CLASS}
+	mkdir -p $(dirname ${TEMP_GIT_CONFIG})
+
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || return 1
+
+	# USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS} || return 1
+	# USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo || return 1
+	# USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt || return 1
+
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class ${CLASS} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class pseudo || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu alt || return 1
+
 	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap || return 1
 
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class ${CLASS} || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class pseudo || return 1
 	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\' || return 1
 }
 
