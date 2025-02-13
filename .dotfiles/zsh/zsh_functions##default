@@ -76,7 +76,7 @@ create-pseudo-user() {
 	echo "Creating pseudo user at ${TEMP_USER_HOME}"
 	mkdir -p ${TEMP_USER_HOME}
 
-	TEMP_GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/$(basename $(readlink -f ${GIT_CONFIG})),c.${CLASS}
+	TEMP_GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/$(basename $(readlink -f ${GIT_CONFIG})),c.pseudo
 	mkdir -p $(dirname ${TEMP_GIT_CONFIG})
 
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || return 1
@@ -84,7 +84,7 @@ create-pseudo-user() {
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class pseudo || return 1
 	echo ${TEMP_GIT_CONFIG}
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
-	YADM_WORK=${TEMP_USER_HOME} USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu add ${TEMP_GIT_CONFIG}
+	YADM_WORK=${TEMP_USER_HOME} USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu add ${TEMP_GIT_CONFIG} || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu alt || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
