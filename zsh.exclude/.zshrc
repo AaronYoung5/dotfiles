@@ -63,3 +63,5 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Don't make edits below this
 
+
+. "$HOME/.local/bin/env"

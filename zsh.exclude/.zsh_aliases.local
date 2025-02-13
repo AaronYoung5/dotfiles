@@ -1,6 +1,12 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Local shell aliases
 # If aliases are computer specific, place them here
 
+alias matlab="MATLAB_JAVA=/usr/libexec/java_home /Applications/MATLAB_R2024b.app/bin/matlab"
+
 # Configured pseudousers
+alias classes="tu /Users/aaronyoung/Pseudos/classes classes"
+alias mit="tu $HOME/Pseudos/MIT mit"
+alias sbel="tu $HOME/Pseudos/SBEL sbel"
+alias personal="tu $HOME/Pseudos/Personal personal"
