@@ -82,11 +82,8 @@ create-pseudo-user() {
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class ${CLASS} || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class pseudo || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} GIT_WORK_TREE=${TEMP_USER_HOME} yadmu add ${TEMP_GIT_CONFIG} || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu alt || return 1
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
 
 	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap || return 1
 
@@ -132,7 +129,6 @@ remove-pseudo-user() {
 	# Remove all the classes
 	yadm config --unset-all local.class
 	for c in ${(f)CLASSES}; do
-	 	echo "Adding class $c"
 		yadm config --add local.class $c
 	done
 
