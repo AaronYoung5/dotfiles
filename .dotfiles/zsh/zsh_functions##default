@@ -84,7 +84,7 @@ create-pseudo-user() {
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class pseudo || return 1
 	echo ${TEMP_GIT_CONFIG}
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
-	HOME=${TEMP_USER_HOME} USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu add ${TEMP_GIT_CONFIG} || return 1
+	GIT_CONFIG=${TEMP_GIT_CONFIG} git add ${TEMP_GIT_CONFIG} || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu alt || return 1
 	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --get-all local.class
