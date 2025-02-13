@@ -4,7 +4,7 @@ yadm_classes="{{ yadm.classes }}"
 
 # Loop through yadm.classes and create an alias for each
 for class in ${(f)yadm_classes}; do
-  # conver tot string
+  # Ensure proper quoting for class
   class=${(Q)class}
 
   # Check for pseudo__<class>__<path>
