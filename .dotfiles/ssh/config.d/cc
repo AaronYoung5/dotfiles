@@ -19,7 +19,7 @@ Host cc-pi-2-eth
 Host cc-pi-1-jump
   User camera
   HostName camera-pi-1.local
-  ProxyCommand ssh -q -W %h:%p connor
+  ProxyCommand ssh -q -W %h:%p cc-connor
 
 Host cc-connor
   User Camera

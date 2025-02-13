@@ -60,7 +60,7 @@ yadmu() {
 		return 1
 	fi
 
-	HOME=${USER_HOME} command yadm -w ${USER_HOME} "$@"
+	HOME=${USER_HOME} command yadm "$@"
 }
 
 # Create a pseudo user
@@ -74,15 +74,15 @@ create-pseudo-user() {
 
 	mkdir -p ${TEMP_USER_HOME}
 	echo "Creating pseudo user at ${TEMP_USER_HOME}"
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone git@github.com:AaronYoung5/dotfiles.git --no-bootstrap
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS}
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt
-	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class ${CLASS} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu config --add local.class pseudo || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.gitconfig yadmu alt || return 1
+	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap || return 1
 
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class ${CLASS}
-	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class pseudo
-	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\'
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class ${CLASS} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/gitconfig yadmu config --add local.class pseudo || return 1
+	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\' || return 1
 }
 
 update-pseudo-user() {

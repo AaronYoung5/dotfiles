@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ -z "${PSEUDO_USER}" ]; then
+  yadm alt
+else
+  yadmu alt
+fi

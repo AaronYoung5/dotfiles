@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 TEMP_USER_HOME=${USER_HOME:-${XDG_CONFIG_HOME:-${HOME}}}
-export YADM_DIR=${TEMP_USER_HOME}/.config/yadm
-export YADM_DATA=${TEMP_USER_HOME}/.local/share/yadm
+# export YADM_DIR=${TEMP_USER_HOME}/.config/yadm
+# export YADM_DATA=${TEMP_USER_HOME}/.local/share/yadm
 
 export GLOBAL_DOTFILES=${GLOBAL_DOTFILES:-${TEMP_USER_HOME}/.dotfiles}
 export USER_DOTFILES=${LOCAL_DOTFILES:-${TEMP_USER_HOME}/.dotfiles}
