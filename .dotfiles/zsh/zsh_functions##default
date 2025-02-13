@@ -90,18 +90,6 @@ create-pseudo-user() {
 	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\' || return 1
 }
 
-update-pseudo-user() {
-	# Only continue if it's a pseudo user (i.e. any of the classes == pseudo and USER_HOME is set)
-	[ -z "${USER_HOME}" ] && echo "USER_HOME is not set." && return
-	[ -z "$(yadmu config --includes --get-all local.class | grep pseudo)" ] && echo "This is not a pseudo user." && return
-	# Only continue if there are no changes
-	[ ! -z "$(yadmu status --porcelain)" ] && echo "There are changes in the pseudo user. Please commit or stash them." && return
-# 
-	echo "Updating pseudo user at ${USER_HOME}"
-	yadmu fetch
-	yadmu reset --hard
-}
-
 remove-pseudo-user() {
 	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
 	TEMP_USER_HOME=$1
