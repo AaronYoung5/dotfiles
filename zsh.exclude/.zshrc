@@ -62,4 +62,3 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 [ ! -z "$USER_HOME" ] && [ -f "$USER_HOME/.zshrc.user" ] && source "$USER_HOME/.zshrc.user"
 
 # Don't make edits below this
-

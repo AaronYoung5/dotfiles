@@ -4,3 +4,9 @@
 # If aliases are computer specific, place them here
 
 # Configured pseudousers
+alias classes="tu /home/aaron/Pseudos/classes classes"
+alias sandbox="tu /home/aaron/Pseudos/sandbox sandbox"
+alias mit="tu /home/aaron/Pseudos/mit MIT"
+alias sbel="tu /home/aaron/Pseudos/sbel sbel"
+
+alias tf="tput cnorm"

@@ -2,3 +2,5 @@
 
 # Local shell configurations
 # If configurations are computer specific, place them here
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

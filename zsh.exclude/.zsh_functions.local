@@ -2,3 +2,46 @@
 
 # Local shell functions
 # If functions are computer specific, place them here
+
+conda() {
+  unset -f conda
+
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/home/aaron/.conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/home/aaron/.conda/etc/profile.d/conda.sh" ]; then
+          . "/home/aaron/.conda/etc/profile.d/conda.sh"
+      else
+          export PATH="/home/aaron/.conda/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+  # <<< conda initialize <<<
+
+  conda $@
+}
+
+convert2gif() {
+  convert -format gif ${1} "${1%.*}.gif"
+}
+
+webp2mp4() {
+  convert -format mp4 ${1} /tmp/temp.mp4 
+  ffmpeg -r 50 -i /tmp/temp.mp4 "${1%.*}.mp4"
+  rm -f /tmp/temp.mp4
+}
+
+
+createsvg() {
+  local ai_file="$1"
+  local margin="$2"
+  local svg="$(sed 's/.ai$/.svg/' <<< "$ai_file")"
+  if [ -n "$margin" ]; then
+    inkscape "$ai_file" --export-plain-svg --export-type=svg --export-margin="$margin" --export-filename="$svg"
+  else
+    inkscape "$ai_file" --export-plain-svg --export-type=svg --export-filename="$svg"
+  fi
+}
