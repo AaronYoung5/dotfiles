@@ -24,7 +24,10 @@ confirm() {
 }
 
 # Clone the dotfiles repo using personal fork of yadm
-curl -sL https://raw.githubusercontent.com/AaronYoung5/yadm/refs/heads/develop/yadm | sh -s -- clone git@github.com:AaronYoung5/dotfiles.git --recursive --no-bootstrap $@ || exit 1
+yadm() {
+    curl -sL https://raw.githubusercontent.com/AaronYoung5/yadm/refs/heads/develop/yadm | sh -s -- "$@"
+}
+yadm clone --recursive git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || exit 1
 
 # If on darwin, ask if we wanna change scutil
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -57,3 +60,8 @@ if confirm "Create default zshrc? [Y/n]"; then
     echo 'DIR="$(dirname "${0:A}")"' >> $zshrc_file
     echo 'source "$DIR/zshrc##default"' >> $zshrc_file
 fi
+
+# Finally alt and bootstrap
+yadm alt
+yadm bootstrap
+yadm config status.showUntrackedFiles no
