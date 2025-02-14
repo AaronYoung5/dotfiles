@@ -25,7 +25,7 @@ confirm() {
 
 # Clone the dotfiles repo using personal fork of yadm
 yadm() {
-    curl -sL https://raw.githubusercontent.com/AaronYoung5/yadm/refs/heads/develop/yadm | sh -s -- "$@"
+    curl -sL https://raw.githubusercontent.com/AaronYoung5/yadm/refs/heads/develop/yadm | bash -s -- "$@"
 }
 yadm clone --recursive git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || exit 1
 
