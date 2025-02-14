@@ -63,5 +63,6 @@ fi
 
 # Finally alt and bootstrap
 yadm alt
-yadm bootstrap
-yadm config status.showUntrackedFiles no
+
+# Message
+echo "All done! Run 'yadm bootstrap' to finish the setup process. You may need to restart your terminal."
