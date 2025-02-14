@@ -141,6 +141,13 @@ remove-pseudo-user() {
 
 	# Warn the user that they are about to delete the pseudo user
 	if confirm "Are you sure you want to delete the pseudo user ${CLASS} at ${TEMP_USER_HOME}? [Y/n]"; then
+		# If it's not empty (like there's more than just hidden files), ask again
+		if [ -n "$(ls -A ${TEMP_USER_HOME})" ]; then
+			if ! confirm "The directory ${TEMP_USER_HOME} is not empty. Are you sure you want to delete it? [Y/n]"; then
+				echo "Exiting..."
+				return
+			fi
+		fi
 		echo "Deleting pseudo user at ${TEMP_USER_HOME}"
 	else
 		echo "Exiting..."
