@@ -1,9 +1,6 @@
 [user]
 	name = AaronYoung5
 	email = aryoung@mit.edu
-[remote "origin"]
-	url = https://github.com/Homebrew/brew
-	fetch = +refs/heads/*:refs/remotes/origin/*
 [core]
 	autocrlf = false
 	symlinks = true
