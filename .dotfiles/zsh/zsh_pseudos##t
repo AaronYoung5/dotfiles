@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+yadm_classes="{{ yadm.classes }}"
+
+# Loop through yadm.classes and create an alias for each
+for class in ${(f)yadm_classes}; do
+  # Ensure proper quoting for class
+  class=${(Q)class}
+
+  # Check for pseudo__<class>__<path>
+  if [[ $class == pseudo__* ]]; then
+    pseudo=${class#pseudo__}
+    _path=${pseudo##*__}  # Extract the class name
+    _class=${pseudo%%__*}  # Extract the path
+    alias ${_class}="tu ${_path} ${_class}"
+  fi
+done

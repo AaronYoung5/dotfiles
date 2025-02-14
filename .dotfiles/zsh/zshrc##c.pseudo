@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
+    eval "$(mamba shell hook --shell zsh)"
+    mamba activate $USER_HOME/.conda/envs/${PSEUDO_USER}
+fi

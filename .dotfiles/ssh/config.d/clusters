@@ -1,0 +1,24 @@
+Host cae
+  HostName sshvpn.cae.wisc.edu
+  User aryoung5
+
+Host euler
+  HostName euler.engr.wisc.edu
+  User aryoung5 
+  ProxyCommand ssh -W %h:%p cae
+
+Host sc
+  User ayoung
+  HostName txe1-login.mit.edu
+
+Host openmind
+    User aryoung
+    HostName openmind.mit.edu
+
+Host ml
+  User aryoung
+  HostName ml.media.mit.edu
+
+Host satori
+  User aryoung
+  HostName satori-login-004.mit.edu

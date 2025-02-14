@@ -1,0 +1,82 @@
+#!/usr/bin/env zsh
+
+# Enable Powerlevel10k instant prompt. 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Go to the USER_HOME folder (usually unset unless in pseudo user)
+if [ -n "${USER_HOME}" ]; then
+  cd ${USER_HOME}
+  source ${USER_HOME}/.dotfiles/zsh/zshrc
+fi
+
+# Set the directory we want to store zgen and plugins
+ZGEN_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zgen"
+
+# Download zgen, if it's not there yet
+if [ ! -d "${ZGEN_HOME}" ]; then
+    mkdir -p "$(dirname ${ZGEN_HOME})"
+    git clone https://github.com/tarjoilija/zgen.git "${ZGEN_HOME}"
+fi
+
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# if the init script doesn't exist
+if ! zgen saved; then
+    zgen prezto
+    zgen prezto archive
+    zgen prezto autosuggestions
+    zgen prezto completion
+    zgen prezto git
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen save
+fi
+
+# Load completions
+autoload -Uz compinit && compinit
+
+# zsh theme
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh.
+[[ ! -f ${USER_ZDOTDIR}/p10k.zsh ]] || source ${USER_ZDOTDIR}/p10k.zsh
+autoload -U promptinit
+promptinit
+prompt powerlevel10k
+
+# direnv
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+# History
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=${HISTSIZE}
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+bindkey '^ ' autosuggest-toggle               # ctrl+space will toggle autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8' # Appears light gray on black background
+
+# By default, if you type in a directory and hit enter
+# zsh will cd into that dir. I don't like that
+unsetopt AUTO_CD
+
+# Prepend the function path with the zsh completions functions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# source other files
+[ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions"
+[ -f "${USER_ZDOTDIR}/zsh_exports" ] && source "${USER_ZDOTDIR}/zsh_exports"
+[ -f "${USER_ZDOTDIR}/zsh_aliases" ] && source "${USER_ZDOTDIR}/zsh_aliases"
+[ -f "${USER_ZDOTDIR}/zsh_pseudos" ] && source "${USER_ZDOTDIR}/zsh_pseudos"

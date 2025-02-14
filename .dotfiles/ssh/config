@@ -1,0 +1,2 @@
+Host *
+    Include ~/.dotfiles/ssh/config.d/*

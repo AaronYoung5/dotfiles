@@ -1,0 +1,161 @@
+#!/usr/bin/env zsh
+
+## == Helper Functions ==
+
+check_command() {
+    return $(command -v $1 $ >/dev/null)
+}
+
+request_response() {
+    printf "$1 "
+    read response
+}
+
+confirm() {
+    local prompt="${1:-Are you sure you want to continue? [Y/n]}"
+
+    request_response "$prompt"
+    case "$response" in
+    [yY][eE][sS] | [yY] | "")
+        return 0 # User confirmed, continue
+        ;;
+    *)
+        return 1 # User canceled, exit with an error code
+        ;;
+    esac
+}
+
+## == Misc ==
+
+convert2gif() {
+	if ! check_command convert; then
+		echo "Please install imagemagick to use this function."
+		return 1
+	fi
+	convert -format gif ${1} "${1%.*}.gif"
+}
+
+webp2mp4() {
+	if ! check_command ffmpeg; then
+		echo "Please install ffmpeg to use this function."
+		return 1
+	fi
+	convert -format mp4 ${1} /tmp/temp.mp4 
+	ffmpeg -r 50 -i /tmp/temp.mp4 "${1%.*}.mp4"
+	rm -f /tmp/temp.mp4
+}
+
+
+ai2svg() {
+	if ! check_command inkscape; then
+		echo "Please install inkscape to use this function."
+		return 1
+	fi
+
+	local ai_file="$1"
+	local margin="$2"
+	local svg="$(sed 's/.ai$/.svg/' <<< "$ai_file")"
+	if [ -n "$margin" ]; then
+		inkscape "$ai_file" --export-plain-svg --export-type=svg --export-margin="$margin" --export-filename="$svg"
+	else
+		inkscape "$ai_file" --export-plain-svg --export-type=svg --export-filename="$svg"
+	fi
+}
+
+## == Pseudo User ==
+
+# Create a tmux session with a specific USER_HOME
+tu() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
+	[ ! -d $1 ] && echo "$1 is not a directory." && return
+	TEMP_USER_HOME=$1
+
+	[ ! -z $2 ] && SESSION_NAME=$2
+
+	PSEUDO_USER=$SESSION_NAME USER_HOME=$TEMP_USER_HOME tmux -S $TEMP_USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+}
+
+yadm() {
+  # Only allow yadm if USER_HOME is not set
+  if [ -n "${USER_HOME}" ]; then
+    echo "USER_HOME is set. Please use 'yadmu' or exit the pseudo user."
+    return 1
+  fi
+  command yadm "$@"
+}
+
+yadmu() {
+	# Check that USER_HOME is set
+	if [ -z "${USER_HOME}" ]; then
+		echo "USER_HOME is not set. Please set it before running yadmu."
+		return 1
+	fi
+
+	HOME=${USER_HOME} command yadm "$@"
+}
+
+# Create a pseudo user
+create-pseudo-user() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
+	TEMP_USER_HOME=$1
+	CLASS=$2
+	shift 2
+
+	# Class can't be an existing command
+	[ -n "$(command -v ${CLASS})" ] && echo "${CLASS} is an existing command." && return
+
+	echo "Creating pseudo user at ${TEMP_USER_HOME}"
+	mkdir -p ${TEMP_USER_HOME}
+
+	TEMP_GIT_CONFIG=${TEMP_USER_HOME}/.dotfiles/git/$(basename $(readlink -f ${GIT_CONFIG})),c.${CLASS}
+	mkdir -p $(dirname ${TEMP_GIT_CONFIG})
+
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu clone -w ${TEMP_USER_HOME} git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class ${CLASS} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config --add local.class pseudo || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu config local.user ${CLASS} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} git config --add include.path ${GLOBAL_DOTFILES}/git/gitconfig || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} GIT_WORK_TREE=${TEMP_USER_HOME} yadmu add ${TEMP_GIT_CONFIG} || return 1
+	USER_HOME=${TEMP_USER_HOME} GIT_CONFIG=${TEMP_GIT_CONFIG} yadmu alt || return 1
+
+	PSEUDO_USER=${CLASS} USER_HOME=${TEMP_USER_HOME} yadmu bootstrap || return 1
+
+	yadm config --add local.class \'pseudo__${CLASS}__${TEMP_USER_HOME}\' || return 1
+}
+
+remove-pseudo-user() {
+	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ CLASS ]" && return
+	TEMP_USER_HOME=$1
+	CLASS=$2
+
+	# USER_HOME cannot be set
+	[ -n "${USER_HOME}" ] && echo "USER_HOME is set. Please exit the pseudo user." && return
+	# class must be present as a pseudo user
+	[ -z "$(yadm config --includes --get-all local.class | grep pseudo__${CLASS}__)" ] && echo "${CLASS} is not a pseudo user." && return
+	# temp user dir must exist
+	[ ! -d ${TEMP_USER_HOME} ] && echo "${TEMP_USER_HOME} does not exist." && return
+
+	# Get all the class names and remove the one we want to delete
+	CLASSES=$(yadm config --includes --get-all local.class | grep -v pseudo__${CLASS}__)
+	[ -z "${CLASSES}" ] && echo "No pseudo users found." && return
+
+	# Warn the user that they are about to delete the pseudo user
+	if confirm "Are you sure you want to delete the pseudo user ${CLASS} at ${TEMP_USER_HOME}? [Y/n]"; then
+		echo "Deleting pseudo user at ${TEMP_USER_HOME}"
+	else
+		echo "Exiting..."
+		return
+	fi
+
+	# Remove all the classes
+	yadm config --unset-all local.class
+	for c in ${(f)CLASSES}; do
+		yadm config --add local.class $c
+	done
+
+	# Remove the pseudo user folder
+	rm -rf ${TEMP_USER_HOME}
+	if [ -n "$(alias | grep ${CLASS})" ]; then
+		unalias ${CLASS}
+	fi
+}

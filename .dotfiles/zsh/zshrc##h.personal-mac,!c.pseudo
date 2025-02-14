@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+# First source the default
+DIR="$(dirname "${0:A}")"
+source "$DIR/zshrc##default"
+
+# Conditionally load the brew shellenv
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

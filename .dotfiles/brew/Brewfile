@@ -1,0 +1,4 @@
+brew "gnu-sed"
+brew "coreutils"
+brew "micromamba"
+brew "direnv"

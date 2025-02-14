@@ -1,0 +1,2 @@
+*.sh
+!helpers.sh

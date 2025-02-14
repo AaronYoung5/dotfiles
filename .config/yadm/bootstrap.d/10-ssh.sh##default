@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Only for global configs
+if [ -n "${USER_HOME+x}" ]; then
+  exit 0
+fi
+
+mkdir -p ${HOME}/.ssh
+if ! test -f "${HOME}/.ssh/config"; then
+    touch ${HOME}/.ssh/config
+fi
+
+grep -qxF "Include ~/.dotfiles/ssh/config" "${HOME}/.ssh/config" || echo "Include ~/.dotfiles/ssh/config" >> "${HOME}/.ssh/config"
+
+
+

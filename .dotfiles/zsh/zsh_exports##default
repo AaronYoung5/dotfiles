@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+# change default shell editor
+export EDITOR="vi"
+
+# custom color stuff
+export CLICOLOR=1 # Set to true to use the following configuration
+export LSCOLORS=GxFxBxDxCxegedabagacad
+
+# git stuff
+export GIT_CONFIG=${USER_DOTFILES}/git/gitconfig
+
+# vim stuff
+export VIMINIT='source ${GLOBAL_DOTFILES}/vim/vimrc'
+
+# Add yadm submodule to PATH
+export PATH=${PATH}:${GLOBAL_DOTFILES}/yadm/yadm-submodule

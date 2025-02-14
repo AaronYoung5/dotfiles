@@ -1,0 +1,3 @@
+[submodule ".config/yadm/yadm-submodule"]
+	path = .config/yadm/yadm-submodule
+	url = https://github.com/AaronYoung5/yadm.git

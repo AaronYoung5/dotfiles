@@ -1,0 +1,7 @@
+.*.local
+.*.user
+.*history
+.macos
+.last_update
+.*.swp
+backups*

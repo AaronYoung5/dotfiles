@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Only for pseudo configs
+if [ -z "${PSEUDO_USER}" ]; then
+  exit 0
+fi
+
+DIR=$(cd "$(dirname -- "$0")" && pwd)
+. ${DIR}/helpers.sh
+
+if ! check_command mamba; then
+    echo "\t\tMamba isn't installed. Ignoring..."
+    exit 0
+fi
+
+# Create a mamba environment with the same name as the pseudo user
+# Only create if it doesn't exist
+if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
+  echo "Mamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+else
+  echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+  mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
+fi
