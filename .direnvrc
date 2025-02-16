@@ -1,33 +1,29 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 layout_mamba() {
+    eval "$(mamba shell hook --shell zsh)"
+
     local python_version=""
     local env_name=""
 
-    # Parse arguments: optional --python <version> and optional environment name.
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
             --python)
                 shift
                 python_version="$1"
-                shift
                 ;;
             *)
-                if [[ -z "$env_name" ]]; then
-                    env_name="$1"
-                fi
-                shift
+                [[ -z "$env_name" ]] && env_name="$1"
                 ;;
         esac
+        shift
     done
 
-    # If no environment name provided, try to read it from environment.yml.
     if [[ -z "$env_name" ]]; then
         if [[ -f environment.yml ]]; then
             env_name=$(grep "^name:" environment.yml | sed -e 's/name: //')
         else
-            echo "No environment specified and environment.yml not found." >&2
-            exit 1
+            env_name=$(basename "$PWD")
         fi
     fi
 
@@ -48,11 +44,13 @@ layout_mamba() {
             if [[ -n "$python_version" ]]; then
                 mamba create --yes --prefix "$env_path" python="$python_version"
             else
-                echo "No environment.yml found and no --python version provided." >&2
-                exit 1
+                mamba create --yes --prefix "$env_path"
             fi
         fi
     fi
 
-    source activate "$env_path"
+    mamba activate "$env_path"
+
+    export CONDA_PROMPT_MODIFIER=$env_name
 }
+

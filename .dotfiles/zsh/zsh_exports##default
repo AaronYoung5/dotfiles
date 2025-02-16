@@ -7,6 +7,9 @@ export EDITOR="vi"
 export CLICOLOR=1 # Set to true to use the following configuration
 export LSCOLORS=GxFxBxDxCxegedabagacad
 
+# Mamba warning suppression
+export MAMBA_NO_WARNINGS=1
+
 # git stuff
 export GIT_CONFIG=${USER_DOTFILES}/git/gitconfig
 

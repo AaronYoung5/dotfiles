@@ -5,6 +5,7 @@
 	class = 'pseudo__cam__/tmp/test'
 	class = 'pseudo__mit__/Users/aaronyoung/Pseudos/mit'
 	class = 'pseudo__sandbox__/Users/aaronyoung/Pseudos/sandbox'
+	class = 'pseudo__sbel__/Users/aaronyoung/Pseudos/sbel'
 [core]
 	bare = false
 	worktree = /Users/aaronyoung
