@@ -166,3 +166,8 @@ remove-pseudo-user() {
 		unalias ${CLASS}
 	fi
 }
+
+create-direnv() {
+  echo "$@" >> .envrc
+  direnv allow
+}
