@@ -6,7 +6,7 @@ if [ -n "${USER_HOME+x}" ]; then
 fi
 
 # Ensure pacman is supported
-if ! command -v yay >/dev/null 2>&1; then
+if ! command -v pacman >/dev/null 2>&1; then
   exit 0
 fi
 
@@ -31,7 +31,7 @@ fi
 if confirm "Would you like to install dependencies? [Y/n]"; then
   echo ">>> Installing pacman packages.."
   $SUDO pacman -Syu --noconfirm
-  $SUDO pacman -S --noconfirm $(grep -v '^#' "${GLOBAL_DOTFILES}/pacman/deps.list" | xargs)
+  $SUDO pacman -S --noconfirm $(grep -v '^#' "${GLOBAL_DOTFILES}/packages/deps.list" | xargs)
   $SUDO pacman -Qdtq | xargs $SUDO pacman -Rns --noconfirm
   echo ">>> Finished installing pacman packages"
 fi

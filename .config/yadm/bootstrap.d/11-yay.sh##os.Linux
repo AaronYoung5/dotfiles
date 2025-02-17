@@ -1,30 +1,49 @@
 #!/usr/bin/env sh
 
+# Exit if run as root
+if [ "$(id -u)" -eq 0 ]; then
+  echo "This script should not be run as root. Exiting..."
+  exit 1
+fi
+
 # Only for global configs
 if [ -n "${USER_HOME+x}" ]; then
   exit 0
 fi
 
-# Ensure pacman is supported
-if ! command -v yay >/dev/null 2>&1; then
+# Ensure pacman is available
+if ! command -v pacman >/dev/null 2>&1; then
   exit 0
 fi
 
 DIR=$(cd "$(dirname -- "$0")" && pwd)
-. ${DIR}/helpers.sh
+. "${DIR}/helpers.sh"
+
+install_yay() {
+  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  cd /tmp/yay-bin || exit 1
+  makepkg -si --noconfirm
+  cd ..
+  rm -rf yay-bin
+}
 
 if ! check_command yay; then
-  echo "pacman is not installed. Ignoring..."
-  exit 0
+  if confirm "yay is not installed. Would you like to install it? [Y/n]"; then
+    install_yay
+  else
+    echo "yay is not installed. Ignoring..."
+    exit 0
+  fi
 elif confirm "yay is installed. Would you like to update it? [Y/n]"; then
   echo "Updating yay..."
   yay -Syu --noconfirm
 fi
 
 if confirm "Would you like to install dependencies? [Y/n]"; then
-  echo ">>> Installing pacman packages.."
+  echo ">>> Installing yay packages.."
   yay -Syu --noconfirm
   yay -S --noconfirm $(grep -v '^#' "${GLOBAL_DOTFILES}/packages/yay.list" | xargs)
   yay -Qdtq | xargs yay -Rns --noconfirm
-  echo ">>> Finished installing pacman packages"
+  echo ">>> Finished installing yay packages"
 fi
+
