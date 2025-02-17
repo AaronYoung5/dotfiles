@@ -8,7 +8,7 @@ fi
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
-if ! check_command brew; then
+if [ ! -d "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     if confirm "Linuxbrew is a package manager for Linux, but it isn't installed. Would you like to install it? [Y/n]"; then
         echo "Installing Linuxbrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
