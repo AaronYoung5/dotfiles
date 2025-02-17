@@ -3,7 +3,7 @@
 # Exit if run as root
 if [ "$(id -u)" -eq 0 ]; then
   echo "This script should not be run as root. Exiting..."
-  exit 1
+  exit 0
 fi
 
 # Only for global configs
