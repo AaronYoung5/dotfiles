@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+if [ ! -f .direnv/.gitignore ]; then
+    echo "*" > .direnv/.gitignore
+fi
+
 layout_mamba() {
     eval "$(mamba shell hook --shell zsh)"
 
