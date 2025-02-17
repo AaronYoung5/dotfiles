@@ -2,6 +2,9 @@
 
 # Alias Shortcuts
 
+# Misc
+alias vi="vim"
+
 # zshrc files
 alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc\#\#default"
 alias zrcl="vi ${GLOBAL_ZDOTDIR}/zshrc"
