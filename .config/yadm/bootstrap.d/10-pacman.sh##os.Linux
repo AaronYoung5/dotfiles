@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# Only for global configs
+if [ -n "${USER_HOME+x}" ]; then
+  exit 0
+fi
+
+# Ensure pacman is supported
+if ! command -v yay >/dev/null 2>&1; then
+  exit 0
+fi
+
+# Set SUDO variable
+if command -v sudo >/dev/null 2>&1; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
+
+DIR=$(cd "$(dirname -- "$0")" && pwd)
+. ${DIR}/helpers.sh
+
+if ! check_command pacman; then
+  echo "pacman is not installed. Ignoring..."
+  exit 0
+elif confirm "pacman is installed. Would you like to update it? [Y/n]"; then
+  echo "Updating pacman..."
+  $SUDO pacman -Syu --noconfirm
+fi
+
+if confirm "Would you like to install dependencies? [Y/n]"; then
+  echo ">>> Installing pacman packages.."
+  $SUDO pacman -Syu --noconfirm
+  $SUDO pacman -S --noconfirm $(grep -v '^#' "${GLOBAL_DOTFILES}/pacman/deps.list" | xargs)
+  $SUDO pacman -Qdtq | xargs $SUDO pacman -Rns --noconfirm
+  echo ">>> Finished installing pacman packages"
+fi

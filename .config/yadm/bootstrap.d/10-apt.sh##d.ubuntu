@@ -26,7 +26,7 @@ fi
 if confirm "Would you like to install dependencies? [Y/n]"; then
   echo ">>> Installing apt packages.."
   $SUDO apt update
-  $SUDO apt install -y $(grep -v '^#' "${GLOBAL_DOTFILES}/apt/deps.list" | xargs)
+  $SUDO apt install -y $(grep -v '^#' "${GLOBAL_DOTFILES}/packages/apt.list" | xargs)
   $SUDO apt autoremove -y
   $SUDO apt autoclean -y
   $SUDO apt clean -y
