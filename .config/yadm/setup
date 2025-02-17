@@ -27,7 +27,7 @@ confirm() {
 yadm() {
     curl -sL https://raw.githubusercontent.com/AaronYoung5/yadm/refs/heads/develop/yadm | bash -s -- "$@"
 }
-yadm clone --recursive git@github.com:AaronYoung5/dotfiles.git --no-bootstrap $@ || exit 1
+yadm clone --recursive https://github.com/AaronYoung5/dotfiles.git --no-bootstrap $@ || exit 1
 
 # If on darwin, ask if we wanna change scutil
 if [[ "$OSTYPE" == "darwin"* ]]; then
