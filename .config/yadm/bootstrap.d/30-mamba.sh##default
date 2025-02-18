@@ -9,11 +9,14 @@ DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
 if check_command micromamba >/dev/null 2>&1; then
-  MAMBA=micromamba
+  MAMBA=$(readlink -f micromamba)
+  if confirm "`micromamba` found, should I symlink it to `mamba`?"; then
+    sudo ln -s ${MAMBA} ${MAMBA:h}/mamba
+  fi
 elif check_command mamba >/dev/null 2>&1; then
-  MAMBA=mamba
+  MAMBA=$(readlink -f mamba)
 elif check_command conda >/dev/null 2>&1; then
-  MAMBA=conda
+  MAMBA=$(readlink -f mamba)
 else
     echo "Mamba isn't installed. Ignoring..."
     exit 0
