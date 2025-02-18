@@ -8,7 +8,9 @@ fi
 # Init mamba
 if command -v micromamba >/dev/null 2>&1; then
   eval "$(micromamba shell hook --shell zsh)"
-  alias mamba="micromamba"
+  if ! command -v mamba >/dev/null 2>&1; then
+    alias mamba="micromamba"
+  fi
 else
   eval "$(mamba shell hook --shell zsh)"
 fi
