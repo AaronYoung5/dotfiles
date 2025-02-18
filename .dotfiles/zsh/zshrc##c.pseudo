@@ -1,13 +1,6 @@
 #!/usr/bin/env zsh
 
 if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
-    if command -v micromamba >/dev/null 2>&1; then
-      eval "$(micromamba shell hook --shell zsh)"
-      if ! command -v mamba >/dev/null 2>&1; then
-        alias mamba="micromamba"
-      fi
-    else
-      eval "$(mamba shell hook --shell zsh)"
-    fi
-    mamba activate $USER_HOME/.conda/envs/${PSEUDO_USER}
+    eval "$(micromamba shell hook --shell zsh)"
+    micromamba activate $USER_HOME/.conda/envs/${PSEUDO_USER}
 fi

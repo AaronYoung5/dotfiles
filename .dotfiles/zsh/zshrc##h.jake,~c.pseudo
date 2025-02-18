@@ -6,14 +6,7 @@ if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
 fi
 
 # Init mamba
-if command -v micromamba >/dev/null 2>&1; then
-  eval "$(micromamba shell hook --shell zsh)"
-  if ! command -v mamba >/dev/null 2>&1; then
-    alias mamba="micromamba"
-  fi
-else
-  eval "$(mamba shell hook --shell zsh)"
-fi
+eval "$(micromamba shell hook --shell zsh)"
 
 # First source the default
 DIR="$(dirname "${0:A}")"

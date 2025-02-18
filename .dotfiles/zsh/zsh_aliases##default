@@ -4,6 +4,9 @@
 
 # Misc
 alias vi="vim"
+if command -v micromamba >/dev/null 2>&1; then
+  alias mamba="micromamba"
+fi
 
 # zshrc files
 alias zrc="vi ${GLOBAL_ZDOTDIR}/zshrc\#\#default"

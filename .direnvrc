@@ -5,11 +5,7 @@ if [ ! -f .direnv/.gitignore ]; then
 fi
 
 layout_mamba() {
-    mamba="mamba"
-    if command -v micromamba >/dev/null 2>&1; then
-      mamba="micromamba"
-    fi
-    eval "$(${mamba} shell hook --shell zsh)"
+    eval "$(micromamba shell hook --shell zsh)"
 
     local python_version=""
     local env_name=""
@@ -43,21 +39,21 @@ layout_mamba() {
         echo "Local environment '$env_name' not found; creating at $env_path..."
         if [[ -f environment.yml ]]; then
             if [[ -n "$python_version" ]]; then
-                ${mamba} create --yes --prefix "$env_path" python="$python_version"
-                ${mamba} env update --prefix "$env_path" --file environment.yml --prune
+                micromamba create --yes --prefix "$env_path" python="$python_version"
+                micromamba env update --prefix "$env_path" --file environment.yml --prune
             else
-                ${mamba} env create --prefix "$env_path" --file environment.yml
+                micromamba env create --prefix "$env_path" --file environment.yml
             fi
         else
             if [[ -n "$python_version" ]]; then
-                ${mamba} create --yes --prefix "$env_path" python="$python_version"
+                micromamba create --yes --prefix "$env_path" python="$python_version"
             else
-                ${mamba} create --yes --prefix "$env_path"
+                micromamba create --yes --prefix "$env_path"
             fi
         fi
     fi
 
-    ${mamba} activate "$env_path"
+    micromamba activate "$env_path"
 
     export CONDA_PROMPT_MODIFIER=$env_name
 }
