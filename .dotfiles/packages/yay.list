@@ -1,1 +1,16 @@
-micromamba-bin
+direnv
+zsh
+curl
+git
+tar
+less
+alacritty
+openssh
+tmux
+dolphin
+base-devel
+zip
+unzip
+
+aur/micromamba-bin
+aur/visual-studio-code-bin

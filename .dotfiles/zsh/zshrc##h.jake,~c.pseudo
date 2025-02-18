@@ -8,6 +8,6 @@ fi
 # Init mamba
 eval "$(micromamba shell hook --shell zsh)"
 
-# First source the default
+# Then source the default
 DIR="$(dirname "${0:A}")"
 source "$DIR/zshrc##default"
