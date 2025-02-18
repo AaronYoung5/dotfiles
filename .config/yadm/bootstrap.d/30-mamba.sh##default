@@ -1,25 +1,19 @@
 #!/usr/bin/env sh
 
 # Only for pseudo configs
-# if [ -z "${PSEUDO_USER}" ]; then
-#   exit 0
-# fi
+if [ -z "${PSEUDO_USER}" ]; then
+  exit 0
+fi
 
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
 if check_command mamba; then
-  MAMBA=$(get_command_path mamba)
+  MAMBA="mamba"
 elif check_command micromamba; then
-  MAMBA=$(get_command_path micromamba)
-  if confirm "The command 'micromamba' found, should I symlink it to 'mamba'? [Y/n]"; then
-    sudo ln -s "${MAMBA}" "$(dirname ${MAMBA})/mamba"
-  fi
+  MAMBA="micromamba"
 elif check_command conda; then
-  MAMBA=$(get_command_path conda)
-  if confirm "The command 'conda' found, should I symlink it to 'mamba'? [Y/n]"; then
-    sudo ln -s "${MAMBA}" "$(dirname ${MAMBA})/mamba"
-  fi
+  MAMBA="conda"
 else
   echo "Mamba isn't installed. Ignoring..."
   exit 0
@@ -27,9 +21,9 @@ fi
 
 # Create a mamba environment with the same name as the pseudo user
 # Only create if it doesn't exist
-# if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
-#   echo "Mamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
-# else
-#   echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
-#   ${MAMBA} env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
-# fi
+if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
+  echo "Mamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+else
+  echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
+  ${MAMBA} env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
+fi
