@@ -9,7 +9,7 @@ DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
 if ! check_command mamba; then
-    echo "\t\tMamba isn't installed. Ignoring..."
+    echo "Mamba isn't installed. Ignoring..."
     exit 0
 fi
 
