@@ -8,7 +8,13 @@ fi
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
-if ! check_command mamba; then
+if ! check_command micromamba; then
+  MAMBA=micromamba
+elif ! check_command mamba; then
+  MAMBA=mamba
+elif ! check_command conda; then
+  MAMBA=conda
+else
     echo "Mamba isn't installed. Ignoring..."
     exit 0
 fi
@@ -19,5 +25,5 @@ if [ -d ${USER_HOME}/.conda/envs/${PSEUDO_USER} ]; then
   echo "Mamba environment already exists at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
 else
   echo "Creating mamba environment at ${USER_HOME}/.conda/envs/${PSEUDO_USER}"
-  mamba env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
+  ${MAMBA} env create -p ${USER_HOME}/.conda/envs/${PSEUDO_USER}
 fi
