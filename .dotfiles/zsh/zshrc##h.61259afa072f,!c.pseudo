@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-# First source the default
-DIR="$(dirname "${0:A}")"
-source "$DIR/zshrc##default"

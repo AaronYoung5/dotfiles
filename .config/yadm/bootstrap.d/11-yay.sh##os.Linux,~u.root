@@ -20,6 +20,8 @@ DIR=$(cd "$(dirname -- "$0")" && pwd)
 . "${DIR}/helpers.sh"
 
 install_yay() {
+  sudo pacman -S fakeroot debugedit --noconfirm
+
   git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
   cd /tmp/yay-bin || exit 1
   makepkg -si --noconfirm
