@@ -31,9 +31,7 @@ alias sc="vi ${GLOBAL_DOTFILES}/ssh/config.d"
 alias scu="vi ${USER_DOTFILES}/ssh/config.d"
 
 # vimrc
-alias vm="vi ${GLOBAL_DOTFILES}/vim/vimrc\#\#default"
-alias vml="vi ${GLOBAL_DOTFILES}/vim/vimrc"
-alias vmu="vi ${USER_DOTFILES}/vim/vimrc"
+alias vm="vi ${GLOBAL_DOTFILES}/vim/vimrc"
 
 # git
 alias gc="vi ${GLOBAL_DOTFILES}/git/gitconfig\#\#default"
