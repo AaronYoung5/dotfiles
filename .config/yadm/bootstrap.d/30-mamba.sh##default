@@ -8,11 +8,11 @@ fi
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
-if ! check_command micromamba; then
+if check_command micromamba >/dev/null 2>&1; then
   MAMBA=micromamba
-elif ! check_command mamba; then
+elif check_command mamba >/dev/null 2>&1; then
   MAMBA=mamba
-elif ! check_command conda; then
+elif check_command conda >/dev/null 2>&1; then
   MAMBA=conda
 else
     echo "Mamba isn't installed. Ignoring..."
