@@ -9,14 +9,14 @@ DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
 if check_command mamba; then
-  MAMBA=$(readlink -f mamba)
+  MAMBA=$(get_command_path mamba)
 elif check_command micromamba; then
-  MAMBA=$(readlink -f micromamba)
+  MAMBA=$(get_command_path micromamba)
   if confirm "'micromamba' found, should I symlink it to 'mamba'?"; then
     sudo ln -s ${MAMBA} ${MAMBA:h}/mamba
   fi
 elif check_command conda; then
-  MAMBA=$(readlink -f conda)
+  MAMBA=$(get_command_path conda)
   if confirm "'conda' found, should I symlink it to 'mamba'?"; then
     sudo ln -s ${MAMBA} ${MAMBA:h}/mamba
   fi

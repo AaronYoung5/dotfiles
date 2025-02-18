@@ -22,3 +22,7 @@ confirm() {
         ;;
     esac
 }
+
+get_command_path() {
+  whereis -b $@ | awk '{print $2}'
+}
