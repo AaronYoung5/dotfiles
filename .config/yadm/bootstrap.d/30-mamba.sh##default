@@ -8,18 +8,21 @@ fi
 DIR=$(cd "$(dirname -- "$0")" && pwd)
 . ${DIR}/helpers.sh
 
-if check_command micromamba >/dev/null 2>&1; then
+if check_command mamba; then
+  MAMBA=$(readlink -f mamba)
+elif check_command micromamba; then
   MAMBA=$(readlink -f micromamba)
   if confirm "`micromamba` found, should I symlink it to `mamba`?"; then
     sudo ln -s ${MAMBA} ${MAMBA:h}/mamba
   fi
-elif check_command mamba >/dev/null 2>&1; then
-  MAMBA=$(readlink -f mamba)
-elif check_command conda >/dev/null 2>&1; then
-  MAMBA=$(readlink -f mamba)
+elif check_command conda; then
+  MAMBA=$(readlink -f conda)
+  if confirm "`conda` found, should I symlink it to `mamba`?"; then
+    sudo ln -s ${MAMBA} ${MAMBA:h}/mamba
+  fi
 else
-    echo "Mamba isn't installed. Ignoring..."
-    exit 0
+  echo "Mamba isn't installed. Ignoring..."
+  exit 0
 fi
 
 # Create a mamba environment with the same name as the pseudo user
