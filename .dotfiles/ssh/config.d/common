@@ -1,33 +1,5 @@
 Host jake
   # HostName jake.mit.edu
-  HostName 10.29.243.75
+  HostName 10.31.174.8
   User aaron
 
-Host cae
-  HostName sshvpn.cae.wisc.edu
-  User aryoung5
-
-Host euler
-  HostName euler.engr.wisc.edu
-  User aryoung5 
-  ProxyCommand ssh -W %h:%p cae
-
-Host ml
-  User aryoung
-  HostName ml.media.mit.edu
-
-Host sc
-  User ayoung
-  HostName txe1-login.mit.edu
-
-Host pet
-  User ayoung
-  HostName 127.0.0.1
-  RemoteCommand cd /home/gridsan/ayoung/Pseudos/pet; /home/gridsan/ayoung/packages/apptainer/bin/apptainer shell --no-home --cleanenv /home/gridsan/ayoung/Pseudos/pet/nerfacc/
-  RequestTTY yes
-
-  ProxyJump sc
-
-Host satori
-  User aryoung
-  HostName satori-login-004.mit.edu

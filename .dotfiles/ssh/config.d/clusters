@@ -22,3 +22,12 @@ Host ml
 Host satori
   User aryoung
   HostName satori-login-004.mit.edu
+
+Host pet
+  User ayoung
+  HostName 127.0.0.1
+  RemoteCommand cd /home/gridsan/ayoung/Pseudos/pet; /home/gridsan/ayoung/packages/apptainer/bin/apptainer shell --no-home --cleanenv /home/gridsan/ayoung/Pseudos/pet/nerfacc/
+  RequestTTY yes
+
+  ProxyJump sc
+
