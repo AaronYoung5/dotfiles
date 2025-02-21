@@ -76,7 +76,7 @@ unsetopt AUTO_CD
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source other files
-[ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions"
-[ -f "${USER_ZDOTDIR}/zsh_exports" ] && source "${USER_ZDOTDIR}/zsh_exports"
-[ -f "${USER_ZDOTDIR}/zsh_aliases" ] && source "${USER_ZDOTDIR}/zsh_aliases"
-[ -f "${USER_ZDOTDIR}/zsh_pseudos" ] && source "${USER_ZDOTDIR}/zsh_pseudos"
+[ -f "${USER_ZDOTDIR}/zsh_functions" ] && source "${USER_ZDOTDIR}/zsh_functions" || source "${GLOBAL_ZDOTDIR}/zsh_functions"
+[ -f "${USER_ZDOTDIR}/zsh_exports" ] && source "${USER_ZDOTDIR}/zsh_exports" || source "${GLOBAL_ZDOTDIR}/zsh_exports"
+[ -f "${USER_ZDOTDIR}/zsh_aliases" ] && source "${USER_ZDOTDIR}/zsh_aliases" || source "${GLOBAL_ZDOTDIR}/zsh_aliases"
+[ -f "${USER_ZDOTDIR}/zsh_pseudos" ] && source "${USER_ZDOTDIR}/zsh_pseudos" || source "${GLOBAL_ZDOTDIR}/zsh_pseudos"

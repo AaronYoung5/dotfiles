@@ -15,17 +15,17 @@ alias zrcu="vi ${USER_ZDOTDIR}/zshrc"
 alias sz="source ${USER_ZDOTDIR}/zshrc"
 
 # zsh_aliases files
-alias za="vi ${GLOBAL_ZDOTDIR}/zsh_aliases\#\#default"
+alias za="vi ${GLOBAL_ZDOTDIR}/zsh_aliases\#\#~c.pseudo"
 alias zal="vi ${GLOBAL_ZDOTDIR}/zsh_aliases"
 alias zau="vi ${USER_ZDOTDIR}/zsh_aliases"
 
 # zsh_exports files
-alias ze="vi ${GLOBAL_ZDOTDIR}/zsh_exports\#\#default"
+alias ze="vi ${GLOBAL_ZDOTDIR}/zsh_exports\#\#~c.pseudo"
 alias zel="vi ${GLOBAL_ZDOTDIR}/zsh_exports"
 alias zeu="vi ${USER_ZDOTDIR}/zsh_exports"
 
 # zsh_functions files
-alias zf="vi ${GLOBAL_ZDOTDIR}/zsh_functions\#\#default"
+alias zf="vi ${GLOBAL_ZDOTDIR}/zsh_functions\#\#~c.pseudo"
 alias zfl="vi ${GLOBAL_ZDOTDIR}/zsh_functions"
 alias zfu="vi ${USER_ZDOTDIR}/zsh_functions"
 
