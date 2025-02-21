@@ -1,28 +1,31 @@
 #!/usr/bin/env zsh
 
-if [ ! -f .direnv/.gitignore ]; then
-    echo "*" > .direnv/.gitignore
+DIRENV=${PWD}/.direnv
+mkdir -p "${DIRENV}"
+
+if [ ! -f ${DIRENV}/.gitignore ]; then
+    echo "*" > ${DIRENV}/.gitignore
 fi
 
 layout_mamba() {
     eval "$(micromamba shell hook --shell zsh)"
 
-    local python_version=""
     local env_name=""
     local env_file="environment.yml"
+    local extra_args=()
 
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
-            --python)
+            -n | --name)
                 shift
-                python_version="$1"
+                env_name="$1"
                 ;;
             --env | --environment)
                 shift
                 env_file="$1"
                 ;;
             *)
-                [[ -z "$env_name" ]] && env_name="$1"
+                extra_args+=("$1")
                 ;;
         esac
         shift
@@ -36,26 +39,18 @@ layout_mamba() {
         fi
     fi
 
-    local env_dir="$PWD/.direnv"
-    local env_path="$env_dir/mamba-$env_name"
-    mkdir -p "$env_dir"
-    echo "*" > .direnv/.gitignore
+    local env_path="${DIRENV}/mamba-$env_name"
+    if [ ! -f .direnv/.gitignore ]; then
+        echo "*" > .direnv/.gitignore
+    fi
 
     if [[ ! -d "$env_path" ]]; then
         echo "Local environment '$env_name' not found; creating at $env_path..."
         if [[ -f ${env_file} ]]; then
-            if [[ -n "$python_version" ]]; then
-                micromamba create --yes --prefix "$env_path" python="$python_version"
-                micromamba env update --prefix "$env_path" --file ${env_file} --prune
-            else
-                micromamba env create --prefix "$env_path" --file ${env_file}
-            fi
+            micromamba create --yes --prefix "$env_path" $extra_args
+            micromamba env update --prefix "$env_path" --file ${env_file} --prune
         else
-            if [[ -n "$python_version" ]]; then
-                micromamba create --yes --prefix "$env_path" python="$python_version"
-            else
-                micromamba create --yes --prefix "$env_path"
-            fi
+            micromamba create --yes --prefix "$env_path" $extra_args
         fi
     fi
 

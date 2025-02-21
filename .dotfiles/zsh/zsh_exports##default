@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # change default shell editor
-export EDITOR="vi"
+export EDITOR="vim"
 
 # custom color stuff
 export CLICOLOR=1 # Set to true to use the following configuration

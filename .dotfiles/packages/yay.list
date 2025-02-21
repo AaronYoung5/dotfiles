@@ -11,6 +11,7 @@ dolphin
 base-devel
 zip
 unzip
+htop
 
 aur/micromamba-bin
 aur/visual-studio-code-bin
