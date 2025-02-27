@@ -79,17 +79,8 @@ tu() {
     return 1
   fi
 
-  export PSEUDO_USER=$SESSION_NAME
-  export USER_HOME
-
-  if [ -n "$TMUX" ]; then
-    tmux switch-client -t "$SESSION_NAME" || tmux -S "$USER_HOME/.tmux_socket" new-session -A -s "$SESSION_NAME"
-  else
-    tmux -S "$USER_HOME/.tmux_socket" new-session -A -s "$SESSION_NAME"
-  fi
-
-  unset USER_HOME
-  unset PSEUDO_USER
+  SOCKET_PATH="$USER_HOME/.tmux_socket"
+  USER_HOME=$USER_HOME PSEUDO_USER=$SESSION_NAME tmux -S "$SOCKET_PATH" new-session -A -s "$SESSION_NAME"
 }
 
 
