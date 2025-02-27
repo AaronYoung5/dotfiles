@@ -2,7 +2,7 @@
 
 # First source the default
 DIR="$(dirname "${0:A}")"
-source "$DIR/zsh_aliases##default"
+source "$DIR/zsh_aliases##~c.pseudo"
 
 # Some local aliases now
 alias open="xdg-open"
