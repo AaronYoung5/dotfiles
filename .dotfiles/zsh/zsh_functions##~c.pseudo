@@ -66,14 +66,29 @@ ai2svg() {
 
 # Create a tmux session with a specific USER_HOME
 tu() {
-	[ -z $1 ] || [ -z $2 ] && echo "USAGE: $0 [ USER_HOME ] [ SESSION_NAME ]" && return
-	[ ! -d $1 ] && echo "$1 is not a directory." && return
-	TEMP_USER_HOME=$1
+  if [ $# -ne 2 ]; then
+    echo "USAGE: tu [USER_HOME] [SESSION_NAME]"
+    return 1
+  fi
 
-	[ ! -z $2 ] && SESSION_NAME=$2
+  USER_HOME=$1
+  SESSION_NAME=$2
 
-	PSEUDO_USER=$SESSION_NAME USER_HOME=$TEMP_USER_HOME tmux -S $TEMP_USER_HOME/.tmux_socket new -A -s $SESSION_NAME
+  if [ ! -d "$USER_HOME" ]; then
+    echo "Error: $USER_HOME is not a valid directory."
+    return 1
+  fi
+
+  export PSEUDO_USER=$SESSION_NAME
+  export USER_HOME
+
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t "$SESSION_NAME" || tmux -S "$USER_HOME/.tmux_socket" new-session -A -s "$SESSION_NAME"
+  else
+    tmux -S "$USER_HOME/.tmux_socket" new-session -A -s "$SESSION_NAME"
+  fi
 }
+
 
 yadm() {
   # Only allow yadm if USER_HOME is not set
