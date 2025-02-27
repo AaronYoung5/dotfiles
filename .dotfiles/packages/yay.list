@@ -12,6 +12,7 @@ base-devel
 zip
 unzip
 htop
+rsync
 
 aur/micromamba-bin
 aur/visual-studio-code-bin

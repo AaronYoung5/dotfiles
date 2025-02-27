@@ -3,5 +3,6 @@ brew "coreutils"
 brew "micromamba"
 brew "direnv"
 brew "htop"
+brew "rsync"
 
 cask "alacritty"
