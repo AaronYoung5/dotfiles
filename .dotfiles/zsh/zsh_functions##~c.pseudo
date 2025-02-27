@@ -87,6 +87,9 @@ tu() {
   else
     tmux -S "$USER_HOME/.tmux_socket" new-session -A -s "$SESSION_NAME"
   fi
+
+  unset USER_HOME
+  unset PSEUDO_USER
 }
 
 
