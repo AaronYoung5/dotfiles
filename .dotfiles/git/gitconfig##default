@@ -8,7 +8,5 @@
 [homebrew]
 	analyticsmessage = true
 	caskanalyticsmessage = true
-[status]
-	showUntrackedFiles = no
 [yadm]
 	managed = true
