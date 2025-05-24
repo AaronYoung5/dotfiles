@@ -1,0 +1,59 @@
+#!/usr/bin/env zsh
+
+ROOT_DIR=$(git rev-parse --show-toplevel 2> /dev/null || echo $PWD)
+DIRENV="${ROOT_DIR}/.direnv"
+mkdir -p "${DIRENV}"
+
+if [ ! -f ${DIRENV}/.gitignore ]; then
+    echo "*" > ${DIRENV}/.gitignore
+fi
+
+layout_mamba() {
+    eval "$(micromamba shell hook --shell zsh)"
+
+    local env_name=""
+    local env_file="environment.yml"
+    local extra_args=()
+
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            -n | --name)
+                shift
+                env_name="$1"
+                ;;
+            --env | --environment)
+                shift
+                env_file="$1"
+                ;;
+            *)
+                extra_args+=("$1")
+                ;;
+        esac
+        shift
+    done
+
+    if [[ -z "$env_name" ]]; then
+        if [[ -f ${env_file} ]]; then
+            env_name=$(grep "^name:" ${env_file} | sed -e 's/name: //')
+        else
+            env_name=$(basename "$ROOT_DIR")
+        fi
+    fi
+
+    local env_path="${DIRENV}/mamba-$env_name"
+
+    if [[ ! -d "$env_path" ]]; then
+        echo "Local environment '$env_name' not found; creating at $env_path..."
+        if [[ -f ${env_file} ]]; then
+            micromamba create --yes --prefix "$env_path" $extra_args
+            micromamba env update --prefix "$env_path" --file ${env_file} --prune
+        else
+            micromamba create --yes --prefix "$env_path" $extra_args
+        fi
+    fi
+
+    micromamba activate "$env_path"
+
+    export CONDA_PROMPT_MODIFIER=$env_name
+}
+

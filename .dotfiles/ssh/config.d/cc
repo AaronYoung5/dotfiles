@@ -23,7 +23,7 @@ Host cc-pi-1-jump
 
 Host cc-connor
   User Camera
-  HostName 172.16.22.85
+  HostName 172.16.52.21
 
 Host cc-pet
   User ayoung
