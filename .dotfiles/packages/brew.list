@@ -4,5 +4,7 @@ brew "micromamba"
 brew "direnv"
 brew "htop"
 brew "rsync"
+brew "hiddenbar"
+brew "rectangle"
 
 cask "alacritty"
