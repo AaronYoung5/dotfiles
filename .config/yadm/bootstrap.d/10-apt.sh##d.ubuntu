@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Install apt packages on Debian/Ubuntu
+
+# Check if apt is available
+if ! command -v apt &> /dev/null; then
+  echo "Skipping apt installation (not Debian/Ubuntu)"
+  exit 0
+fi
+
+# Set SUDO variable
+if command -v sudo &> /dev/null; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
+
+# Update package lists
+echo "Updating apt..."
+$SUDO apt update
+
+# Install packages from apt.list
+if [[ -f ~/.dotfiles/packages/apt.list ]]; then
+  echo "Installing apt packages..."
+  $SUDO apt install -y $(grep -v '^#' ~/.dotfiles/packages/apt.list | xargs)
+  $SUDO apt autoremove -y
+  $SUDO apt autoclean -y
+else
+  echo "No apt.list found at ~/.dotfiles/packages/apt.list"
+fi

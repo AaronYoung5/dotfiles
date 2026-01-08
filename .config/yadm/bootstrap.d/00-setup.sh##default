@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Initial setup - create directories
+
+# Colors
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+# Create necessary directories
+echo -e "${GREEN}Creating directories...${NC}"
+mkdir -p ~/.config/zsh ~/.config/zsh/profiles
+mkdir -p "${PSEUDOS_DIR:-$HOME/Pseudos}"

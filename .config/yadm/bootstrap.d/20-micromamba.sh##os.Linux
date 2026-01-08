@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Install micromamba on Linux
+
+# Only run on Linux
+if [[ "$(uname -s)" != "Linux" ]]; then
+  exit 0
+fi
+
+# Check if micromamba is already installed
+if command -v micromamba &> /dev/null; then
+  echo "micromamba already installed"
+  exit 0
+fi
+
+echo "Installing micromamba..."
+
+# Install to user bin
+mkdir -p ~/.local/bin
+
+# Download micromamba binary directly
+curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba -O > ~/.local/bin/micromamba
+
+# Make it executable
+chmod +x ~/.local/bin/micromamba
+
+echo "micromamba installed to ~/.local/bin/micromamba"
+echo "Make sure ~/.local/bin is in your PATH"

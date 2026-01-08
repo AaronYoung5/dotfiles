@@ -1,0 +1,13 @@
+# Ignore all files by default (yadm creates symlinks without ##)
+*
+
+# Don't ignore directories (needed for git to traverse)
+!*/
+
+# Don't ignore yadm variant files (contain ##)
+!*##*
+
+# Don't ignore important repo files
+!README.md
+!.gitignore
+!LICENSE

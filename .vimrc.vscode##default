@@ -1,0 +1,40 @@
+" tab related stuff
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" run the previous command
+noremap <C-p> :<UP><CR>
+
+" tab options
+nnoremap <C-h> gT
+nnoremap <C-l> gt
+nnoremap <C-n> :tabnew 
+
+" split options
+nnoremap H <C-w>h
+nnoremap L <C-w>l
+nnoremap J <C-w>j
+nnoremap K <C-w>k
+set splitbelow splitright
+
+" easy jumping around beginning and end of files
+nmap <C-a> <ESC>^
+imap <C-a> <ESC>I
+nmap <C-e> <ESC>$
+imap <C-e> <ESC>A
+cnoremap <C-A> <HOME>
+cnoremap <C-E> <END>
+
+" remap jk in edit mode to exit
+inoremap jk <Esc>
+
+" easy save/quit mappings
+nmap <leader>w :w<CR>
+nmap <leader>q :q<CR>
+" nmap <leader>e :wq<CR>
+imap <C-s> <C-o>:w<CR>
+
+" leader remapping
+let leader = " "
+let mapleader = " "

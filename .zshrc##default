@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+
+# Go to USER_HOME if set (for pseudo users and tmux panes/windows)
+if [[ -n "$USER_HOME" ]]; then
+  cd "$USER_HOME"
+fi
+
+# Dotfiles configuration - auto-detect location
+if [[ -d "$HOME/.dotfiles/zsh" ]]; then
+  export DOTFILES_DIR="$HOME/.dotfiles"
+elif [[ -d "$HOME/zsh" ]]; then
+  export DOTFILES_DIR="$HOME"
+else
+  export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+fi
+export PSEUDOS_DIR="${PSEUDOS_DIR:-$HOME/Pseudos}"
+
+# Load exports, aliases, and functions
+[[ -f ~/.dotfiles/zsh/exports.zsh ]] && source ~/.dotfiles/zsh/exports.zsh
+[[ -f ~/.dotfiles/zsh/aliases.zsh ]] && source ~/.dotfiles/zsh/aliases.zsh
+[[ -f ~/.dotfiles/zsh/functions.zsh ]] && source ~/.dotfiles/zsh/functions.zsh
+
+# Load user's local customizations
+[[ -f ~/.dotfiles/zsh/aliases.local.zsh ]] && source ~/.dotfiles/zsh/aliases.local.zsh
+
+# Basic zsh configuration
+autoload -Uz compinit && compinit
+setopt AUTO_CD
+setopt HIST_IGNORE_ALL_DUPS
+setopt PROMPT_SUBST
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Simple prompt (customize as needed)
+PS1='%F{blue}%~%f %# '
+
+# Docker container indicator
+if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
+  PS1='%F{cyan}[docker]%f %F{blue}%~%f %# '
+fi
+
+# Pseudo user indicator in prompt when active
+if [[ -n "$PSEUDO_USER" ]]; then
+  if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
+    PS1='%F{cyan}[docker]%f %F{yellow}[$PSEUDO_USER]%f %F{blue}%~%f %# '
+  else
+    PS1='%F{yellow}[$PSEUDO_USER]%f %F{blue}%~%f %# '
+  fi
+fi

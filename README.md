@@ -1,203 +1,143 @@
 # Dotfiles
 
-A bare git repository for managing dotfiles with profile-based pseudo users.
+Personal dotfiles managed with [yadm](https://yadm.io/), featuring profile-based pseudo-users and host-specific configurations.
+
+## Quick Start
+
+```bash
+curl -L bootstrap.yadm.io | bash -s -- https://github.com/AaronYoung5/dotfiles.git
+```
 
 ## Features
 
-- **Profile-based environments**: Switch between different work contexts (personal, work, school) with isolated configurations
-- **Computer-specific profiles**: Different configurations per machine (e.g., `cc-mac-personal`, `work-laptop-dev`)
-- **direnv integration**: Automatic environment loading when entering directories
-- **tmux auto-attach**: Automatically attach to or create tmux sessions per profile
-- **Minimal structure**: Single files per profile, no complex folder hierarchies
-
-## Installation
-
-### First Time Setup
-
-```bash
-# Clone as bare repository
-git clone --bare https://github.com/yourusername/dotfiles.git $HOME/.dotfiles
-
-# Set up dotfiles alias
-alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-# Checkout files
-dotfiles checkout
-
-# Run installation
-cd ~/.dotfiles
-./install.sh
-
-# Install direnv (if not already installed)
-# macOS:
-brew install direnv
-# Linux:
-sudo apt install direnv  # or equivalent
-```
-
-### Required Tools
-
-- `zsh` (shell)
-- `direnv` (auto-loading environments)
-- `tmux` (optional, for session management)
-- `git` (version control)
+- **Pseudo-user profiles**: Isolated environments for different contexts (personal, work, school)
+- **Host-specific configs**: Automatic variants using yadm's `##` syntax
+- **tmux integration**: Auto-attach to profile-specific sessions
+- **Plugin managers**: vim-plug and TPM pre-configured
 
 ## Usage
 
-### Creating a Pseudo User
-
 ```bash
-# Create a new pseudo user from a profile
-pseudo-create cc-mac-personal
+# Switch profiles
+pseudo personal
+pseudo work
 
-# This will:
-# 1. Create ~/Pseudos/cc-mac-personal/
-# 2. Symlink the profile's .envrc
-# 3. Optionally create a short alias (e.g., 'personal')
-# 4. Enter the directory
-```
+# Create aliases
+pseudo-alias p personal
 
-### Switching Profiles
-
-```bash
-# Using the full profile name
-pseudo-enter cc-mac-personal
-
-# Or use your short alias (if created)
-personal
-```
-
-### List Available Profiles
-
-```bash
+# List profiles
 pseudo-list
-```
-
-### Adding a New Profile
-
-1. Create `profiles/<profile-name>.envrc` (e.g., `profiles/work-laptop-dev.envrc`)
-2. Configure environment variables and settings
-3. Run `pseudo-create <profile-name>`
-
-## Testing
-
-### Local Docker Testing
-
-Test your dotfiles in an isolated container before deploying:
-
-```bash
-# Build test image (one-time setup)
-docker build -t dotfiles-test -f- . <<'EOF'
-FROM ubuntu:latest
-RUN apt-get update && apt-get install -y \
-    git curl zsh tmux direnv \
-    && rm -rf /var/lib/apt/lists/*
-RUN chsh -s /bin/zsh
-WORKDIR /root
-EOF
-
-# Test with local changes (read-only mount)
-docker run -it --rm \
-  -e HOSTNAME=test-machine \
-  -v "$(pwd)":/mnt/dotfiles:ro \
-  dotfiles-test bash -c '
-    git clone /mnt/dotfiles/.git ~/.dotfiles && \
-    cd ~/.dotfiles && \
-    git --git-dir=~/.dotfiles/.git --work-tree=~ checkout -f && \
-    ./install.sh && \
-    exec zsh -l
-  '
-
-# Test from remote repository
-docker run -it --rm \
-  -e HOSTNAME=test-machine \
-  dotfiles-test bash -c '
-    git clone --bare https://github.com/yourusername/dotfiles.git ~/.dotfiles && \
-    git --git-dir=~/.dotfiles/.git --work-tree=~ checkout -f && \
-    cd ~/.dotfiles && \
-    ./install.sh && \
-    exec zsh -l
-  '
-```
-
-Inside the container, test the workflow:
-
-```bash
-# List available profiles
-pseudo-list
-
-# Create a pseudo user
-pseudo-create cc-mac-personal
-
-# Should auto-load environment and attach tmux
-# Exit tmux with: Ctrl-B, then D (detach)
 ```
 
 ## Structure
 
 ```
-dotfiles/
-  install.sh              # Installation script
-  profiles/               # Profile configurations
-    cc-mac-personal.envrc
-    work-laptop-dev.envrc
-  zsh/                    # Zsh configuration
-    zshrc                 # Base zshrc
-    aliases.base.zsh      # Common aliases
-    profiles/             # Profile-specific configs
-      personal.zsh
-      work.zsh
-  README.md
+.config/yadm/bootstrap          # Main bootstrap + bootstrap.d/ scripts
+.dotfiles/
+  zsh/
+    aliases.zsh##default
+    functions.zsh##default
+    exports.zsh##default
+    profiles/
+      personal.zsh##default
+      personal.zsh##h.cc-mac  # Host-specific variant
+  packages/
+    brew.list                   # Homebrew packages
+    apt.list                    # apt packages
+.zshrc##default
+.vimrc##default
+.tmux.conf##default
 ```
 
-## How It Works
+## Adding Profiles
 
-1. **Base installation**: `install.sh` symlinks core dotfiles (~/.zshrc, etc.)
-2. **Profile creation**: `pseudo-create` creates ~/Pseudos/<profile>/ with symlinked .envrc
-3. **Auto-loading**: When you `cd` into a pseudo directory, direnv loads the .envrc
-4. **Environment setup**: .envrc sources profile configs and optionally attaches tmux
-5. **Isolated contexts**: Each pseudo user has its own environment, history, and tmux session
-
-## Managing with Git
-
-Since this is a bare repository, use the `dotfiles` alias:
+Create `~/.dotfiles/zsh/profiles/<name>.zsh##default`:
 
 ```bash
-# Check status
-dotfiles status
-
-# Add files
-dotfiles add profiles/new-profile.envrc
-
-# Commit changes
-dotfiles commit -m "Add new profile"
-
-# Push to remote
-dotfiles push
+export PSEUDO_USER="work"
+export TMUX_SESSION_NAME="work"
+export USER_HOME="$HOME/Pseudos/work"
+export GIT_AUTHOR_EMAIL="you@work.com"
+mkdir -p "$USER_HOME"
 ```
 
-## Customization
-
-Edit profile-specific configs in:
-- `profiles/<profile-name>.envrc` - Environment variables and tmux auto-attach
-- `zsh/profiles/<type>.zsh` - Shared configuration for profile types (personal, work, etc.)
-
-## Troubleshooting
-
-### direnv not loading
-
+Optional host variant sourcing default:
 ```bash
-# Allow direnv for the directory
-cd ~/Pseudos/cc-mac-personal
-direnv allow
+# work.zsh##h.cc-mac
+source "${0:A:h}/work.zsh##default"
+export WORK_SPECIFIC_VAR="value"
 ```
 
-### Pseudo user not found
+Run `yadm alt` to link variants.
+
+## Key Bindings
+
+### Vim
+- Leader: `Space`
+- Exit insert: `jk`
+- Save: `<leader>w`
+- NERDTree: `<leader>n`
+
+### Tmux  
+- Split vertical: `<prefix>v`
+- Split horizontal: `<prefix>s`
+- Navigate panes: `h/j/k/l`
+- Reload config: `<prefix>r`
+
+## Docker Testing
+
+Test dotfiles installation locally on different Linux distributions.
+
+### Ubuntu
+```bash
+docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro ubuntu:latest bash -c '
+  apt-get update && apt-get install -y git && \
+  git config --global user.email "test@test.com" && \
+  git config --global user.name "Test" && \
+  git config --global init.defaultBranch main && \
+  cp -r /mnt/dotfiles $HOME/repo && cd $HOME/repo && \
+  rm -rf .git && git init && git add -A && git commit -m "test" && \
+  curl -L bootstrap.yadm.io | bash -s -- file://$HOME/repo && \
+  exec zsh -l
+'
+```
+
+### Fedora
+```bash
+docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro fedora:latest bash -c '
+  dnf install -y git && \
+  git config --global user.email "test@test.com" && \
+  git config --global user.name "Test" && \
+  git config --global init.defaultBranch main && \
+  cp -r /mnt/dotfiles $HOME/repo && cd $HOME/repo && \
+  rm -rf .git && git init && git add -A && git commit -m "test" && \
+  curl -L bootstrap.yadm.io | bash -s -- file://$HOME/repo && \
+  exec zsh -l
+'
+```
+
+### Arch Linux
+```bash
+docker run -it --rm --platform linux/amd64 -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro archlinux:latest bash -c '
+  pacman -Syu --noconfirm git && \
+  git config --global user.email "test@test.com" && \
+  git config --global user.name "Test" && \
+  git config --global init.defaultBranch main && \
+  cp -r /mnt/dotfiles $HOME/repo && cd $HOME/repo && \
+  rm -rf .git && git init && git add -A && git commit -m "test" && \
+  curl -L bootstrap.yadm.io | bash -s -- file://$HOME/repo && \
+  exec zsh -l
+'
+```
+
+Inside container, test: `pseudo-list` and `pseudo personal`
+
+## Managing Dotfiles
 
 ```bash
-# Check if profile exists
-pseudo-list
-
-# Create it if needed
-pseudo-create <profile-name>
+yadm status
+yadm add .dotfiles/zsh/profiles/new.zsh##default
+yadm commit -m "Add new profile"
+yadm push
+yadm alt  # Regenerate symlinks
 ```

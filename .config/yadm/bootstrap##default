@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# yadm bootstrap script
+set -eu
+
+# Directory to look for bootstrap executables in
+BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# yadm wrapper - uses system install if available, otherwise runs remotely
+yadm() {
+  if type -P yadm &> /dev/null; then
+    command yadm "$@"
+  else
+    echo -e "${YELLOW}yadm not installed, using remote version...${NC}" >&2
+    bash <(curl -fsSL https://raw.githubusercontent.com/yadm-dev/yadm/master/yadm) "$@"
+  fi
+}
+
+echo -e "${BLUE}=== yadm Bootstrap ===${NC}\n"
+
+# Run yadm alt first to link variant files (including bootstrap.d variants)
+echo -e "${GREEN}Running yadm alt to link variant files...${NC}"
+yadm alt
+
+if [[ ! -d "$BOOTSTRAP_D" ]]; then
+    echo "Warning: bootstrap directory '$BOOTSTRAP_D' not found" >&2
+    echo -e "${GREEN}✓ Bootstrap complete (no bootstrap.d scripts)${NC}"
+    exit 0
+fi
+
+declare -a bootstraps
+while IFS= read -r bootstrap; do
+    if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ ~$ ]]; then
+        bootstraps+=("$bootstrap")
+    fi
+done < <(find -L "$BOOTSTRAP_D" -type f | sort)
+
+for bootstrap in "${bootstraps[@]}"; do
+    echo -e "${BLUE}Executing $(basename "$bootstrap")...${NC}"
+    if ! "$bootstrap"; then
+        echo "Error: bootstrap '$bootstrap' failed" >&2
+        exit 1
+    fi
+done
+
+echo -e "\n${GREEN}✓ Bootstrap complete${NC}"
+echo -e "\nTo switch to a profile, run: ${BLUE}pseudo <profile-name>${NC}"
+echo -e "Example: ${BLUE}pseudo personal${NC}"
+echo -e "\nTo create a short alias, run: ${BLUE}pseudo-alias <short-name> <profile-name>${NC}"
+echo -e "Example: ${BLUE}pseudo-alias p personal${NC}\n"

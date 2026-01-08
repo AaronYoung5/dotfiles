@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Install Homebrew and packages on macOS
+
+system_type=$(uname -s)
+
+if [[ "$system_type" != "Darwin" ]]; then
+  echo "Skipping Homebrew installation (not macOS)"
+  exit 0
+fi
+
+# Install Homebrew if missing
+if ! command -v brew &> /dev/null; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Install packages from Brewfile
+if [[ -f ~/.dotfiles/packages/brew.list ]]; then
+  echo "Installing Homebrew packages..."
+  brew bundle --file ~/.dotfiles/packages/brew.list
+else
+  echo "No Brewfile found at ~/.dotfiles/packages/brew.list"
+fi

@@ -1,0 +1,15 @@
+direnv
+zsh
+curl
+git
+tar
+bzip2
+tmux
+rsync
+vim
+wget
+sed
+coreutils
+htop
+tree
+jq

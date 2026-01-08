@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Install pacman packages on Arch Linux
+
+# Check if pacman is available
+if ! command -v pacman &> /dev/null; then
+  echo "Skipping pacman installation (not Arch Linux)"
+  exit 0
+fi
+
+# Set SUDO variable
+if command -v sudo &> /dev/null; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
+
+# Install packages from pacman.list
+if [[ -f ~/.dotfiles/packages/pacman.list ]]; then
+  echo "Installing pacman packages..."
+  $SUDO pacman -Syu --noconfirm $(grep -v '^#' ~/.dotfiles/packages/pacman.list | xargs)
+else
+  echo "No pacman.list found at ~/.dotfiles/packages/pacman.list"
+fi

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+echo "Installing vim-plug..."
+if [ ! -f $HOME/.vim/autoload/plug.vim ]; then
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+echo "Installing vim plugins..."
+# Use Ex silent mode for non-interactive installation
+vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "PlugClean!" -c "qa"
+
+echo "Vim plugins installed successfully"

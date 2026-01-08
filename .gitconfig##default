@@ -1,0 +1,12 @@
+[user]
+	name = AaronYoung5
+	email = aaronryoung6@gmail.com
+[core]
+	autocrlf = false
+	symlinks = true
+	bare = false
+[homebrew]
+	analyticsmessage = true
+	caskanalyticsmessage = true
+[yadm]
+	managed = true

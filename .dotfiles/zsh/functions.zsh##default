@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+
+# Pseudo user management functions
+
+function pseudo() {
+  local profile_name="$1"
+  
+  if [[ -z "$profile_name" ]]; then
+    echo "Usage: pseudo <profile-name>"
+    echo ""
+    pseudo-list
+    return 1
+  fi
+  
+  local profile_file="~/.dotfiles/zsh/profiles/${profile_name}.zsh"
+  
+  # Check if profile exists (it's a symlink created by yadm alt)
+  if [[ ! -f ~/.dotfiles/zsh/profiles/${profile_name}.zsh ]]; then
+    echo "Error: Profile '$profile_name' not found"
+    echo ""
+    pseudo-list
+    return 1
+  fi
+  
+  # Source profile in a subshell to extract values without polluting current shell
+  local user_home=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$USER_HOME")
+  local pseudo_user=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$PSEUDO_USER")
+  local session_name=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$TMUX_SESSION_NAME")
+  
+  # Launch tmux if configured and not already in tmux
+  # Variables are set ONLY for tmux, not exported to current shell
+  if [[ -n "$session_name" ]] && [[ -n "$user_home" ]] && [[ -z "$TMUX" ]] && [[ -z "$VSCODE_INJECTION" ]]; then
+    local socket_path="$user_home/.tmux_socket"
+    USER_HOME="$user_home" PSEUDO_USER="$pseudo_user" TMUX_SESSION_NAME="$session_name" tmux -S "$socket_path" new-session -A -s "$session_name" -c "$user_home"
+  fi
+}
+
+function pseudo-list() {
+  echo "Available profiles:"
+  if [[ -d ~/.dotfiles/zsh/profiles ]]; then
+    ls -1 ~/.dotfiles/zsh/profiles 2>/dev/null | sed 's/\.zsh$//' | sed 's/##.*$//' | sort -u | sed 's/^/  - /' || echo "  (none)"
+  else
+    echo "  (none)"
+  fi
+  
+  echo "\nShort aliases:"
+  if [[ -f ~/.dotfiles/zsh/aliases.local.zsh ]]; then
+    grep "^alias.*=.*pseudo " ~/.dotfiles/zsh/aliases.local.zsh | sed 's/^/  /' || echo "  (none)"
+  else
+    echo "  (none)"
+  fi
+}
+
+function pseudo-alias() {
+  local short_name="$1"
+  local profile_name="$2"
+  
+  if [[ -z "$short_name" ]] || [[ -z "$profile_name" ]]; then
+    echo "Usage: pseudo-alias <short-name> <profile-name>"
+    echo "Example: pseudo-alias p personal"
+    return 1
+  fi
+  
+  mkdir -p ~/.dotfiles/zsh
+  echo "alias $short_name='pseudo $profile_name'" >> ~/.dotfiles/zsh/aliases.local.zsh
+  echo "✓ Created alias: $short_name -> pseudo $profile_name"
+  echo "  (Reload shell or run: source ~/.zshrc)"
+}
+
+# Command not found handler - auto-run profiles by name
+function command_not_found_handler() {
+  local cmd="$1"
+  
+  # Check if command matches a profile name
+  if [[ -f ~/.dotfiles/zsh/profiles/${cmd}.zsh ]]; then
+    pseudo "$cmd"
+    return $?
+  fi
+  
+  # Not a profile, show standard error
+  echo "zsh: command not found: $cmd" >&2
+  return 127
+}

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Install dnf packages on Fedora
+
+# Check if dnf is available
+if ! command -v dnf &> /dev/null; then
+  echo "Skipping dnf installation (not Fedora)"
+  exit 0
+fi
+
+# Set SUDO variable
+if command -v sudo &> /dev/null; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
+
+# Install packages from dnf.list
+if [[ -f ~/.dotfiles/packages/dnf.list ]]; then
+  echo "Installing dnf packages..."
+  $SUDO dnf install -y $(grep -v '^#' ~/.dotfiles/packages/dnf.list | xargs)
+else
+  echo "No dnf.list found at ~/.dotfiles/packages/dnf.list"
+fi

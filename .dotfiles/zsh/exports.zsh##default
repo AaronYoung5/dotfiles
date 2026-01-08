@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+# Global exports
+
+# Add custom bin directories to PATH if they exist
+[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
