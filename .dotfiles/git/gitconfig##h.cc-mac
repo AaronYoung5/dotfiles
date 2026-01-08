@@ -1,11 +1,10 @@
 [include]
-	path = "/Users/aaronyoung/.dotfiles/git/gitconfig##default"
+  path = "/Users/aaronyoung/.dotfiles/git/gitconfig##default"
 [local]
 	class = cc-mac
 	class = 'pseudo__cam__/tmp/test'
 	class = 'pseudo__mit__/Users/aaronyoung/Pseudos/mit'
 	class = 'pseudo__sandbox__/Users/aaronyoung/Pseudos/sandbox'
-	class = 'pseudo__sbel__/Users/aaronyoung/Pseudos/sbel'
 	class = 'pseudo__personal__/Users/aaronyoung/Pseudos/personal'
 [core]
 	bare = false
@@ -14,3 +13,8 @@
 	showUntrackedFiles = no
 [yadm]
 	managed = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

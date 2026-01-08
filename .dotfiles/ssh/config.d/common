@@ -1,5 +1,5 @@
 Host jake
   # HostName jake.mit.edu
-  HostName 10.31.135.33
+  HostName jake.media.mit.edu
   User aaron
 

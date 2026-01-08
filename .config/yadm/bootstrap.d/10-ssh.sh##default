@@ -12,5 +12,3 @@ fi
 
 grep -qxF "Include ~/.dotfiles/ssh/config" "${HOME}/.ssh/config" || echo "Include ~/.dotfiles/ssh/config" >> "${HOME}/.ssh/config"
 
-
-
