@@ -1,15 +1,14 @@
-direnv
-zsh
-curl
-git
-tar
-bzip2
-tmux
-rsync
-vim
-wget
-gnu-sed
-coreutils
-htop
-tree
-jq
+brew "direnv"
+brew "zsh"
+brew "curl"
+brew "git"
+brew "bzip2"
+brew "tmux"
+brew "rsync"
+brew "vim"
+brew "wget"
+brew "gnu-sed"
+brew "coreutils"
+brew "htop"
+brew "tree"
+brew "jq"
