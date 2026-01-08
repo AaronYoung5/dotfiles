@@ -23,14 +23,43 @@ export PSEUDOS_DIR="${PSEUDOS_DIR:-$HOME/Pseudos}"
 # Load user's local customizations
 [[ -f ~/.dotfiles/zsh/aliases.local.zsh ]] && source ~/.dotfiles/zsh/aliases.local.zsh
 
-# Basic zsh configuration
+# Enable Powerlevel10k instant prompt. 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Set the directory we want to store zgen and plugins
+ZGEN_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zgen"
+
+# Download zgen, if it's not there yet
+if [ ! -d "${ZGEN_HOME}" ]; then
+    mkdir -p "$(dirname ${ZGEN_HOME})"
+    git clone https://github.com/tarjoilija/zgen.git "${ZGEN_HOME}"
+fi
+
+# load zgen
+source "${ZGEN_HOME}/zgen.zsh"
+
+# if the init script doesn't exist
+if ! zgen saved; then
+    zgen prezto
+    zgen prezto archive
+    zgen prezto autosuggestions
+    zgen prezto completion
+    zgen prezto git
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen save
+fi
+
+# Load completions
 autoload -Uz compinit && compinit
-setopt AUTO_CD
-setopt HIST_IGNORE_ALL_DUPS
-setopt PROMPT_SUBST
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+
+# zsh theme
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh.
+[[ ! -f ~/.dotfiles/zsh/p10k.zsh ]] || source ~/.dotfiles/zsh/p10k.zsh
+autoload -U promptinit
+promptinit
+prompt powerlevel10k
 
 # Simple prompt (customize as needed)
 PS1='%F{blue}%~%f %# '
@@ -47,4 +76,9 @@ if [[ -n "$PSEUDO_USER" ]]; then
   else
     PS1='%F{yellow}[$PSEUDO_USER]%f %F{blue}%~%f %# '
   fi
+fi
+
+# Conditionally load the brew shellenv
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
