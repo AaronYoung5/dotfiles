@@ -13,7 +13,7 @@ curl -L bootstrap.yadm.io | bash -s -- https://github.com/AaronYoung5/dotfiles.g
 ```bash
 yadm pull                    # Pull latest changes
 yadm alt                     # Regenerate symlinks
-~/.config/yadm/bootstrap     # Re-run bootstrap scripts
+yadm bootstrap               # Re-run bootstrap scripts
 ```
 
 ## Features
