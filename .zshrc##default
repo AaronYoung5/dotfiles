@@ -5,14 +5,7 @@ if [[ -n "$USER_HOME" ]]; then
   cd "$USER_HOME"
 fi
 
-# Dotfiles configuration - auto-detect location
-if [[ -d "$HOME/.dotfiles/zsh" ]]; then
-  export DOTFILES_DIR="$HOME/.dotfiles"
-elif [[ -d "$HOME/zsh" ]]; then
-  export DOTFILES_DIR="$HOME"
-else
-  export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-fi
+# Pseudos directory location
 export PSEUDOS_DIR="${PSEUDOS_DIR:-$HOME/Pseudos}"
 
 # Load exports, aliases, and functions
@@ -20,8 +13,8 @@ export PSEUDOS_DIR="${PSEUDOS_DIR:-$HOME/Pseudos}"
 [[ -f ~/.dotfiles/zsh/aliases.zsh ]] && source ~/.dotfiles/zsh/aliases.zsh
 [[ -f ~/.dotfiles/zsh/functions.zsh ]] && source ~/.dotfiles/zsh/functions.zsh
 
-# Load user's local customizations
-[[ -f ~/.dotfiles/zsh/aliases.local.zsh ]] && source ~/.dotfiles/zsh/aliases.local.zsh
+# Initialize dynamic pseudo-user commands
+pseudo-init-commands
 
 # Enable Powerlevel10k instant prompt. 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -60,23 +53,6 @@ autoload -Uz compinit && compinit
 autoload -U promptinit
 promptinit
 prompt powerlevel10k
-
-# Simple prompt (customize as needed)
-PS1='%F{blue}%~%f %# '
-
-# Docker container indicator
-if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
-  PS1='%F{cyan}[docker]%f %F{blue}%~%f %# '
-fi
-
-# Pseudo user indicator in prompt when active
-if [[ -n "$PSEUDO_USER" ]]; then
-  if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
-    PS1='%F{cyan}[docker]%f %F{yellow}[$PSEUDO_USER]%f %F{blue}%~%f %# '
-  else
-    PS1='%F{yellow}[$PSEUDO_USER]%f %F{blue}%~%f %# '
-  fi
-fi
 
 # Conditionally load the brew shellenv
 if [ -f "/opt/homebrew/bin/brew" ]; then

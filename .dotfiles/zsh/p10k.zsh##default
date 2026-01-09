@@ -49,6 +49,8 @@
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    docker                    # docker container indicator
+    pseudo_user               # pseudo user indicator
     context                   # user@host
     dir                       # current directory
     vcs                       # git status
@@ -191,6 +193,20 @@
   # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
   # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
+
+  # Custom segment: Docker container indicator
+  function prompt_docker() {
+    if [[ -f /.dockerenv ]] || grep -q docker /proc/1/cgroup 2>/dev/null; then
+      p10k segment -f 6 -t '[docker]'
+    fi
+  }
+
+  # Custom segment: Pseudo user indicator
+  function prompt_pseudo_user() {
+    if [[ -n "$PSEUDO_USER" ]]; then
+      p10k segment -f 3 -t "[$PSEUDO_USER]"
+    fi
+  }
 
   # If p10k is already loaded, reload configuration.
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.

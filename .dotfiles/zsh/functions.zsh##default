@@ -67,17 +67,19 @@ function pseudo-alias() {
   echo "  (Reload shell or run: source ~/.zshrc)"
 }
 
-# Command not found handler - auto-run profiles by name
-function command_not_found_handler() {
-  local cmd="$1"
-  
-  # Check if command matches a profile name
-  if [[ -f ~/.dotfiles/zsh/profiles/${cmd}.zsh ]]; then
-    pseudo "$cmd"
-    return $?
+function pseudo-init-commands() {
+  # Dynamically create functions for each profile so they get syntax highlighting
+  if [[ -d ~/.dotfiles/zsh/profiles ]]; then
+    for profile_file in ~/.dotfiles/zsh/profiles/*.zsh(N); do
+      local profile_name="${${profile_file:t}%.zsh}"
+      profile_name="${profile_name%%##*}"  # Strip ##variant suffix
+      
+      # Skip if empty or conflicts with existing command
+      [[ -z "$profile_name" ]] && continue
+      command -v "$profile_name" &>/dev/null && continue
+      
+      # Create function wrapper
+      eval "function $profile_name() { pseudo '$profile_name'; }"
+    done
   fi
-  
-  # Not a profile, show standard error
-  echo "zsh: command not found: $cmd" >&2
-  return 127
 }

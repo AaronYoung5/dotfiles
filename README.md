@@ -4,8 +4,16 @@ Personal dotfiles managed with [yadm](https://yadm.io/), featuring profile-based
 
 ## Quick Start
 
+### Initial Setup
 ```bash
 curl -L bootstrap.yadm.io | bash -s -- https://github.com/AaronYoung5/dotfiles.git
+```
+
+### Update Existing Installation
+```bash
+yadm pull                    # Pull latest changes
+yadm alt                     # Regenerate symlinks
+~/.config/yadm/bootstrap     # Re-run bootstrap scripts
 ```
 
 ## Features
@@ -91,7 +99,7 @@ Test dotfiles installation locally on different Linux distributions.
 ### Ubuntu
 ```bash
 docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro ubuntu:latest bash -c '
-  apt-get update && apt-get install -y git && \
+  apt-get update && apt-get install -y git zsh curl && \
   git config --global user.email "test@test.com" && \
   git config --global user.name "Test" && \
   git config --global init.defaultBranch main && \
@@ -105,7 +113,7 @@ docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro ubuntu:latest 
 ### Fedora
 ```bash
 docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro fedora:latest bash -c '
-  dnf install -y git && \
+  dnf install -y git zsh curl && \
   git config --global user.email "test@test.com" && \
   git config --global user.name "Test" && \
   git config --global init.defaultBranch main && \
@@ -119,7 +127,7 @@ docker run -it --rm -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro fedora:latest 
 ### Arch Linux
 ```bash
 docker run -it --rm --platform linux/amd64 -e HOSTNAME=test -v "$(pwd)":/mnt/dotfiles:ro archlinux:latest bash -c '
-  pacman -Syu --noconfirm git && \
+  pacman -Syu --noconfirm git zsh curl && \
   git config --global user.email "test@test.com" && \
   git config --global user.name "Test" && \
   git config --global init.defaultBranch main && \
@@ -141,3 +149,7 @@ yadm commit -m "Add new profile"
 yadm push
 yadm alt  # Regenerate symlinks
 ```
+
+## TODO
+
+- [ ] Make `PSEUDOS_DIR` configurable via command line argument
