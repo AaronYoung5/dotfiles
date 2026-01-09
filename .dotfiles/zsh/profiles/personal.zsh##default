@@ -3,7 +3,7 @@
 # Personal profile configuration (default)
 export PSEUDO_USER="personal"
 export TMUX_SESSION_NAME="personal"
-export USER_HOME="$PSEUDO_DIR/personal"
+export USER_HOME="$PSEUDOS_DIR/personal"
 
 # Ensure user home directory exists
 mkdir -p "$USER_HOME"
