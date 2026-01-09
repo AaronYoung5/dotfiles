@@ -54,6 +54,37 @@ autoload -U promptinit
 promptinit
 prompt powerlevel10k
 
+# direnv
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+# History
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=${HISTSIZE}
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+bindkey '^ ' autosuggest-toggle               # ctrl+space will toggle autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8' # Appears light gray on black background
+
+# By default, if you type in a directory and hit enter
+# zsh will cd into that dir. I don't like that
+unsetopt AUTO_CD
+
+# Prepend the function path with the zsh completions functions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # Conditionally load the brew shellenv
 if [ -f "/opt/homebrew/bin/brew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"

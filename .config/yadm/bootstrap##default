@@ -23,6 +23,10 @@ yadm() {
 
 echo -e "${BLUE}=== yadm Bootstrap ===${NC}\n"
 
+# sparse checkout to ignore unwanted files
+yadm gitconfig core.sparseCheckout true
+yadm sparse-checkout set '/*' '!README.md' '!UNLICENSE'
+
 # Run yadm alt first to link variant files (including bootstrap.d variants)
 echo -e "${GREEN}Running yadm alt to link variant files...${NC}"
 yadm alt

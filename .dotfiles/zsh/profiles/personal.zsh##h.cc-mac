@@ -1,10 +1,5 @@
 #!/usr/bin/env zsh
 
-# Personal profile configuration (cc-mac specific)
-# Source the default profile first
 source "${0:A:h}/personal.zsh##default"
 
-# cc-mac specific overrides/additions
 export CONDA_ENV_PATH="$HOME/.conda/envs/personal"
-
-echo "Loaded personal profile (cc-mac variant)"

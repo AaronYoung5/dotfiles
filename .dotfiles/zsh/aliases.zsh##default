@@ -1,36 +1,31 @@
 #!/usr/bin/env zsh
 
-# Base aliases
 alias vi='vim'
 
-# OS-specific aliases
 if [[ "$(uname -s)" == "Linux" ]]; then
   alias open='xdg-open'
 fi
 
-# Config editing shortcuts
-# Pattern: base=##default, l=linked/local file, u=user/profile version
-alias zrc='vi ~/.zshrc##default'
+# Edit configs (base variant)
+alias zrc='vi ~/.zshrc\#\#default'
+alias za='vi ~/.dotfiles/zsh/aliases.zsh\#\#default'
+alias zf='vi ~/.dotfiles/zsh/functions.zsh\#\#default'
+alias ze='vi ~/.dotfiles/zsh/exports.zsh\#\#default'
+alias vm='vi ~/.vimrc\#\#default'
+alias tm='vi ~/.tmux.conf\#\#default'
+
+# Edit configs (active symlink)
 alias zrcl='vi ~/.zshrc'
-alias zrcu='[[ -n "$PSEUDO_USER" ]] && vi ~/.dotfiles/zsh/profiles/${PSEUDO_USER}.zsh || echo "Not in pseudo user"'
-
-alias za='vi ~/.dotfiles/zsh/aliases.zsh##default'
 alias zal='vi ~/.dotfiles/zsh/aliases.zsh'
-
-alias zf='vi ~/.dotfiles/zsh/functions.zsh##default'
 alias zfl='vi ~/.dotfiles/zsh/functions.zsh'
-
-alias ze='vi ~/.dotfiles/zsh/exports.zsh##default'
 alias zel='vi ~/.dotfiles/zsh/exports.zsh'
-
-alias vm='vi ~/.vimrc##default'
 alias vml='vi ~/.vimrc'
-
-alias tm='vi ~/.tmux.conf##default'
 alias tml='vi ~/.tmux.conf'
+
+# Edit current profile
+alias zrcu='[[ -n "$PSEUDO_USER" ]] && vi ~/.dotfiles/zsh/profiles/${PSEUDO_USER}.zsh || echo "Not in pseudo user"'
 
 alias sz='source ~/.zshrc'
 
-# Navigation shortcuts
 alias cdd='cd ~/.dotfiles'
-alias cdu='cd $USER_HOME'
+alias cdu='cd ${USER_HOME:-~}'

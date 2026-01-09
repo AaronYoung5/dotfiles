@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# Pseudo user management functions
-
 function pseudo() {
   local profile_name="$1"
   
@@ -12,9 +10,6 @@ function pseudo() {
     return 1
   fi
   
-  local profile_file="~/.dotfiles/zsh/profiles/${profile_name}.zsh"
-  
-  # Check if profile exists (it's a symlink created by yadm alt)
   if [[ ! -f ~/.dotfiles/zsh/profiles/${profile_name}.zsh ]]; then
     echo "Error: Profile '$profile_name' not found"
     echo ""
@@ -22,16 +17,16 @@ function pseudo() {
     return 1
   fi
   
-  # Source profile in a subshell to extract values without polluting current shell
   local user_home=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$USER_HOME")
   local pseudo_user=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$PSEUDO_USER")
   local session_name=$(zsh -c "source ~/.dotfiles/zsh/profiles/${profile_name}.zsh >/dev/null 2>&1; echo \$TMUX_SESSION_NAME")
   
-  # Launch tmux if configured and not already in tmux
-  # Variables are set ONLY for tmux, not exported to current shell
-  if [[ -n "$session_name" ]] && [[ -n "$user_home" ]] && [[ -z "$TMUX" ]] && [[ -z "$VSCODE_INJECTION" ]]; then
+  if [[ -n "$session_name" ]] && [[ -n "$user_home" ]] && [[ -z "$TMUX" ]]; then
     local socket_path="$user_home/.tmux_socket"
     USER_HOME="$user_home" PSEUDO_USER="$pseudo_user" TMUX_SESSION_NAME="$session_name" tmux -S "$socket_path" new-session -A -s "$session_name" -c "$user_home"
+  else
+    echo "Error: Cannot start session (missing profile vars or already in tmux)" >&2
+    return 1
   fi
 }
 
@@ -68,18 +63,16 @@ function pseudo-alias() {
 }
 
 function pseudo-init-commands() {
-  # Dynamically create functions for each profile so they get syntax highlighting
-  if [[ -d ~/.dotfiles/zsh/profiles ]]; then
-    for profile_file in ~/.dotfiles/zsh/profiles/*.zsh(N); do
-      local profile_name="${${profile_file:t}%.zsh}"
-      profile_name="${profile_name%%##*}"  # Strip ##variant suffix
-      
-      # Skip if empty or conflicts with existing command
-      [[ -z "$profile_name" ]] && continue
-      command -v "$profile_name" &>/dev/null && continue
-      
-      # Create function wrapper
-      eval "function $profile_name() { pseudo '$profile_name'; }"
-    done
-  fi
+  [[ ! -d ~/.dotfiles/zsh/profiles ]] && return
+  
+  for profile_file in ~/.dotfiles/zsh/profiles/*.zsh(N); do
+    [[ "$profile_file" == *"##"* ]] && continue
+    [[ ! -L "$profile_file" ]] && continue
+    
+    local profile_name="${${profile_file:t}%.zsh}"
+    [[ -z "$profile_name" ]] && continue
+    command -v "$profile_name" &>/dev/null && continue
+    
+    eval "function $profile_name() { pseudo '$profile_name'; }"
+  done
 }

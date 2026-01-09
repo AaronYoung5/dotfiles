@@ -1,7 +1,15 @@
 #!/usr/bin/env zsh
 
-# Global exports
+# change default shell editor
+export EDITOR="vim"
 
-# Add custom bin directories to PATH if they exist
+# custom color stuff
+export CLICOLOR=1 # Set to true to use the following configuration
+export LSCOLORS=GxFxBxDxCxegedabagacad
+
+# Mamba warning suppression
+export MAMBA_NO_WARNINGS=1
+
+# User bin directories
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"

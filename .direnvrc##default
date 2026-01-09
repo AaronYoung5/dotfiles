@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+ROOT_DIR=$(git rev-parse --show-toplevel 2>/dev/null || echo $PWD)
+DIRENV="${ROOT_DIR}/.direnv"
+
+mkdir -p "${DIRENV}"
+[[ ! -f ${DIRENV}/.gitignore ]] && echo "*" > ${DIRENV}/.gitignore
+
+layout_mamba() {
+    if ! command -v micromamba &>/dev/null; then
+        echo "micromamba not found in PATH"
+        return 1
+    fi
+
+    eval "$(micromamba shell hook --shell zsh)"
+
+    local env_name=$(basename "$ROOT_DIR")
+    local packages=()
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -n|--name)
+                env_name="$2"
+                shift 2
+                ;;
+            *)
+                packages+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    local env_path="${DIRENV}/mamba-$env_name"
+
+    if [[ ! -d "$env_path" ]]; then
+        echo "Creating environment '$env_name'..."
+        micromamba create --yes --prefix "$env_path" "${packages[@]}"
+    fi
+
+    micromamba activate "$env_path"
+    export CONDA_PROMPT_MODIFIER="$env_name"
+}
